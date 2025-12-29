@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - ShopLuxe</title>
+    <style>
+        /* Reset & Base Styles */
+        :root {
+            --primary-color: #0f172a;
+            --accent-color: #3b82f6;
+            --orange:  blue;
+            --orange-dark: #e07b15;
+            --text-color: #334155;
+            --text-light: #64748b;
+            --bg-color: #f5f5f5;
+            --white: #ffffff;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.12);
+            --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+            --border-radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.5;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Navigation Container */
+        .navbar {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Logo */
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: -0.025em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-logo span {
+            color: var(--accent-color);
+        }
+
+        /* Desktop Menu */
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--orange);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--orange);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Utility Icons */
+        .nav-icons {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: transform 0.2s ease, color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-btn:hover {
+            color: var(--orange);
+            transform: translateY(-2px);
+        }
+
+        .cart-icon {
+            position: relative;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--orange);
+            color: white;
+            font-size: 0.75rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+        }
+
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--primary-color);
+            transition: all 0.3s ease-in-out;
+            border-radius: 2px;
+        }
+
+        /* Mobile Nav Styles */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 0;
+                flex-direction: column;
+                background-color: var(--white);
+                width: 100%;
+                height: 100vh;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                justify-content: center;
+                padding-bottom: 2rem;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-link {
+                font-size: 1.25rem;
+            }
+
+            .nav-icons {
+                margin-left: auto;
+                margin-right: 2rem;
+            }
+
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+        }
+
+        /* ========== SHOP PAGE STYLES ========== */
+
+        .shop-layout {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            gap: 1.5rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .filter-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.25rem;
+            box-shadow: var(--shadow);
+        }
+
+        .filter-title {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .category-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .category-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+
+        .category-item:hover {
+            color: var(--orange);
+        }
+
+        .category-item.active {
+            color: var(--orange);
+            font-weight: 600;
+        }
+
+        .category-count {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            background: #f1f5f9;
+            padding: 0.125rem 0.5rem;
+            border-radius: 10px;
+        }
+
+        /* Price Range */
+        .price-inputs {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .price-input {
+            flex: 1;
+            padding: 0.625rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            text-align: center;
+        }
+
+        .price-input:focus {
+            outline: none;
+            border-color: var(--orange);
+        }
+
+        .price-range-slider {
+            width: 100%;
+            height: 4px;
+            background: #e5e7eb;
+            border-radius: 2px;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .price-range-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: var(--orange);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .apply-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background 0.2s;
+        }
+
+        .apply-btn:hover {
+            background: var(--orange-dark);
+        }
+
+        /* Checkbox Filters */
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            cursor: pointer;
+        }
+
+        .filter-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--orange);
+            cursor: pointer;
+        }
+
+        .filter-option label {
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        /* Star Rating Filter */
+        .rating-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0;
+            cursor: pointer;
+        }
+
+        .stars {
+            display: flex;
+            gap: 2px;
+        }
+
+        .star {
+            color: #fbbf24;
+            font-size: 1rem;
+        }
+
+        .star.empty {
+            color: #d1d5db;
+        }
+
+        .rating-text {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .results-header {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1rem 1.25rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .results-count {
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        .results-count strong {
+            color: var(--primary-color);
+        }
+
+        .sort-dropdown {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sort-dropdown label {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        .sort-select {
+            padding: 0.5rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--orange);
+            color: var(--white);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .product-image-container {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fafafa;
+            padding: 1rem;
+        }
+
+        .product-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1rem;
+        }
+
+        .product-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.4;
+            min-height: 2.8em;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .current-price {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .original-price {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            text-decoration: line-through;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-rating .stars {
+            font-size: 0.8rem;
+        }
+
+        .review-count {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            background: var(--orange-dark);
+        }
+
+        .add-to-cart-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Mobile Toggle Sidebar */
+        .sidebar-toggle {
+            display: none;
+            width: 100%;
+            padding: 1rem;
+            background: var(--white);
+            border: none;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            cursor: pointer;
+            box-shadow: var(--shadow);
+        }
+
+        @media (max-width: 992px) {
+            .shop-layout {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                display: none;
+            }
+
+            .sidebar.active {
+                display: flex;
+            }
+
+            .sidebar-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            }
+
+            .product-image-container {
+                height: 160px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .shop-layout {
+                padding: 1rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+
+            .product-info {
+                padding: 0.75rem;
+            }
+
+            .product-name {
+                font-size: 0.8rem;
+            }
+
+            .current-price {
+                font-size: 1rem;
+            }
+        }
+
+         /* Footer */
+        .footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 4rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: #cbd5e1;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #334155;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            color: #cbd5e1;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--white);
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="Index.html" class="nav-logo">Shop<span>Luxe</span></a>
+
+            <ul class="nav-menu">
+                <li><a href="Index1.html" class="nav-link">Home</a></li>
+                <li><a href="Shop.html" class="nav-link">Shop</a></li>
+                <li><a href="Sell product .html" class="nav-link">Sell products</a></li>
+                <li><a href="New Arrival page .html" class="nav-link">New Arrivals</a></li>
+                <li><a href="Check out.html" class="nav-link">Checkout</a></li>
+                <li><a href="Contact.html" class="nav-link">Contact</a></li>
+            </ul>
+
+            <div class="nav-icons">
+                <button class="icon-btn" aria-label="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+                <button class="icon-btn" aria-label="User Account">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </button>
+                <a href="Checkout.html" class="cart-icon">
+                    <button class="icon-btn" aria-label="Cart">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                    </button>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </a>
+                <button class="hamburger" aria-label="Menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Shop Layout -->
+    <div class="shop-layout">
+        <!-- Mobile Sidebar Toggle -->
+        <button class="sidebar-toggle" onclick="toggleSidebar()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <line x1="4" y1="21" x2="4" y2="14"></line>
+                <line x1="4" y1="10" x2="4" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="3"></line>
+                <line x1="20" y1="21" x2="20" y2="16"></line>
+                <line x1="20" y1="12" x2="20" y2="3"></line>
+            </svg>
+            Filter & Sort
+        </button>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Categories -->
+            <div class="filter-card">
+                <h3 class="filter-title">Category</h3>
+                <div class="category-list">
+                    <div class="category-item active">
+                        <span>All Products</span>
+                        <span class="category-count">156</span>
+                    </div>
+                    <div class="category-item">
+                        <span>Electronics</span>
+                        <span class="category-count">42</span>
+                    </div>
+                    <div class="category-item">
+                        <span>Fashion</span>
+                        <span class="category-count">38</span>
+                    </div>
+                    <div class="category-item">
+                        <span>Home & Living</span>
+                        <span class="category-count">29</span>
+                    </div>
+                    <div class="category-item">
+                        <span>Beauty & Health</span>
+                        <span class="category-count">24</span>
+                    </div>
+                    <div class="category-item">
+                        <span>Sports & Fitness</span>
+                        <span class="category-count">23</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Price Range -->
+            <div class="filter-card">
+                <h3 class="filter-title">Price Range</h3>
+                <div class="price-inputs">
+                    <input type="text" class="price-input" placeholder="Min" value="$0" aria-label="Minimum price">
+                    <span>—</span>
+                    <input type="text" class="price-input" placeholder="Max" value="$500" aria-label="Maximum price">
+                </div>
+                <input type="range" class="price-range-slider" min="0" max="500" value="500" aria-label="Price range">
+                <button class="apply-btn">Apply Filter</button>
+            </div>
+
+            <!-- Brands -->
+            <div class="filter-card">
+                <h3 class="filter-title">Brands</h3>
+                <div class="filter-option">
+                    <input type="checkbox" id="brand1" checked>
+                    <label for="brand1">Apple</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="brand2">
+                    <label for="brand2">Samsung</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="brand3">
+                    <label for="brand3">Nike</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="brand4">
+                    <label for="brand4">Adidas</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="brand5">
+                    <label for="brand5">Sony</label>
+                </div>
+            </div>
+
+            <!-- Ratings -->
+            <div class="filter-card">
+                <h3 class="filter-title">Customer Rating</h3>
+                <div class="rating-option">
+                    <input type="radio" name="rating" id="rating5">
+                    <label for="rating5">
+                        <div class="stars">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+                    </label>
+                    <span class="rating-text">5.0</span>
+                </div>
+                <div class="rating-option">
+                    <input type="radio" name="rating" id="rating4" checked>
+                    <label for="rating4">
+                        <div class="stars">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star empty">★</span>
+                        </div>
+                    </label>
+                    <span class="rating-text">4.0 & up</span>
+                </div>
+                <div class="rating-option">
+                    <input type="radio" name="rating" id="rating3">
+                    <label for="rating3">
+                        <div class="stars">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star empty">★</span>
+                            <span class="star empty">★</span>
+                        </div>
+                    </label>
+                    <span class="rating-text">3.0 & up</span>
+                </div>
+            </div>
+
+            <!-- Availability -->
+            <div class="filter-card">
+                <h3 class="filter-title">Availability</h3>
+                <div class="filter-option">
+                    <input type="checkbox" id="inStock" checked>
+                    <label for="inStock">In Stock</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="freeShipping">
+                    <label for="freeShipping">Free Shipping</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="onSale">
+                    <label for="onSale">On Sale</label>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="results-header">
+                <span class="results-count">Showing <strong>1-12</strong> of <strong>156</strong> products</span>
+                <div class="sort-dropdown">
+                    <label for="sortSelect">Sort by:</label>
+                    <select id="sortSelect" class="sort-select">
+                        <option>Popularity</option>
+                        <option>Price: Low to High</option>
+                        <option>Price: High to Low</option>
+                        <option>Newest Arrivals</option>
+                        <option>Customer Rating</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <span class="discount-badge">-25%</span>
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop"
+                            alt="Wireless Headphones" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Premium Wireless Bluetooth Headphones with Noise Cancelling</h3>
+                        <div class="product-price">
+                            <span class="current-price">$149.99</span>
+                            <span class="original-price">$199.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                            </div>
+                            <span class="review-count">(2,456)</span>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Premium Wireless Headphones', 149.99)">Add
+                            to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <span class="discount-badge">-40%</span>
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop"
+                            alt="Smart Watch" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Smart Watch with Heart Rate Monitor & GPS Tracking</h3>
+                        <div class="product-price">
+                            <span class="current-price">$119.99</span>
+                            <span class="original-price">$199.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star empty">★</span>
+                            </div>
+                            <span class="review-count">(1,832)</span>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Smart Watch', 119.99)">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <span class="discount-badge">-15%</span>
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop"
+                            alt="Running Shoes" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Ultra Lightweight Running Shoes - Breathable Mesh</h3>
+                        <div class="product-price">
+                            <span class="current-price">$84.99</span>
+                            <span class="original-price">$99.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                            </div>
+                            <span class="review-count">(3,214)</span>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Running Shoes', 84.99)">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <span class="discount-badge">-30%</span>
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400&h=400&fit=crop"
+                            alt="Skincare Set" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Complete Skincare Set - Moisturizer, Serum & Cleanser</h3>
+                        <div class="product-price">
+                            <span class="current-price">$69.99</span>
+                            <span class="original-price">$99.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star empty">★</span>
+                            </div>
+                            <span class="review-count">(987)</span>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Skincare Set', 69.99)">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card">
+                    <span class="discount-badge">-20%</span>
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=400&h=400&fit=crop"
+                            alt="Leather Bag" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Premium Leather Crossbody Bag - Handcrafted</h3>
+                        <div class="product-price">
+                            <span class="current-price">$159.99</span>
+                            <span class="original-price">$199.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                            </div>
+                            <span class="review-count">(654)</span>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Leather Bag', 159.99)">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="product-card">
+                    <span class="discount-badge">-35%</span>
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400&h=400&fit=crop"
+                            alt="Smart Speaker" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Smart Speaker with Voice Assistant & 360° Sound</h3>
+                        <div class="product-price">
+                            <span class="current-price">$64.99</span>
+                            <span class="original-price">$99.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star empty">★</span>
+                            </div>
+                            <span class="review-count">(2,108)</span>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Smart Speaker', 64.99)">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product 7 -->
+                <div class="product-card">
+                    <span class="discount-badge">-50%</span>
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=400&fit=crop"
+                            alt="Sunglasses" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Designer Polarized Sunglasses - UV400 Protection</h3>
+                        <div class="product-price">
+                            <span class="current-price">$49.99</span>
+                            <span class="original-price">$99.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                            </div>
+                            <span class="review-count">(1,456)</span>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Designer Sunglasses', 49.99)">Add to
+                            Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product 8 -->
+                <div class="product-card">
+                    <span class="discount-badge">-18%</span>
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400&h=400&fit=crop"
+                            alt="Camera" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Instant Print Camera with Built-in Flash & Selfie Mode</h3>
+                        <div class="product-price">
+                            <span class="current-price">$89.99</span>
+                            <span class="original-price">$109.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star empty">★</span>
+                            </div>
+                            <span class="review-count">(892)</span>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Instant Camera', 89.99)">Add to
+                            Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product 9 -->
+                <div class="product-card">
+                    <span class="discount-badge">-22%</span>
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop"
+                            alt="Backpack" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Travel Laptop Backpack - Waterproof & Anti-Theft</h3>
+                        <div class="product-price">
+                            <span class="current-price">$54.99</span>
+                            <span class="original-price">$69.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                            </div>
+                            <span class="review-count">(3,765)</span>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Travel Backpack', 54.99)">Add to
+                            Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product 10 -->
+                <div class="product-card">
+                    <span class="discount-badge">-28%</span>
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400&h=400&fit=crop"
+                            alt="Headphones" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Over-Ear Studio Headphones - Professional Grade</h3>
+                        <div class="product-price">
+                            <span class="current-price">$179.99</span>
+                            <span class="original-price">$249.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                            </div>
+                            <span class="review-count">(1,234)</span>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Studio Headphones', 179.99)">Add to
+                            Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product 11 -->
+                <div class="product-card">
+                    <span class="discount-badge">-33%</span>
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=400&fit=crop"
+                            alt="Laptop" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Ultra-Thin Laptop 14" - 16GB RAM, 512GB SSD</h3>
+                        <div class="product-price">
+                            <span class="current-price">$799.99</span>
+                            <span class="original-price">$1,199.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star empty">★</span>
+                            </div>
+                            <span class="review-count">(567)</span>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Ultra-Thin Laptop', 799.99)">Add to
+                            Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product 12 -->
+                <div class="product-card">
+                    <span class="discount-badge">-45%</span>
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=400&h=400&fit=crop"
+                            alt="Dress" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Elegant Summer Dress - Floral Print Collection</h3>
+                        <div class="product-price">
+                            <span class="current-price">$44.99</span>
+                            <span class="original-price">$79.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                            </div>
+                            <span class="review-count">(2,890)</span>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Summer Dress', 44.99)">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+     <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>ShopLuxe</h3>
+                <p>Your premier destination for fashion and lifestyle products. Discover quality, style, and exceptional
+                    service.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Twitter">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                            <path d="m16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="Index1.html">Home</a></li>
+                    <li><a href="Shop.html">Shop</a></li>
+                    <li><a href="Sell product .html">Sell products</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Shipping Info</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Stay Connected</h3>
+                <p>Subscribe to our newsletter for the latest updates and exclusive offers.</p>
+                <form style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                    <input type="email" placeholder="Enter your email"
+                        style="flex: 1; padding: 0.5rem; border: none; border-radius: 4px;">
+                    <button type="submit"
+                        style="background-color: var(--accent-color); color: var(--white); border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 ShopLuxe. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const hamburger = document.querySelector(".hamburger");
+        const navMenu = document.querySelector(".nav-menu");
+
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            navMenu.classList.toggle("active");
+        });
+
+        document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", () => {
+            hamburger.classList.remove("active");
+            navMenu.classList.remove("active");
+        }));
+
+        // Sidebar Toggle for Mobile
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        }
+
+        // Category filter selection
+        document.querySelectorAll('.category-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.category-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+
+        // Cart System - Sync with localStorage
+        let cart = JSON.parse(localStorage.getItem('shopLuxeCart')) || [];
+
+        function updateCartBadge() {
+            const badge = document.querySelector('.cart-badge');
+            if (badge) {
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                badge.textContent = totalItems;
+                badge.style.display = totalItems > 0 ? 'flex' : 'none';
+            }
+        }
+
+        function addToCart(name, price) {
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
+            localStorage.setItem('shopLuxeCart', JSON.stringify(cart));
+            updateCartBadge();
+
+            // Visual feedback
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = '✓ Added!';
+            btn.style.background = '#22c55e';
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = '';
+            }, 1500);
+        }
+
+        // Initialize cart badge on page load
+        updateCartBadge();
+    </script>
+</body>
+
+</html>
