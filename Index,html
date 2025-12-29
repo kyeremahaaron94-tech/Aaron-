@@ -1,0 +1,1936 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce Navigation</title>
+    <style>
+        /* Reset & Base Styles */
+        :root {
+            --primary-color: #0f172a;
+            --accent-color: #3b82f6;
+            --orange: #f68b1e;
+            --orange-dark: #e07b15;
+            --text-color: #334155;
+            --text-light: #64748b;
+            --bg-color: #f5f5f5;
+            --white: #ffffff;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.12);
+            --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+            --border-radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.5;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Navigation Container */
+        .navbar {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Logo */
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: -0.025em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-logo span {
+            color: var(--accent-color);
+        }
+
+        /* Desktop Menu */
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Utility Icons */
+        .nav-icons {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: transform 0.2s ease, color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-btn:hover {
+            color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .cart-icon {
+            position: relative;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--accent-color);
+            color: white;
+            font-size: 0.75rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+        }
+
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--primary-color);
+            transition: all 0.3s ease-in-out;
+            border-radius: 2px;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 0;
+                flex-direction: column;
+                background-color: var(--white);
+                width: 100%;
+                height: 100vh;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                justify-content: center;
+                padding-bottom: 2rem;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-link {
+                font-size: 1.25rem;
+            }
+
+            .nav-icons {
+                margin-left: auto;
+                margin-right: 2rem;
+            }
+
+            /* Animation for Hamburger */
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            display: none;
+            width: 300px;
+            margin-right: 1rem;
+        }
+
+        .search-container.active {
+            display: block;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--accent-color);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: #2563eb;
+        }
+
+        /* Account Dropdown */
+        .account-dropdown {
+            position: relative;
+        }
+
+        .account-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--white);
+            min-width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .account-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .account-menu-item {
+            padding: 0;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .account-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .account-link:hover {
+            background-color: #f8fafc;
+            color: var(--accent-color);
+        }
+
+        .account-divider {
+            height: 1px;
+            background: #e2e8f0;
+            margin: 0.5rem 0;
+        }
+
+        /* Mobile Search */
+        @media (max-width: 768px) {
+            .search-container {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                width: auto;
+                margin: 1rem 2rem;
+                background: var(--white);
+                padding: 1rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            .account-menu {
+                position: static;
+                box-shadow: none;
+                background: transparent;
+                margin-top: 1rem;
+            }
+
+            .account-menu.active {
+                transform: none;
+            }
+        }
+
+        /* Account Creation Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 400px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #64748b;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--text-color);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-subtitle {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+
+        .checkbox-group label {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin: 0;
+        }
+
+        .modal-btn {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .modal-btn-primary {
+            background: var(--accent-color);
+            color: var(--white);
+        }
+
+        .modal-btn-primary:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        .modal-btn-secondary {
+            background: #f8fafc;
+            color: var(--text-color);
+            border: 2px solid #e2e8f0;
+        }
+
+        .modal-btn-secondary:hover {
+            background: #e2e8f0;
+        }
+
+        .modal-footer {
+            text-align: center;
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        .modal-footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .modal-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: #dcfce7;
+            color: #166534;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Hero Slider */
+        .hero {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .slider-container {
+            height: 100%;
+            position: relative;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            /* Overlay for readability */
+        }
+
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: var(--white);
+            max-width: 800px;
+            padding: 2rem;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.5s ease 0.3s;
+        }
+
+        .slide.active .slide-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .slide-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .slide-desc {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background-color: #2563eb;
+        }
+
+        /* Slider Controls */
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .slider-btn:hover {
+            background: var(--white);
+            color: var(--primary-color);
+        }
+
+        .prev-btn {
+            left: 2rem;
+        }
+
+        .next-btn {
+            right: 2rem;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: var(--white);
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                height: 500px;
+            }
+
+            .slide-title {
+                font-size: 2.5rem;
+            }
+
+            .prev-btn,
+            .next-btn {
+                display: none;
+            }
+
+            /* Hide arrows on mobile */
+        }
+
+        /* Product Section */
+        .product-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+            text-align: center;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .product-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .product-price {
+            font-weight: 700;
+            color: var(--accent-color);
+            font-size: 1.125rem;
+        }
+
+        .add-cart-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Category Section */
+        .category-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .category-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .category-card:hover .category-image {
+            transform: scale(1.05);
+        }
+
+        .category-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .category-card:hover .category-overlay {
+            opacity: 1;
+        }
+
+        .category-title {
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .category-btn {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent-color);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .category-btn:hover {
+            background-color: #2563eb;
+        }
+
+        /* Services Section */
+        .services-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: var(--white);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 1rem;
+            color: var(--accent-color);
+        }
+
+        .service-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .service-desc {
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 4rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: #cbd5e1;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #334155;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            color: #cbd5e1;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--white);
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">Shop<span>Luxe</span></a>
+
+            <ul class="nav-menu">
+                <li><a href="Index1.html" class="nav-link">Home</a></li>
+                <li><a href="Shop.html" class="nav-link">Shop</a></li>
+                <li><a href="Sell product .html" class="nav-link">Sell products</a></li>
+                <li><a href="New Arrival page .html" class="nav-link">New Arrivals</a></li>
+
+                <li><a href="Contact.html" class="nav-link">Contact</a></li>
+            </ul>
+
+            <div class="nav-icons">
+                <!-- Search Bar -->
+                <div class="search-container" id="searchContainer">
+                    <input type="text" class="search-input" placeholder="Search products..." id="searchInput">
+                    <button class="search-btn" id="searchBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </button>
+                </div>
+
+                <button class="icon-btn" id="searchToggle" aria-label="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+
+                <!-- Account Dropdown -->
+                <div class="account-dropdown">
+                    <button class="icon-btn" id="accountBtn" aria-label="User Account">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </button>
+                    <div class="account-menu" id="accountMenu">
+                        <a href="#" class="account-link">Sign In</a>
+                        <div class="account-divider"></div>
+                        <a href="#" class="account-link">Create Account</a>
+                        <a href="#" class="account-link">My Orders</a>
+                        <a href="#" class="account-link">Wishlist</a>
+                        <div class="account-divider"></div>
+                        <a href="#" class="account-link">Settings</a>
+                        <a href="#" class="account-link">Help & Support</a>
+                    </div>
+                </div>
+
+                <div class="cart-icon">
+                    <button class="icon-btn" aria-label="Cart">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                    </button>
+                    <span class="cart-badge">3</span>
+                </div>
+                <button class="hamburger" aria-label="Menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Account Creation Modal -->
+    <div class="modal" id="accountModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Create Account</h2>
+                <p class="modal-subtitle" id="modalSubtitle">Join ShopLuxe for exclusive deals and personalized shopping
+                </p>
+            </div>
+
+            <div class="success-message" id="successMessage">
+                Account created successfully! Welcome to ShopLuxe.
+            </div>
+
+            <form id="accountForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="firstName">First Name</label>
+                        <input type="text" class="form-input" id="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="lastName">Last Name</label>
+                        <input type="text" class="form-input" id="lastName" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address</label>
+                    <input type="email" class="form-input" id="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" class="form-input" id="password" required minlength="8">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="confirmPassword">Confirm Password</label>
+                    <input type="password" class="form-input" id="confirmPassword" required minlength="8">
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">I agree to the <a href="#" style="color: var(--accent-color);">Terms &
+                            Conditions</a> and <a href="#" style="color: var(--accent-color);">Privacy
+                            Policy</a></label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="newsletter">
+                    <label for="newsletter">Subscribe to our newsletter for exclusive offers</label>
+                </div>
+
+                <button type="submit" class="modal-btn modal-btn-primary" id="submitBtn">Create Account</button>
+                <button type="button" class="modal-btn modal-btn-secondary" id="switchToSignIn">Already have an account?
+                    Sign In</button>
+            </form>
+
+            <div class="modal-footer">
+                <p>By creating an account, you agree to our terms of service.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Slider -->
+    <header class="hero">
+        <div class="slider-container">
+            <!-- Slide 1 -->
+            <div class="slide active"
+                style="background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format&fit=crop');">
+                <div class="slide-content">
+                    <h2 class="slide-title">Summer Collection 2025</h2>
+                    <p class="slide-desc">Discover the hottest trends for the season. Up to 40% off on new arrivals.</p>
+                    <a href="#" class="btn-primary">Shop Collection</a>
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="slide"
+                style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2070&auto=format&fit=crop');">
+                <div class="slide-content">
+                    <h2 class="slide-title">Modern Minimalist</h2>
+                    <p class="slide-desc">Elevate your style with our curated selection of essentials.</p>
+                    <a href="#" class="btn-primary">Explore Now</a>
+                </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="slide"
+                style="background-image: url('https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=2070&auto=format&fit=crop');">
+                <div class="slide-content">
+                    <h2 class="slide-title">New Accessories</h2>
+                    <p class="slide-desc">Complete your look with our premium range of accessories.</p>
+                    <a href="#" class="btn-primary">View Accessories</a>
+                </div>
+            </div>
+        </div>
+
+        <button class="slider-btn prev-btn" aria-label="Previous Slide">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m15 18-6-6 6-6" />
+            </svg>
+        </button>
+        <button class="slider-btn next-btn" aria-label="Next Slide">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m9 18 6-6-6-6" />
+            </svg>
+        </button>
+
+        <div class="slider-dots"></div>
+    </header>
+
+    <!-- Flash Sales Section -->
+    <section class="flash-sales" style="max-width: 1400px; margin: 0 auto; padding: 1.5rem;">
+        <div
+            style="background: var(--white); border-radius: var(--border-radius); padding: 1.5rem; box-shadow: var(--shadow);">
+            <div
+                style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <h2
+                        style="font-size: 1.5rem; font-weight: 700; color: var(--primary-color); display: flex; align-items: center; gap: 0.5rem;">
+                        ⚡ Flash Sales
+                    </h2>
+                    <span
+                        style="background: var(--orange); color: white; padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.875rem; font-weight: 600;">HOT</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="color: var(--text-light); font-size: 0.875rem;">Time Left:</span>
+                    <div id="countdown" style="display: flex; gap: 0.5rem;">
+                        <div
+                            style="background: var(--orange); color: white; padding: 0.5rem 0.75rem; border-radius: 6px; text-align: center; min-width: 50px;">
+                            <div id="hours" style="font-size: 1.25rem; font-weight: 700;">12</div>
+                            <div style="font-size: 0.625rem; text-transform: uppercase;">HRS</div>
+                        </div>
+                        <div
+                            style="background: var(--orange); color: white; padding: 0.5rem 0.75rem; border-radius: 6px; text-align: center; min-width: 50px;">
+                            <div id="minutes" style="font-size: 1.25rem; font-weight: 700;">45</div>
+                            <div style="font-size: 0.625rem; text-transform: uppercase;">MIN</div>
+                        </div>
+                        <div
+                            style="background: var(--orange); color: white; padding: 0.5rem 0.75rem; border-radius: 6px; text-align: center; min-width: 50px;">
+                            <div id="seconds" style="font-size: 1.25rem; font-weight: 700;">30</div>
+                            <div style="font-size: 0.625rem; text-transform: uppercase;">SEC</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="Shop.html"
+                    style="color: var(--orange); font-weight: 600; display: flex; align-items: center; gap: 0.25rem;">
+                    See All →
+                </a>
+            </div>
+            <!-- Flash Sale Products -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem;">
+                <!-- Flash Product 1 -->
+                <div style="background: var(--white); border: 1px solid #e5e7eb; border-radius: var(--border-radius); overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; position: relative;"
+                    onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='var(--shadow-hover)'"
+                    onmouseout="this.style.transform=''; this.style.boxShadow=''">
+                    <span
+                        style="position: absolute; top: 8px; right: 8px; background: var(--orange); color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700;">-45%</span>
+                    <div
+                        style="padding: 1rem; background: #fafafa; display: flex; align-items: center; justify-content: center; height: 150px;">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300" alt="Headphones"
+                            style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                    </div>
+                    <div style="padding: 0.75rem;">
+                        <h3
+                            style="font-size: 0.85rem; color: var(--primary-color); margin-bottom: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            Wireless Headphones</h3>
+                        <div style="font-size: 1rem; font-weight: 700; color: var(--primary-color);">$79.99 <span
+                                style="font-size: 0.75rem; color: var(--text-light); text-decoration: line-through; font-weight: 400;">$145.99</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.25rem; margin-top: 0.25rem;">
+                            <span style="color: #fbbf24; font-size: 0.75rem;">★★★★★</span>
+                            <span style="font-size: 0.7rem; color: var(--text-light);">(2,456)</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Flash Product 2 -->
+                <div style="background: var(--white); border: 1px solid #e5e7eb; border-radius: var(--border-radius); overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; position: relative;"
+                    onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='var(--shadow-hover)'"
+                    onmouseout="this.style.transform=''; this.style.boxShadow=''">
+                    <span
+                        style="position: absolute; top: 8px; right: 8px; background: var(--orange); color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700;">-38%</span>
+                    <div
+                        style="padding: 1rem; background: #fafafa; display: flex; align-items: center; justify-content: center; height: 150px;">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300" alt="Smart Watch"
+                            style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                    </div>
+                    <div style="padding: 0.75rem;">
+                        <h3
+                            style="font-size: 0.85rem; color: var(--primary-color); margin-bottom: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            Smart Watch Pro</h3>
+                        <div style="font-size: 1rem; font-weight: 700; color: var(--primary-color);">$159.99 <span
+                                style="font-size: 0.75rem; color: var(--text-light); text-decoration: line-through; font-weight: 400;">$259.99</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.25rem; margin-top: 0.25rem;">
+                            <span style="color: #fbbf24; font-size: 0.75rem;">★★★★☆</span>
+                            <span style="font-size: 0.7rem; color: var(--text-light);">(1,832)</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Flash Product 3 -->
+                <div style="background: var(--white); border: 1px solid #e5e7eb; border-radius: var(--border-radius); overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; position: relative;"
+                    onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='var(--shadow-hover)'"
+                    onmouseout="this.style.transform=''; this.style.boxShadow=''">
+                    <span
+                        style="position: absolute; top: 8px; right: 8px; background: var(--orange); color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700;">-52%</span>
+                    <div
+                        style="padding: 1rem; background: #fafafa; display: flex; align-items: center; justify-content: center; height: 150px;">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300" alt="Nike Shoes"
+                            style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                    </div>
+                    <div style="padding: 0.75rem;">
+                        <h3
+                            style="font-size: 0.85rem; color: var(--primary-color); margin-bottom: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            Running Shoes</h3>
+                        <div style="font-size: 1rem; font-weight: 700; color: var(--primary-color);">$47.99 <span
+                                style="font-size: 0.75rem; color: var(--text-light); text-decoration: line-through; font-weight: 400;">$99.99</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.25rem; margin-top: 0.25rem;">
+                            <span style="color: #fbbf24; font-size: 0.75rem;">★★★★★</span>
+                            <span style="font-size: 0.7rem; color: var(--text-light);">(3,214)</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Flash Product 4 -->
+                <div style="background: var(--white); border: 1px solid #e5e7eb; border-radius: var(--border-radius); overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; position: relative;"
+                    onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='var(--shadow-hover)'"
+                    onmouseout="this.style.transform=''; this.style.boxShadow=''">
+                    <span
+                        style="position: absolute; top: 8px; right: 8px; background: var(--orange); color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700;">-30%</span>
+                    <div
+                        style="padding: 1rem; background: #fafafa; display: flex; align-items: center; justify-content: center; height: 150px;">
+                        <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=300" alt="Skincare"
+                            style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                    </div>
+                    <div style="padding: 0.75rem;">
+                        <h3
+                            style="font-size: 0.85rem; color: var(--primary-color); margin-bottom: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            Premium Skincare Set</h3>
+                        <div style="font-size: 1rem; font-weight: 700; color: var(--primary-color);">$69.99 <span
+                                style="font-size: 0.75rem; color: var(--text-light); text-decoration: line-through; font-weight: 400;">$99.99</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.25rem; margin-top: 0.25rem;">
+                            <span style="color: #fbbf24; font-size: 0.75rem;">★★★★☆</span>
+                            <span style="font-size: 0.7rem; color: var(--text-light);">(987)</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Flash Product 5 -->
+                <div style="background: var(--white); border: 1px solid #e5e7eb; border-radius: var(--border-radius); overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; position: relative;"
+                    onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='var(--shadow-hover)'"
+                    onmouseout="this.style.transform=''; this.style.boxShadow=''">
+                    <span
+                        style="position: absolute; top: 8px; right: 8px; background: var(--orange); color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700;">-60%</span>
+                    <div
+                        style="padding: 1rem; background: #fafafa; display: flex; align-items: center; justify-content: center; height: 150px;">
+                        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300" alt="Sunglasses"
+                            style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                    </div>
+                    <div style="padding: 0.75rem;">
+                        <h3
+                            style="font-size: 0.85rem; color: var(--primary-color); margin-bottom: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            Designer Sunglasses</h3>
+                        <div style="font-size: 1rem; font-weight: 700; color: var(--primary-color);">$39.99 <span
+                                style="font-size: 0.75rem; color: var(--text-light); text-decoration: line-through; font-weight: 400;">$99.99</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.25rem; margin-top: 0.25rem;">
+                            <span style="color: #fbbf24; font-size: 0.75rem;">★★★★★</span>
+                            <span style="font-size: 0.7rem; color: var(--text-light);">(1,456)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Featured Products Section -->
+    <section class="product-section">
+        <h2 class="section-title">Featured Products</h2>
+        <div class="product-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div style="overflow: hidden;">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop"
+                        alt="Premium Watch" class="product-image">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Accessories</div>
+                    <h3 class="product-title">Minimalist Chrono</h3>
+                    <div class="product-footer">
+                        <span class="product-price">$149.00</span>
+                        <button class="add-cart-btn">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div style="overflow: hidden;">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070&auto=format&fit=crop"
+                        alt="Sneakers" class="product-image">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Footwear</div>
+                    <h3 class="product-title">Urban Runner</h3>
+                    <div class="product-footer">
+                        <span class="product-price">$89.00</span>
+                        <button class="add-cart-btn">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div style="overflow: hidden;">
+                    <img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?q=80&w=1974&auto=format&fit=crop"
+                        alt="Leather Bag" class="product-image">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Accessories</div>
+                    <h3 class="product-title">Vintage Satchel</h3>
+                    <div class="product-footer">
+                        <span class="product-price">$125.00</span>
+                        <button class="add-cart-btn">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <div style="overflow: hidden;">
+                    <img src="https://theallamericanshades.com/wp-content/uploads/2024/10/Classic-Aviator-Gold-Front.jpg"
+                        alt="Sunglasses" class="product-image">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Eyewear</div>
+                    <h3 class="product-title">Classic Aviator</h3>
+                    <div class="product-footer">
+                        <span class="product-price">$65.00</span>
+                        <button class="add-cart-btn">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card">
+                <div style="overflow: hidden;">
+                    <img src="https://www.pcguide.com/wp-content/uploads/2024/05/Sony-WH-1000XM5-The-Best-Wireless-Noise-Canceling-Headphones-with-Auto-Noise-Canceling-Optimizer-Crystal-Clear-Hands-Free-Calling-and-Alexa-Voice-Control-Black1.jpg"
+                        alt="Headphones" class="product-image">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Electronics</div>
+                    <h3 class="product-title">Noise Cancel Pro</h3>
+                    <div class="product-footer">
+                        <span class="product-price">$299.00</span>
+                        <button class="add-cart-btn">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card">
+                <div style="overflow: hidden;">
+                    <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=1935&auto=format&fit=crop"
+                        alt="Bag" class="product-image">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Fashion</div>
+                    <h3 class="product-title">Signet Tote</h3>
+                    <div class="product-footer">
+                        <span class="product-price">$195.00</span>
+                        <button class="add-cart-btn">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 7 -->
+            <div class="product-card">
+                <div style="overflow: hidden;">
+                    <img src="https://images.unsplash.com/photo-1627384113743-6bd5a479fffd?q=80&w=2070&auto=format&fit=crop"
+                        alt="Cologne" class="product-image">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Fragrance</div>
+                    <h3 class="product-title">Midnight Scent</h3>
+                    <div class="product-footer">
+                        <span class="product-price">$85.00</span>
+                        <button class="add-cart-btn">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 8 -->
+            <div class="product-card">
+                <div style="overflow: hidden;">
+                    <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=2080&auto=format&fit=crop"
+                        alt="Sunglasses" class="product-image">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Accessories</div>
+                    <h3 class="product-title">Gold Frame</h3>
+                    <div class="product-footer">
+                        <span class="product-price">$55.00</span>
+                        <button class="add-cart-btn">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section">
+        <h2 class="section-title">Our Services</h2>
+        <div class="services-grid">
+            <!-- Service 1 -->
+            <div class="service-card">
+                <svg class="service-icon" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 7V5a2 2 0 0 1 2-2h2l2 2h4l2-2h2a2 2 0 0 1 2 2v2l-3 6H6L3 7Z" />
+                    <path d="M6 11v5a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-5" />
+                    <circle cx="12" cy="16" r="1" />
+                </svg>
+                <h3 class="service-title">Free Shipping</h3>
+                <p class="service-desc">Enjoy free shipping on all orders over $50. Fast and reliable delivery
+                    worldwide.</p>
+            </div>
+
+            <!-- Service 2 -->
+            <div class="service-card">
+                <svg class="service-icon" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+                <h3 class="service-title">24/7 Support</h3>
+                <p class="service-desc">Our customer support team is available around the clock to assist you with any
+                    queries.</p>
+            </div>
+
+            <!-- Service 3 -->
+            <div class="service-card">
+                <svg class="service-icon" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+                    <path d="M21 3v5h-5" />
+                    <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+                    <path d="M8 16H3v5" />
+                </svg>
+                <h3 class="service-title">Easy Returns</h3>
+                <p class="service-desc">Not satisfied? Return any item within 30 days for a full refund or exchange.</p>
+            </div>
+
+            <!-- Service 4 -->
+            <div class="service-card">
+                <svg class="service-icon" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="20" height="14" x="2" y="5" rx="2" />
+                    <line x1="2" x2="22" y1="10" y2="10" />
+                </svg>
+                <h3 class="service-title">Secure Payment</h3>
+                <p class="service-desc">Your payment information is protected with industry-leading security measures.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const hamburger = document.querySelector(".hamburger");
+        const navMenu = document.querySelector(".nav-menu");
+
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            navMenu.classList.toggle("active");
+        });
+
+        document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", () => {
+            hamburger.classList.remove("active");
+            navMenu.classList.remove("active");
+        }));
+
+        // Flash Sales Countdown Timer
+        function startCountdown() {
+            let hours = 12, minutes = 45, seconds = 30;
+
+            setInterval(() => {
+                seconds--;
+                if (seconds < 0) {
+                    seconds = 59;
+                    minutes--;
+                }
+                if (minutes < 0) {
+                    minutes = 59;
+                    hours--;
+                }
+                if (hours < 0) {
+                    hours = 23; minutes = 59; seconds = 59;
+                }
+
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            }, 1000);
+        }
+        startCountdown();
+
+        // Slider Logic
+        const slides = document.querySelectorAll('.slide');
+        const nextBtn = document.querySelector('.next-btn');
+        const prevBtn = document.querySelector('.prev-btn');
+        const dotsContainer = document.querySelector('.slider-dots');
+
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+        let slideInterval;
+
+        // Create Dots
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(index));
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.dot');
+
+        function updateSlider() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                dots[index].classList.remove('active');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                    dots[index].classList.add('active');
+                }
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlider();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+            resetTimer();
+        }
+
+        function resetTimer() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+
+        // Event Listeners
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            resetTimer();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            resetTimer();
+        });
+
+        // Cart Logic
+        let cartCount = 3; // Starting with 3 as per HTML
+        const cartBadge = document.querySelector('.cart-badge');
+        const addToCartBtns = document.querySelectorAll('.add-cart-btn');
+
+        addToCartBtns.forEach(btn => {
+            btn.addEventListener('click', function () {
+                // Animation effect
+                const originalText = this.innerHTML;
+                this.innerHTML = 'Added!';
+                this.style.backgroundColor = '#10b981'; // Green color
+
+                // Update count
+                cartCount++;
+                cartBadge.textContent = cartCount;
+
+                // Animate badge
+                cartBadge.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    cartBadge.style.transform = 'scale(1)';
+                }, 200);
+
+                // Reset button after delay
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    this.style.backgroundColor = '';
+                }, 1500);
+            });
+        });
+
+        // Autoplay
+        slideInterval = setInterval(nextSlide, 5000);
+    </script>
+
+    <script>
+        // Search Functionality
+        const searchToggle = document.getElementById('searchToggle');
+        const searchContainer = document.getElementById('searchContainer');
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+
+        // Toggle search bar
+        searchToggle.addEventListener('click', () => {
+            searchContainer.classList.toggle('active');
+            if (searchContainer.classList.contains('active')) {
+                searchInput.focus();
+            }
+        });
+
+        // Search functionality
+        function performSearch() {
+            const query = searchInput.value.trim().toLowerCase();
+            if (query) {
+                // Simple search simulation - you can enhance this with actual search logic
+                alert(`Searching for: "${query}"\n\nThis would normally search through products and redirect to search results page.`);
+                searchInput.value = '';
+                searchContainer.classList.remove('active');
+            }
+        }
+
+        searchBtn.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // Account Dropdown Functionality
+        const accountBtn = document.getElementById('accountBtn');
+        const accountMenu = document.getElementById('accountMenu');
+
+        accountBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            accountMenu.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!accountBtn.contains(e.target) && !accountMenu.contains(e.target)) {
+                accountMenu.classList.remove('active');
+            }
+        });
+
+        // Account Modal Functionality
+        const accountModal = document.getElementById('accountModal');
+        const modalClose = document.getElementById('modalClose');
+        const accountForm = document.getElementById('accountForm');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalSubtitle = document.getElementById('modalSubtitle');
+        const submitBtn = document.getElementById('submitBtn');
+        const switchToSignIn = document.getElementById('switchToSignIn');
+        const successMessage = document.getElementById('successMessage');
+
+        let isSignInMode = false;
+
+        // Open modal for account creation
+        document.querySelectorAll('.account-link')[1].addEventListener('click', (e) => {
+            e.preventDefault();
+            isSignInMode = false;
+            showCreateAccountModal();
+        });
+
+        // Open modal for sign in
+        document.querySelectorAll('.account-link')[0].addEventListener('click', (e) => {
+            e.preventDefault();
+            isSignInMode = true;
+            showSignInModal();
+        });
+
+        function showCreateAccountModal() {
+            modalTitle.textContent = 'Create Account';
+            modalSubtitle.textContent = 'Join ShopLuxe for exclusive deals and personalized shopping';
+            submitBtn.textContent = 'Create Account';
+            switchToSignIn.textContent = 'Already have an account? Sign In';
+            accountModal.classList.add('active');
+            successMessage.style.display = 'none';
+
+            // Show all form fields for account creation
+            document.getElementById('firstName').parentElement.parentElement.style.display = 'grid';
+            document.getElementById('lastName').parentElement.parentElement.style.display = 'grid';
+            document.getElementById('confirmPassword').parentElement.style.display = 'block';
+            document.querySelector('.checkbox-group').style.display = 'flex';
+            document.querySelectorAll('.checkbox-group')[1].style.display = 'flex';
+        }
+
+        function showSignInModal() {
+            modalTitle.textContent = 'Sign In';
+            modalSubtitle.textContent = 'Welcome back! Please sign in to your account';
+            submitBtn.textContent = 'Sign In';
+            switchToSignIn.textContent = 'Don\'t have an account? Create Account';
+            accountModal.classList.add('active');
+            successMessage.style.display = 'none';
+
+            // Hide unnecessary fields for sign in
+            document.getElementById('firstName').parentElement.parentElement.style.display = 'none';
+            document.getElementById('lastName').parentElement.parentElement.style.display = 'none';
+            document.getElementById('confirmPassword').parentElement.style.display = 'none';
+            document.querySelector('.checkbox-group').style.display = 'none';
+            document.querySelectorAll('.checkbox-group')[1].style.display = 'none';
+        }
+
+        // Switch between sign in and create account
+        switchToSignIn.addEventListener('click', () => {
+            isSignInMode = !isSignInMode;
+            if (isSignInMode) {
+                showSignInModal();
+            } else {
+                showCreateAccountModal();
+            }
+        });
+
+        // Close modal
+        modalClose.addEventListener('click', () => {
+            accountModal.classList.remove('active');
+            accountForm.reset();
+        });
+
+        // Close modal when clicking outside
+        accountModal.addEventListener('click', (e) => {
+            if (e.target === accountModal) {
+                accountModal.classList.remove('active');
+                accountForm.reset();
+            }
+        });
+
+        // Form submission
+        accountForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(accountForm);
+            const data = Object.fromEntries(formData);
+
+            // Basic validation
+            if (!isSignInMode) {
+                // Account creation validation
+                if (data.password !== data.confirmPassword) {
+                    alert('Passwords do not match!');
+                    return;
+                }
+
+                if (data.password.length < 8) {
+                    alert('Password must be at least 8 characters long!');
+                    return;
+                }
+
+                if (!data.terms) {
+                    alert('Please agree to the Terms & Conditions!');
+                    return;
+                }
+
+                // Simulate account creation
+                successMessage.textContent = `Account created successfully! Welcome ${data.firstName}!`;
+                successMessage.style.display = 'block';
+                submitBtn.textContent = 'Account Created!';
+                submitBtn.style.background = '#10b981';
+
+                // Reset form after 2 seconds
+                setTimeout(() => {
+                    accountModal.classList.remove('active');
+                    accountForm.reset();
+                    submitBtn.textContent = 'Create Account';
+                    submitBtn.style.background = '';
+                }, 2000);
+
+            } else {
+                // Sign in validation
+                if (!data.email || !data.password) {
+                    alert('Please fill in all fields!');
+                    return;
+                }
+
+                // Simulate sign in
+                successMessage.textContent = 'Sign in successful! Welcome back!';
+                successMessage.style.display = 'block';
+                submitBtn.textContent = 'Signed In!';
+                submitBtn.style.background = '#10b981';
+
+                // Reset form after 2 seconds
+                setTimeout(() => {
+                    accountModal.classList.remove('active');
+                    accountForm.reset();
+                    submitBtn.textContent = 'Sign In';
+                    submitBtn.style.background = '';
+                }, 2000);
+            }
+        });
+
+        // Close dropdown when opening modal
+        document.querySelectorAll('.account-link').forEach(link => {
+            link.addEventListener('click', () => {
+                accountMenu.classList.remove('active');
+            });
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>ShopLuxe</h3>
+                <p>Your premier destination for fashion and lifestyle products. Discover quality, style, and exceptional
+                    service.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Twitter">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                            <path d="m16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="Index1.html">Home</a></li>
+                    <li><a href="Shop.html">Shop</a></li>
+                    <li><a href="Sell product .html">Sell products</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Shipping Info</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Stay Connected</h3>
+                <p>Subscribe to our newsletter for the latest updates and exclusive offers.</p>
+                <form style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                    <input type="email" placeholder="Enter your email"
+                        style="flex: 1; padding: 0.5rem; border: none; border-radius: 4px;">
+                    <button type="submit"
+                        style="background-color: var(--accent-color); color: var(--white); border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 ShopLuxe. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
