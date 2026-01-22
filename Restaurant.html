@@ -1,0 +1,2627 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Restaurants - FooDelicious</title>
+  <meta name="description"
+    content="Discover the best restaurants in your area with FooDelicious - Quality food, fast delivery!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0e1a;
+      --bg-secondary: #141824;
+      --bg-card: #1a1f2e;
+      --text-primary: #ffffff;
+      --text-secondary: #b8c1ec;
+      --text-muted: #7b8ab8;
+      --accent-orange: #ff6b35;
+      --accent-orange-light: #ff8c61;
+      --accent-yellow: #ffd23f;
+      --accent-green: #06d6a0;
+      --accent-purple: #8338ec;
+      --border-color: rgba(184, 193, 236, 0.1);
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 40px rgba(255, 107, 53, 0.3);
+      --radius-sm: 12px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Navigation Styles */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(10, 14, 26, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    /* Logo Section - Left */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      box-shadow: var(--shadow-glow);
+      animation: pulse-glow 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+      }
+
+      50% {
+        box-shadow: 0 0 40px rgba(255, 107, 53, 0.6);
+      }
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .logo-title {
+      font-size: 1.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .logo-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* Search Section - Middle */
+    .search-container {
+      max-width: 600px;
+      width: 100%;
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .search-wrapper {
+      flex: 1;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.875rem 1.25rem 0.875rem 3rem;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .search-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--accent-orange);
+      box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.1);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .search-btn {
+      padding: 0.875rem 1.75rem;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-light));
+      border: none;
+      border-radius: var(--radius-md);
+      color: white;
+      font-size: 1rem;
+      font-weight: 800;
+      font-family: 'Outfit', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-sm);
+      white-space: nowrap;
+    }
+
+    .search-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .search-btn:active {
+      transform: translateY(0);
+    }
+
+    /* Navigation Links - Right */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-link {
+      padding: 0.625rem 1.25rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-radius: var(--radius-sm);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .nav-link:hover::before {
+      left: 100%;
+    }
+
+    .nav-link:hover {
+      color: var(--accent-orange);
+      background: rgba(255, 107, 53, 0.1);
+    }
+
+    .nav-link.active {
+      color: var(--text-primary);
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-light));
+      box-shadow: var(--shadow-glow);
+    }
+
+    /* Dropdown Styles */
+    .nav-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      cursor: pointer;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      min-width: 200px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      z-index: 1000;
+      margin-top: 0.5rem;
+    }
+
+    .nav-dropdown:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-item {
+      display: block;
+      padding: 0.75rem 1rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    .dropdown-item:hover {
+      color: var(--accent-orange);
+      background: rgba(255, 107, 53, 0.1);
+      border-bottom-color: var(--border-color);
+      padding-left: 1.5rem;
+    }
+
+    .dropdown-item:first-child {
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+    }
+
+    .dropdown-item:last-child {
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
+      border-bottom: none;
+    }
+
+    .cart-btn {
+      position: relative;
+      padding: 0.625rem 1.25rem;
+      background: var(--bg-card);
+      border: 2px solid var(--accent-orange);
+      border-radius: var(--radius-sm);
+      color: var(--accent-orange);
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .cart-btn:hover {
+      background: var(--accent-orange);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--accent-green);
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 900;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Restaurant Hero Section */
+    .restaurant-hero {
+      padding: 4rem 2rem;
+      background: var(--bg-secondary);
+      position: relative;
+      overflow: hidden;
+      min-height: 400px;
+    }
+
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 14, 26, 0.7);
+      z-index: 1;
+    }
+
+    .restaurant-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(131, 56, 236, 0.1) 0%, transparent 50%);
+      z-index: 2;
+    }
+
+    .restaurant-hero-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 3;
+      text-align: center;
+    }
+
+    .restaurant-hero-title {
+      font-size: 3.5rem;
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, var(--text-primary), var(--accent-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .restaurant-hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      font-weight: 600;
+    }
+
+    /* Filter Section */
+    .filter-section {
+      padding: 2rem 2rem;
+      background: var(--bg-primary);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .filter-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .filter-group {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .filter-label {
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--accent-orange);
+      color: var(--accent-orange);
+    }
+
+    .filter-btn.active {
+      background: var(--accent-orange);
+      border-color: var(--accent-orange);
+      color: white;
+    }
+
+    /* Restaurants Grid */
+    .restaurants-section {
+      padding: 4rem 2rem;
+      background: var(--bg-primary);
+    }
+
+    .restaurants-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .restaurants-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .restaurant-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .restaurant-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent-orange);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .restaurant-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-purple));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .restaurant-image::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .restaurant-card:hover .restaurant-image::after {
+      left: 100%;
+    }
+
+    .restaurant-info {
+      padding: 1.5rem;
+    }
+
+    .restaurant-name {
+      font-size: 1.5rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .restaurant-cuisine {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .restaurant-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .rating {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--accent-yellow);
+      font-weight: 800;
+    }
+
+    .delivery-time {
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    /* Menu Categories Section (Sticky) */
+    .menu-categories-section {
+      position: sticky;
+      top: 80px;
+      z-index: 100;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1rem 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .menu-categories-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .categories-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .category-btn {
+      padding: 0.625rem 1.25rem;
+      background: var(--bg-primary);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .category-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .category-btn:hover::before {
+      left: 100%;
+    }
+
+    .category-btn:hover {
+      color: var(--accent-orange);
+      border-color: var(--accent-orange);
+      transform: translateY(-2px);
+    }
+
+    .category-btn.active {
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-light));
+      border-color: var(--accent-orange);
+      color: white;
+      box-shadow: var(--shadow-glow);
+    }
+
+    /* Featured Meals Section */
+    .featured-meals-section {
+      padding: 4rem 2rem;
+      background: var(--bg-primary);
+    }
+
+    .featured-meals-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary), var(--accent-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-subtitle {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .meals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .meal-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .meal-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent-orange);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .meal-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: var(--accent-orange);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 800;
+      z-index: 10;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .meal-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-purple));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .meal-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .meal-card:hover .meal-image img {
+      transform: scale(1.05);
+    }
+
+    .meal-image::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .meal-card:hover .meal-image::after {
+      left: 100%;
+    }
+
+    .meal-content {
+      padding: 1.5rem;
+    }
+
+    .meal-name {
+      font-size: 1.5rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .meal-restaurant {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .meal-description {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .meal-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .meal-rating {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--accent-yellow);
+      font-weight: 800;
+    }
+
+    .rating-stars {
+      font-size: 1rem;
+    }
+
+    .rating-count {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .meal-footer {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .meal-price {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--accent-green);
+    }
+
+    .meal-add-btn {
+      padding: 0.5rem 1rem;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-light));
+      border: none;
+      border-radius: var(--radius-sm);
+      color: white;
+      font-weight: 800;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .meal-add-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    /* About Restaurant Section */
+    .about-restaurant-section {
+      padding: 4rem 2rem;
+      background: var(--bg-primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-restaurant-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255, 107, 53, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(131, 56, 236, 0.05) 0%, transparent 50%);
+      z-index: 0;
+    }
+
+    .about-restaurant-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .about-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .about-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.05), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .about-card:hover::before {
+      left: 100%;
+    }
+
+    .about-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-orange);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .about-title {
+      font-size: 1.5rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary), var(--accent-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .about-description {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+
+    .about-features {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .about-features li {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, var(--bg-card), var(--bg-primary));
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-purple));
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-orange);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Policies and Extra Info Section */
+    .policies-section {
+      padding: 4rem 2rem;
+      background: var(--bg-primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-restaurant.policies-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255, 107, 53, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(131, 56, 236, 0.03) 0%, transparent 50%);
+      z-index: 0;
+    }
+
+    .policies-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .policies-content {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .policies-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .policy-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .policy-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.03), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .policy-card:hover::before {
+      left: 100%;
+    }
+
+    .policy-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-orange);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .policy-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+      text-align: center;
+    }
+
+    .policy-title {
+      font-size: 1.25rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary), var(--accent-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-align: center;
+    }
+
+    .policy-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .policy-list li {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .policy-list li:last-child {
+      border-bottom: none;
+    }
+
+    .policy-list li::before {
+      content: '✓';
+      color: var(--accent-green);
+      font-weight: 900;
+      font-size: 0.875rem;
+    }
+
+    .extra-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .info-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .info-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-orange);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .info-title {
+      font-size: 1.25rem;
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, var(--text-primary), var(--accent-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hours-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .hours-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .hours-item:last-child {
+      border-bottom: none;
+    }
+
+    .hours-day {
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .hours-time {
+      color: var(--accent-orange);
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+
+    .service-areas {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .area-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .area-item:last-child {
+      border-bottom: none;
+    }
+
+    .area-name {
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .area-status {
+      color: var(--accent-green);
+      font-weight: 800;
+      font-size: 0.875rem;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .contact-item:last-child {
+      border-bottom: none;
+    }
+
+    .contact-label {
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .contact-value {
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .social-link {
+      color: var(--accent-orange);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.875rem;
+      transition: color 0.3s ease;
+    }
+
+    .social-link:hover {
+      color: var(--accent-purple);
+    }
+
+    /* Responsive Design */
+
+    @media (max-width: 768px) {
+      .restaurant-hero-title {
+        font-size: 2.5rem;
+      }
+
+      .restaurant-hero-subtitle {
+        font-size: 1.125rem;
+      }
+
+      .restaurants-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .filter-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .nav-links {
+        gap: 0.25rem;
+      }
+
+      .nav-link {
+        padding: 0.5rem 0.875rem;
+        font-size: 0.875rem;
+      }
+
+      .about-stats {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Footer Section */
+    .footer {
+      background: var(--bg-primary);
+      border-top: 1px solid var(--border-color);
+      padding: 4rem 2rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255, 107, 53, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(131, 56, 236, 0.05) 0%, transparent 50%);
+      z-index: 0;
+    }
+
+    .footer-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+
+    .footer-logo:hover {
+      transform: scale(1.05);
+    }
+
+    .footer-logo-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .footer-logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .footer-logo-title {
+      font-size: 1.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .footer-logo-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .footer-description {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 400px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 1.25rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+      background: var(--accent-orange);
+      border-color: var(--accent-orange);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .footer-column h3 {
+      font-size: 1.125rem;
+      font-weight: 900;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .footer-link::before {
+      content: '';
+      position: absolute;
+      left: -15px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 4px;
+      background: var(--accent-orange);
+      border-radius: 50%;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--accent-orange);
+      padding-left: 20px;
+    }
+
+    .footer-link:hover::before {
+      opacity: 1;
+      left: 0;
+    }
+
+    .footer-bottom {
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-copyright {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-bottom-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .footer-bottom-link:hover {
+      color: var(--accent-orange);
+    }
+
+    /* Responsive Footer */
+    @media (max-width: 1024px) {
+      .footer-content {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .footer-brand {
+        grid-column: 1 / -1;
+      }
+
+      .policies-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
+
+      .extra-info {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .footer {
+        padding: 3rem 1.5rem 1.5rem;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .footer-brand {
+        grid-column: 1 / -1;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-bottom-links {
+        justify-content: center;
+      }
+
+      .about-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .policies-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .extra-info {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .footer-brand {
+        grid-column: 1;
+      }
+
+      .footer-social {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <!-- Logo - Left -->
+      <a href="index.html" class="logo">
+        <div class="logo-icon">🍔</div>
+        <div class="logo-text">
+          <div class="logo-title">FooDelicious</div>
+          <div class="logo-subtitle">Food Delivery</div>
+        </div>
+      </a>
+
+      <!-- Search Bar - Middle -->
+      <div class="search-container">
+        <div class="search-wrapper">
+          <span class="search-icon">🔍</span>
+          <input type="search" class="search-input" placeholder="Search for restaurants, cuisines, or dishes..."
+            aria-label="Search for food" />
+        </div>
+        <button class="search-btn">Search</button>
+      </div>
+
+      <!-- Navigation Links - Right -->
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+
+        <!-- Restaurant Dropdown -->
+        <div class="nav-dropdown">
+          <button class="nav-link dropdown-toggle active">Restaurant ▼</button>
+          <div class="dropdown-menu">
+            <a href="Restaurant.html" class="dropdown-item">All Restaurants</a>
+            <a href="Italian.html" class="dropdown-item">Italian Cuisine</a>
+            <a href="#" class="dropdown-item">Fast Food</a>
+            <a href="#" class="dropdown-item">Asian Food</a>
+            <a href="#" class="dropdown-item">Healthy Options</a>
+          </div>
+        </div>
+
+        <!-- Offers Dropdown -->
+        <div class="nav-dropdown">
+          <button class="nav-link dropdown-toggle">Offers ▼</button>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item">Daily Deals</a>
+            <a href="#" class="dropdown-item">Special Offers</a>
+            <a href="#" class="dropdown-item">Loyalty Rewards</a>
+            <a href="#" class="dropdown-item">First Time Discount</a>
+            <a href="#" class="dropdown-item">Bundle Deals</a>
+          </div>
+        </div>
+
+        <!-- About Dropdown -->
+        <div class="nav-dropdown">
+          <button class="nav-link dropdown-toggle">About ▼</button>
+          <div class="dropdown-menu">
+            <a href="About.html#story" class="dropdown-item">Our Story</a>
+            <a href="About.html#how" class="dropdown-item">How It Works</a>
+            <a href="About.html#partners" class="dropdown-item">Partners</a>
+            <a href="About.html#careers" class="dropdown-item">Careers</a>
+            <a href="About.html#contact" class="dropdown-item">Contact Us</a>
+          </div>
+        </div>
+
+        <button class="cart-btn">
+          🛒 Cart
+          <span class="cart-count">3</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Restaurant Hero Section -->
+  <section class="restaurant-hero">
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="background-video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="restaurant-hero-container">
+      <h1 class="restaurant-hero-title">Discover Amazing Restaurants</h1>
+      <p class="restaurant-hero-subtitle">Explore the best dining options in your area</p>
+    </div>
+  </section>
+
+  <!-- Filter Section -->
+  <section class="filter-section">
+    <div class="filter-container">
+      <div class="filter-group">
+        <span class="filter-label">Cuisine:</span>
+        <button class="filter-btn active">All</button>
+        <a href="ITalian.html" class="filter-btn">Italian</a>
+        <button class="filter-btn">Asian</button>
+        <button class="filter-btn">Mexican</button>
+        <button class="filter-btn">American</button>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Sort by:</span>
+        <button class="filter-btn active">Popular</button>
+        <button class="filter-btn">Rating</button>
+        <button class="filter-btn">Delivery Time</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Categories Section (Sticky) -->
+  <section class="menu-categories-section">
+    <div class="menu-categories-container">
+      <div class="categories-wrapper">
+        <button class="category-btn active" onclick="scrollToSection('all')">All</button>
+        <button class="category-btn" onclick="scrollToSection('rice')">Rice</button>
+        <button class="category-btn" onclick="scrollToSection('pizza')">Pizza</button>
+        <button class="category-btn" onclick="scrollToSection('burgers')">Burgers</button>
+        <button class="category-btn" onclick="scrollToSection('drinks')">Drinks</button>
+        <button class="category-btn" onclick="scrollToSection('desserts')">Desserts</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Meals Section -->
+  <section class="featured-meals-section">
+    <div class="featured-meals-container">
+      <div class="section-header">
+        <h2 class="section-title">Featured Meals</h2>
+        <p class="section-subtitle">Try our most popular dishes</p>
+      </div>
+
+      <div class="meals-grid">
+        <!-- Meal 1 -->
+        <div class="meal-card">
+          <div class="meal-badge">🔥 Trending</div>
+          <div class="meal-image">
+            <img src="https://th.bing.com/th/id/R.3c71c9f88404d4af8409f8e6bfdb02df?rik=%2fh3UGn8RbUuOgw&pid=ImgRaw&r=0"
+              alt="Margherita Pizza" />
+          </div>
+          <div class="meal-content">
+            <h3 class="meal-name">Margherita Pizza</h3>
+            <p class="meal-restaurant">Pizza Paradise</p>
+            <p class="meal-description">Fresh mozzarella, tomatoes, and basil on crispy crust</p>
+            <div class="meal-details">
+              <div class="meal-rating">
+                <span class="rating-stars">⭐⭐⭐⭐⭐</span>
+                <span class="rating-count">4.8 (250+)</span>
+              </div>
+              <div class="meal-footer">
+                <span class="meal-price">$12.99</span>
+                <button class="meal-add-btn" onclick="addToCart(1)">
+                  <span>Add</span>
+                  <span>🛒</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Meal 2 -->
+        <div class="meal-card">
+          <div class="meal-badge">⭐ Popular</div>
+          <div class="meal-image">
+            <img
+              src="https://th.bing.com/th/id/R.f22f8d9bf2bc8f0c2e3dd8b755230747?rik=Ih10oKxnBJi1jQ&riu=http%3a%2f%2fshopsuki.ph%2fcdn%2fshop%2fcollections%2fClassic_Burger_1024x.jpg%3fv%3d1644488722&ehk=yubuq2PbH5zuYM2DTBefKiqV5al2UV44mlMdP1dBPpo%3d&risl=&pid=ImgRaw&r=0"
+              alt="Classic Burger" />
+          </div>
+          <div class="meal-content">
+            <h3 class="meal-name">Classic Burger</h3>
+            <p class="meal-restaurant">Burger Palace</p>
+            <p class="meal-description">Juicy beef patty with lettuce, tomato, and special sauce</p>
+            <div class="meal-details">
+              <div class="meal-rating">
+                <span class="rating-stars">⭐⭐⭐⭐</span>
+                <span class="rating-count">4.6 (180+)</span>
+              </div>
+              <div class="meal-footer">
+                <span class="meal-price">$10.99</span>
+                <button class="meal-add-btn" onclick="addToCart(2)">
+                  <span>Add</span>
+                  <span>🛒</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Meal 3 -->
+        <div class="meal-card">
+          <div class="meal-badge">🌟 Chef's Special</div>
+          <div class="meal-image">
+            <img
+              src="https://keepingonpoint.com/wp-content/uploads/2023/03/Chicken-Ramen-Bowls-Weight-Watchers-Recipes-WW-Recipes.jpg"
+              alt="Ramen Bowl" />
+          </div>
+          <div class="meal-content">
+            <h3 class="meal-name">Ramen Bowl</h3>
+            <p class="meal-restaurant">Noodle House</p>
+            <p class="meal-description">Rich broth with noodles, egg, and fresh vegetables</p>
+            <div class="meal-details">
+              <div class="meal-rating">
+                <span class="rating-stars">⭐⭐⭐⭐⭐</span>
+                <span class="rating-count">4.9 (320+)</span>
+              </div>
+              <div class="meal-footer">
+                <span class="meal-price">$11.99</span>
+                <button class="meal-add-btn" onclick="addToCart(3)">
+                  <span>Add</span>
+                  <span>🛒</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Meal 4 -->
+        <div class="meal-card">
+          <div class="meal-image">
+            <img src="https://th.bing.com/th/id/R.9a0ce676b0ecdfdbf34d9ce0f586df63?rik=gzfWVutc1fFnJg&pid=ImgRaw&r=0"
+              alt="Chicken Tacos" />
+          </div>
+          <div class="meal-content">
+            <h3 class="meal-name">Chicken Tacos</h3>
+            <p class="meal-restaurant">Taco Fiesta</p>
+            <p class="meal-description">Seasoned chicken with salsa and fresh toppings</p>
+            <div class="meal-details">
+              <div class="meal-rating">
+                <span class="rating-stars">⭐⭐⭐⭐</span>
+                <span class="rating-count">4.7 (150+)</span>
+              </div>
+              <div class="meal-footer">
+                <span class="meal-price">$9.99</span>
+                <button class="meal-add-btn" onclick="addToCart(4)">
+                  <span>Add</span>
+                  <span>🛒</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Meal 5 -->
+        <div class="meal-card">
+          <div class="meal-image">
+            <img src="https://tse4.mm.bing.net/th/id/OIP._6I6fCI08lwBIe_2NwoF_wHaFj?rs=1&pid=ImgDetMain&o=7&rm=3"
+              alt="Salmon Roll" />
+          </div>
+          <div class="meal-content">
+            <h3 class="meal-name">Salmon Roll</h3>
+            <p class="meal-restaurant">Sushi Station</p>
+            <p class="meal-description">Fresh salmon with avocado and cucumber</p>
+            <div class="meal-details">
+              <div class="meal-rating">
+                <span class="rating-stars">⭐⭐⭐⭐⭐</span>
+                <span class="rating-count">4.8 (200+)</span>
+              </div>
+              <div class="meal-footer">
+                <span class="meal-price">$14.99</span>
+                <button class="meal-add-btn" onclick="addToCart(5)">
+                  <span>Add</span>
+                  <span>🛒</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Meal 6 -->
+        <div class="meal-card">
+          <div class="meal-image">
+            <img src="https://www.jocooks.com/wp-content/uploads/2020/07/caesar-salad-1-12.jpg" alt="Caesar Salad" />
+          </div>
+          <div class="meal-content">
+            <h3 class="meal-name">Caesar Salad</h3>
+            <p class="meal-restaurant">Fresh & Fit</p>
+            <p class="meal-description">Crisp romaine with parmesan and caesar dressing</p>
+            <div class="meal-details">
+              <div class="meal-rating">
+                <span class="rating-stars">⭐⭐⭐</span>
+                <span class="rating-count">4.5 (120+)</span>
+              </div>
+              <div class="meal-footer">
+                <span class="meal-price">$8.99</span>
+                <button class="meal-add-btn" onclick="addToCart(6)">
+                  <span>Add</span>
+                  <span>🛒</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <!-- About Restaurant Section -->
+  <section class="about-restaurant-section">
+    <div class="about-restaurant-container">
+      <div class="section-header">
+        <h2 class="section-title">About Our Restaurant</h2>
+        <p class="section-subtitle">Discover our story and commitment to excellence</p>
+      </div>
+
+      <div class="about-content">
+        <div class="about-text">
+          <div class="about-card">
+            <h3 class="about-title">Our Story</h3>
+            <p class="about-description">
+              Welcome to FooDelicious, where culinary passion meets exceptional service. Founded in 2020,
+              we've been dedicated to bringing you the finest dining experience with carefully crafted dishes
+              that celebrate both tradition and innovation.
+            </p>
+          </div>
+
+          <div class="about-card">
+            <h3 class="about-title">Our Mission</h3>
+            <p class="about-description">
+              We believe that great food should be accessible to everyone. Our mission is to deliver
+              exceptional meals made with the freshest ingredients, sourced locally whenever possible,
+              while maintaining the highest standards of quality and service.
+            </p>
+          </div>
+
+          <div class="about-card">
+            <h3 class="about-title">Why Choose Us</h3>
+            <ul class="about-features">
+              <li>🍽️ Premium quality ingredients</li>
+              <li>👨‍🍳 Expert chefs with 15+ years experience</li>
+              <li>🚚 Fast and reliable delivery</li>
+              <li>💰 Competitive pricing</li>
+              <li>⭐ 4.8+ customer satisfaction rating</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="about-stats">
+          <div class="stat-card">
+            <div class="stat-number">50K+</div>
+            <div class="stat-label">Happy Customers</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">100+</div>
+            <div class="stat-label">Menu Items</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Delivery Service</div>
+          </div>
+          <div class="stat-card">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Policies and Extra Info Section -->
+  <section class="policies-section">
+    <div class="policies-container">
+      <div class="section-header">
+        <h2 class="section-title">Policies & Information</h2>
+        <p class="section-subtitle">Everything you need to know about our service</p>
+      </div>
+
+      <div class="policies-content">
+        <div class="policies-grid">
+          <!-- Delivery Policy -->
+          <div class="policy-card">
+            <div class="policy-icon">🚚</div>
+            <h3 class="policy-title">Delivery Policy</h3>
+            <div class="policy-content">
+              <ul class="policy-list">
+                <li>Free delivery on orders above $30</li>
+                <li>30-45 minutes average delivery time</li>
+                <li>Real-time order tracking available</li>
+                <li>Contactless delivery options</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Payment Methods -->
+          <div class="policy-card">
+            <div class="policy-icon">💳</div>
+            <h3 class="policy-title">Payment Methods</h3>
+            <div class="policy-content">
+              <ul class="policy-list">
+                <li>Credit/Debit Cards (Visa, MasterCard, Amex)</li>
+                <li>Digital Wallets (PayPal, Apple Pay, Google Pay)</li>
+                <li>Cash on delivery</li>
+                <li>Gift cards and vouchers accepted</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Refund Policy -->
+          <div class="policy-card">
+            <div class="policy-icon">🔄</div>
+            <h3 class="policy-title">Refund Policy</h3>
+            <div class="policy-content">
+              <ul class="policy-list">
+                <li>Full refund for order cancellations within 5 minutes</li>
+                <li>Partial refund for late deliveries (20+ minutes)</li>
+                <li>Food quality issues resolved within 24 hours</li>
+                <li>Store credit available for future orders</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Food Safety -->
+          <div class="policy-card">
+            <div class="policy-icon">🛡️</div>
+            <h3 class="policy-title">Food Safety</h3>
+            <div class="policy-content">
+              <ul class="policy-list">
+                <li>FDA certified kitchen and staff</li>
+                <li>Temperature-controlled packaging</li>
+                <li>Allergen information clearly labeled</li>
+                <li>Regular health inspections and certifications</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Customer Support -->
+          <div class="policy-card">
+            <div class="policy-icon">🎧</div>
+            <h3 class="policy-title">Customer Support</h3>
+            <div class="policy-content">
+              <ul class="policy-list">
+                <li>24/7 live chat and phone support</li>
+                <li>Email response within 2 hours</li>
+                <li>Multi-language support available</li>
+                <li>Dedicated support for corporate accounts</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Loyalty Program -->
+          <div class="policy-card">
+            <div class="policy-icon">⭐</div>
+            <h3 class="policy-title">Loyalty Program</h3>
+            <div class="policy-content">
+              <ul class="policy-list">
+                <li>Earn 1 point for every $1 spent</li>
+                <li>Redeem points for free meals and discounts</li>
+                <li>Exclusive member-only offers and promotions</li>
+                <li>Birthday rewards and anniversary bonuses</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Additional Information -->
+        <div class="extra-info">
+          <div class="info-card">
+            <h3 class="info-title">Operating Hours</h3>
+            <div class="hours-grid">
+              <div class="hours-item">
+                <span class="hours-day">Monday - Thursday</span>
+                <span class="hours-time">11:00 AM - 11:00 PM</span>
+              </div>
+              <div class="hours-item">
+                <span class="hours-day">Friday - Saturday</span>
+                <span class="hours-time">11:00 AM - 1:00 AM</span>
+              </div>
+              <div class="hours-item">
+                <span class="hours-day">Sunday</span>
+                <span class="hours-time">12:00 PM - 10:00 PM</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <h3 class="info-title">Service Areas</h3>
+            <div class="service-areas">
+              <div class="area-item">
+                <span class="area-name">Downtown District</span>
+                <span class="area-status">✅ Available</span>
+              </div>
+              <div class="area-item">
+                <span class="area-name">Suburban Zones</span>
+                <span class="area-status">✅ Available</span>
+              </div>
+              <div class="area-item">
+                <span class="area-name">Airport Area</span>
+                <span class="area-status">✅ Available</span>
+              </div>
+              <div class="area-item">
+                <span class="area-name">Industrial Park</span>
+                <span class="area-status">🚀 Coming Soon</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <h3 class="info-title">Contact Information</h3>
+            <div class="contact-info">
+              <div class="contact-item">
+                <span class="contact-label">Phone:</span>
+                <span class="contact-value">1-800-FOODELICIOUS</span>
+              </div>
+              <div class="contact-item">
+                <span class="contact-label">Email:</span>
+                <span class="contact-value">support@foodelicious.com</span>
+              </div>
+              <div class="contact-item">
+                <span class="contact-label">Address:</span>
+                <span class="contact-value">123 Food Street, Culinary City, CC 12345</span>
+              </div>
+              <div class="contact-item">
+                <span class="contact-label">Social Media:</span>
+                <div class="social-links">
+                  <a href="#" class="social-link">📘 Facebook</a>
+                  <a href="#" class="social-link">🐦 Twitter</a>
+                  <a href="#" class="social-link">📷 Instagram</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Navigation interactions
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        // Update active state
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+
+        // Navigate to page (let default behavior work)
+        const href = link.getAttribute('href');
+        if (href && href !== '#') {
+          // Small delay to show active state change
+          setTimeout(() => {
+            window.location.href = href;
+          }, 100);
+        }
+      });
+    });
+
+    // Dropdown functionality
+    document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+      toggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Close all other dropdowns
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+          if (menu !== toggle.nextElementSibling) {
+            menu.style.opacity = '0';
+            menu.style.visibility = 'hidden';
+            menu.style.transform = 'translateY(-10px)';
+          }
+        });
+
+        // Toggle current dropdown
+        const menu = toggle.nextElementSibling;
+        if (menu.style.opacity === '1') {
+          menu.style.opacity = '0';
+          menu.style.visibility = 'hidden';
+          menu.style.transform = 'translateY(-10px)';
+        } else {
+          menu.style.opacity = '1';
+          menu.style.visibility = 'visible';
+          menu.style.transform = 'translateY(0)';
+        }
+      });
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.nav-dropdown')) {
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+          menu.style.opacity = '0';
+          menu.style.visibility = 'hidden';
+          menu.style.transform = 'translateY(-10px)';
+        });
+      }
+    });
+
+    // Filter functionality
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active from siblings in same group
+        const group = btn.parentElement;
+        group.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // Enhanced Search functionality (matching index.html)
+    const searchBtn = document.querySelector('.search-btn');
+    const searchInput = document.querySelector('.search-input');
+
+    // Create search status element if it doesn't exist
+    let searchStatus = document.querySelector('.search-status');
+    if (!searchStatus) {
+      searchStatus = document.createElement('div');
+      searchStatus.className = 'search-status';
+      searchStatus.style.cssText = `
+        text-align: center;
+        padding: 2rem;
+        margin-bottom: 2rem;
+      `;
+
+      // Insert after filter section
+      const filterSection = document.querySelector('.filter-section');
+      if (filterSection) {
+        filterSection.parentNode.insertBefore(searchStatus, filterSection.nextSibling);
+      }
+    }
+
+    function performSearch() {
+      const query = searchInput.value.trim().toLowerCase();
+
+      if (!query) {
+        searchStatus.innerHTML = `
+          <div class="search-prompt">
+            <div class="search-prompt-icon">🍽️</div>
+            <h2>What are you craving?</h2>
+            <p>Search for your favorite dishes, restaurants, or cuisines</p>
+          </div>
+        `;
+        // Show all meals
+        document.querySelectorAll('.meal-card').forEach(card => {
+          card.style.display = 'block';
+        });
+        hideNoResultsMessage();
+        return;
+      }
+
+      // Show loading state
+      searchStatus.innerHTML = `
+        <div class="loading">
+          <div class="loading-spinner">🔄</div>
+          <p>Searching...</p>
+        </div>
+      `;
+
+      // Simulate API delay for better UX
+      setTimeout(() => {
+        // Search through meal cards
+        const mealCards = document.querySelectorAll('.meal-card');
+        let visibleCount = 0;
+        const results = [];
+
+        mealCards.forEach(card => {
+          const mealName = card.querySelector('.meal-name')?.textContent.toLowerCase() || '';
+          const restaurantName = card.querySelector('.meal-restaurant')?.textContent.toLowerCase() || '';
+          const description = card.querySelector('.meal-description')?.textContent.toLowerCase() || '';
+
+          // Check if query matches any field
+          const matches = mealName.includes(query) ||
+            restaurantName.includes(query) ||
+            description.includes(query);
+
+          // Show/hide card based on match
+          card.style.display = matches ? 'block' : 'none';
+
+          if (matches) {
+            visibleCount++;
+            results.push({
+              element: card,
+              name: card.querySelector('.meal-name')?.textContent || '',
+              restaurant: card.querySelector('.meal-restaurant')?.textContent || '',
+              price: card.querySelector('.meal-price')?.textContent || '',
+              rating: card.querySelector('.rating-stars')?.textContent || ''
+            });
+          }
+        });
+
+        displayResults(results, query, visibleCount);
+      }, 300);
+    }
+
+    function displayResults(results, query, count) {
+      if (count === 0) {
+        searchStatus.innerHTML = `
+          <div class="no-results">
+            <div class="no-results-icon">🔍</div>
+            <h2>No results found</h2>
+            <p>Try searching for pizza, burgers, sushi, or other dishes</p>
+            <button class="clear-search-btn" onclick="clearSearch()">Clear Search</button>
+          </div>
+        `;
+        return;
+      }
+
+      searchStatus.innerHTML = `
+        <div class="results-header">
+          <h2>Search Results</h2>
+          <p>Found <strong>${count}</strong> ${count === 1 ? 'meal' : 'meals'}${query ? ` for "${query}"` : ''}</p>
+        </div>
+      `;
+    }
+
+    function showNoResultsMessage(query) {
+      // This is handled in displayResults now
+    }
+
+    function hideNoResultsMessage() {
+      // This is handled in displayResults now
+    }
+
+    function clearSearch() {
+      searchInput.value = '';
+      performSearch();
+    }
+
+    // Add CSS for search enhancements (matching index.html style)
+    const searchStyles = `
+      <style>
+        .search-prompt {
+          padding: 3rem 2rem;
+          background: var(--bg-card);
+          border: 2px solid var(--border-color);
+          border-radius: var(--radius-lg);
+        }
+        
+        .search-prompt-icon {
+          font-size: 4rem;
+          margin-bottom: 1rem;
+        }
+        
+        .search-prompt h2 {
+          color: var(--text-primary);
+          font-size: 2rem;
+          font-weight: 900;
+          margin-bottom: 0.5rem;
+          background: linear-gradient(135deg, var(--text-primary), var(--accent-orange));
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+        
+        .search-prompt p {
+          color: var(--text-secondary);
+          font-size: 1.125rem;
+        }
+        
+        .loading {
+          padding: 2rem;
+          background: var(--bg-card);
+          border: 2px solid var(--border-color);
+          border-radius: var(--radius-lg);
+        }
+        
+        .loading-spinner {
+          font-size: 2rem;
+          animation: spin 1s linear infinite;
+          margin-bottom: 1rem;
+        }
+        
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        
+        .no-results {
+          text-align: center;
+          padding: 3rem 2rem;
+          background: var(--bg-card);
+          border: 2px solid var(--border-color);
+          border-radius: var(--radius-lg);
+        }
+        
+        .no-results-icon {
+          font-size: 4rem;
+          margin-bottom: 1rem;
+          opacity: 0.5;
+        }
+        
+        .no-results h2 {
+          color: var(--text-primary);
+          font-size: 1.5rem;
+          font-weight: 900;
+          margin-bottom: 0.5rem;
+        }
+        
+        .no-results p {
+          color: var(--text-secondary);
+          margin-bottom: 1.5rem;
+        }
+        
+        .clear-search-btn {
+          padding: 0.75rem 1.5rem;
+          background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-light));
+          border: none;
+          border-radius: var(--radius-sm);
+          color: white;
+          font-weight: 800;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+        
+        .clear-search-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: var(--shadow-glow);
+        }
+        
+        .results-header {
+          padding: 2rem;
+          background: var(--bg-card);
+          border: 2px solid var(--border-color);
+          border-radius: var(--radius-lg);
+          margin-bottom: 2rem;
+        }
+        
+        .results-header h2 {
+          color: var(--text-primary);
+          font-size: 1.75rem;
+          font-weight: 900;
+          margin-bottom: 0.5rem;
+          background: linear-gradient(135deg, var(--text-primary), var(--accent-orange));
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+        
+        .results-header p {
+          color: var(--text-secondary);
+          font-size: 1.125rem;
+        }
+        
+        .results-header strong {
+          color: var(--accent-orange);
+          font-weight: 900;
+        }
+        
+        .search-suggestions {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: var(--bg-card);
+          border: 2px solid var(--border-color);
+          border-top: none;
+          border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+          max-height: 200px;
+          overflow-y: auto;
+          z-index: 1000;
+          box-shadow: var(--shadow-lg);
+        }
+        
+        .suggestion-item {
+          padding: 0.75rem 1rem;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          border-bottom: 1px solid var(--border-color);
+          color: var(--text-secondary);
+          font-weight: 600;
+        }
+        
+        .suggestion-item:last-child {
+          border-bottom: none;
+        }
+        
+        .suggestion-item:hover {
+          background: var(--accent-orange);
+          color: white;
+        }
+        
+        .suggestion-item:first-child:hover {
+          border-radius: 0 0 0 var(--radius-lg);
+        }
+      </style>
+    `;
+
+    // Add styles to head
+    document.head.insertAdjacentHTML('beforeend', searchStyles);
+
+    // Search button click event
+    searchBtn.addEventListener('click', performSearch);
+
+    // Enter key press event
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        performSearch();
+      }
+    });
+
+    // Real-time search (matching index.html behavior)
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.trim();
+      if (query.length >= 2) {
+        performSearch();
+      } else if (query.length === 0) {
+        searchStatus.innerHTML = '';
+        // Show all meals
+        document.querySelectorAll('.meal-card').forEach(card => {
+          card.style.display = 'block';
+        });
+      }
+    });
+
+    // Add search suggestions functionality
+    searchInput.addEventListener('focus', () => {
+      showSearchSuggestions();
+    });
+
+    searchInput.addEventListener('blur', () => {
+      // Hide suggestions after a short delay to allow clicking on suggestions
+      setTimeout(hideSearchSuggestions, 200);
+    });
+
+    function showSearchSuggestions() {
+      const popularSearches = [
+        'pizza', 'burger', 'pasta', 'sushi', 'salad',
+        'chicken', 'beef', 'vegetarian', 'dessert'
+      ];
+
+      // Remove existing suggestions
+      hideSearchSuggestions();
+
+      // Create suggestions dropdown
+      const suggestionsDiv = document.createElement('div');
+      suggestionsDiv.className = 'search-suggestions';
+
+      popularSearches.forEach(term => {
+        const suggestionItem = document.createElement('div');
+        suggestionItem.className = 'suggestion-item';
+        suggestionItem.textContent = term;
+        suggestionItem.addEventListener('click', () => {
+          searchInput.value = term;
+          performSearch();
+          hideSearchSuggestions();
+        });
+        suggestionsDiv.appendChild(suggestionItem);
+      });
+
+      // Position suggestions below search input
+      const searchWrapper = document.querySelector('.search-wrapper');
+      if (searchWrapper) {
+        searchWrapper.appendChild(suggestionsDiv);
+      }
+    }
+
+    function hideSearchSuggestions() {
+      const existingSuggestions = document.querySelector('.search-suggestions');
+      if (existingSuggestions) {
+        existingSuggestions.remove();
+      }
+    }
+
+    // Restaurant card interactions
+    document.querySelectorAll('.restaurant-card').forEach(card => {
+      card.addEventListener('click', () => {
+        // Navigate to restaurant details page
+        console.log('Restaurant clicked');
+      });
+    });
+
+    // Add to cart functionality
+    function addToCart(mealId) {
+      // Update cart count
+      const cartCount = document.querySelector('.cart-count');
+      const currentCount = parseInt(cartCount.textContent);
+      cartCount.textContent = currentCount + 1;
+
+      // Show success message
+      const mealNames = {
+        1: 'Margherita Pizza',
+        2: 'Classic Burger',
+        3: 'Ramen Bowl',
+        4: 'Chicken Tacos',
+        5: 'Salmon Roll',
+        6: 'Caesar Salad'
+      };
+
+      const mealName = mealNames[mealId] || 'Meal';
+      console.log(`Added ${mealName} to cart!`);
+
+      // Visual feedback
+      const button = event.target.closest('.meal-add-btn');
+      if (button) {
+        const originalText = button.innerHTML;
+        button.innerHTML = '✓ Added';
+        button.style.background = 'var(--accent-green)';
+
+        setTimeout(() => {
+          button.innerHTML = originalText;
+          button.style.background = '';
+        }, 2000);
+      }
+    }
+
+    // Menu categories navigation
+    function scrollToSection(category) {
+      // Update active state
+      document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Scroll to section (for now, scroll to featured meals)
+      const featuredSection = document.querySelector('.featured-meals-section');
+      if (featuredSection) {
+        featuredSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      console.log(`Navigating to ${category} section`);
+    }
+  </script>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-content">
+        <!-- Brand Column -->
+        <div class="footer-brand">
+          <a href="#" class="footer-logo">
+            <div class="footer-logo-icon">🍔</div>
+            <div class="footer-logo-text">
+              <div class="footer-logo-title">FooDelicious</div>
+              <div class="footer-logo-subtitle">Food Delivery</div>
+            </div>
+          </a>
+          <p class="footer-description">
+            Your trusted partner for delicious food delivery. We bring the best restaurants to your doorstep with fast,
+            reliable service and amazing flavors.
+          </p>
+          <div class="footer-social">
+            <a href="#" class="social-link" aria-label="Facebook">📘</a>
+            <a href="#" class="social-link" aria-label="Twitter">🐦</a>
+            <a href="#" class="social-link" aria-label="Instagram">📷</a>
+            <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
+          </div>
+        </div>
+
+        <!-- Quick Links Column -->
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <div class="footer-links">
+            <a href="index.html" class="footer-link">Home</a>
+            <a href="Restaurant.html" class="footer-link">Restaurants</a>
+            <a href="#offers" class="footer-link">Offers</a>
+            <a href="About.html" class="footer-link">About Us</a>
+            <a href="#contact" class="footer-link">Contact</a>
+          </div>
+        </div>
+
+        <!-- Services Column -->
+        <div class="footer-column">
+          <h3>Services</h3>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Food Delivery</a>
+            <a href="#" class="footer-link">Catering</a>
+            <a href="#" class="footer-link">Corporate Orders</a>
+            <a href="#" class="footer-link">Gift Cards</a>
+            <a href="#" class="footer-link">Loyalty Program</a>
+          </div>
+        </div>
+
+        <!-- Support Column -->
+        <div class="footer-column">
+          <h3>Support</h3>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Help Center</a>
+            <a href="#" class="footer-link">FAQs</a>
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Terms of Service</a>
+            <a href="#" class="footer-link">Refund Policy</a>
+          </div>
+        </div>
+
+        <!-- Contact Column -->
+        <div class="footer-column">
+          <h3>Contact</h3>
+          <div class="footer-links">
+            <a href="tel:+1234567890" class="footer-link">📞 +1 (234) 567-890</a>
+            <a href="mailto:support@foodelicious.com" class="footer-link">✉️ support@foodelicious.com</a>
+            <a href="#" class="footer-link">📍 123 Food Street, Cuisine City</a>
+            <a href="#" class="footer-link">🕐 24/7 Support Available</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          &copy; 2024 FooDelicious. All rights reserved. Made with &hearts; for food lovers.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="#" class="footer-bottom-link">Privacy</a>
+          <a href="#" class="footer-bottom-link">Terms</a>
+          <a href="#" class="footer-bottom-link">Cookies</a>
+          <a href="#" class="footer-bottom-link">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

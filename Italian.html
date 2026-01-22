@@ -1,0 +1,3649 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Italian Cuisine - FooDelicious</title>
+  <meta name="description"
+    content="Discover the best Italian restaurants with FooDelicious - Authentic pasta, pizza, and more!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #1a1a1a;
+      --bg-card: #2a2a2a;
+      --text-primary: #ffffff;
+      --text-secondary: #b0b0b0;
+      --text-muted: #808080;
+      --accent-orange: #ff6b35;
+      --accent-orange-light: #ff8c5a;
+      --accent-purple: #8338ec;
+      --accent-purple-light: #9b4ff5;
+      --accent-green: #10b981;
+      --accent-yellow: #fbbf24;
+      --accent-pink: #ec4899;
+      --border-color: #3a3a3a;
+      --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 20px rgba(255, 107, 53, 0.3);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Navigation Bar */
+    .navbar {
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    /* Logo */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .logo-title {
+      font-size: 1.25rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .logo-subtitle {
+      font-size: 0.625rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* Search Bar */
+    .search-container {
+      flex: 1;
+      max-width: 600px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .search-wrapper {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      color: var(--text-muted);
+      font-size: 1rem;
+      z-index: 1;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.75rem 1rem 0.75rem 2.5rem;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      color: var(--text-primary);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--accent-orange);
+      box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+    }
+
+    .search-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .search-btn {
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-light));
+      border: none;
+      border-radius: var(--radius-lg);
+      color: white;
+      font-weight: 700;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .search-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    /* Navigation Links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      flex-shrink: 0;
+    }
+
+    .nav-link {
+      padding: 0.5rem 1rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.875rem;
+      border-radius: var(--radius-sm);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      color: var(--text-primary);
+      background: rgba(255, 107, 53, 0.1);
+    }
+
+    .nav-link.active {
+      color: var(--text-primary);
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-light));
+      box-shadow: var(--shadow-glow);
+    }
+
+    /* Dropdown Styles */
+    .nav-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      cursor: pointer;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      min-width: 200px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      z-index: 1000;
+      margin-top: 0.5rem;
+    }
+
+    .nav-dropdown:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-item {
+      display: block;
+      padding: 0.75rem 1rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    .dropdown-item:hover {
+      color: var(--accent-orange);
+      background: rgba(255, 107, 53, 0.1);
+      border-bottom-color: var(--border-color);
+      padding-left: 1.5rem;
+    }
+
+    .dropdown-item:first-child {
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+    }
+
+    .dropdown-item:last-child {
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
+      border-bottom: none;
+    }
+
+    /* Cart Button */
+    .cart-btn {
+      padding: 0.5rem 1rem;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+    }
+
+    .cart-btn:hover {
+      border-color: var(--accent-orange);
+      color: var(--accent-orange);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--accent-orange);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 900;
+      padding: 0.125rem 0.375rem;
+      border-radius: 50%;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    /* Italian Hero Section */
+    .italian-hero {
+      padding: 8rem 2rem 4rem;
+      min-height: 70vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .italian-hero-video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+    }
+
+    .italian-hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        linear-gradient(135deg, rgba(10, 10, 10, 0.85), rgba(26, 26, 26, 0.9)),
+        radial-gradient(circle at 20% 30%, rgba(255, 107, 53, 0.3) 0%, transparent 60%),
+        radial-gradient(circle at 80% 70%, rgba(131, 56, 236, 0.2) 0%, transparent 60%),
+        linear-gradient(90deg, rgba(255, 107, 53, 0.1) 0%, transparent 50%, rgba(131, 56, 236, 0.1) 100%);
+      z-index: 1;
+    }
+
+    .italian-hero-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .italian-hero-title {
+      font-size: 4rem;
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg,
+          var(--text-primary) 0%,
+          var(--accent-orange) 30%,
+          var(--accent-yellow) 60%,
+          var(--text-primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1;
+      text-shadow: 0 0 30px rgba(255, 107, 53, 0.3);
+      animation: glow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        filter: brightness(1) drop-shadow(0 0 20px rgba(255, 107, 53, 0.3));
+      }
+
+      to {
+        filter: brightness(1.2) drop-shadow(0 0 30px rgba(255, 107, 53, 0.5));
+      }
+    }
+
+    .italian-hero-subtitle {
+      font-size: 1.5rem;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+      font-weight: 500;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .italian-hero-features {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50px;
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 0.875rem;
+      transition: all 0.3s ease;
+    }
+
+    .hero-feature:hover {
+      background: rgba(255, 107, 53, 0.2);
+      border-color: var(--accent-orange);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(255, 107, 53, 0.3);
+    }
+
+    .hero-feature-icon {
+      font-size: 1.25rem;
+    }
+
+    .italian-hero-cta {
+      margin-top: 3rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-btn-primary {
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-light));
+      border: none;
+      border-radius: 50px;
+      color: white;
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+    }
+
+    .hero-btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(255, 107, 53, 0.6);
+    }
+
+    .hero-btn-secondary {
+      padding: 1rem 2rem;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50px;
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .hero-btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: var(--accent-orange);
+      color: var(--accent-orange);
+      transform: translateY(-3px);
+    }
+
+    /* Search Status Styles */
+    .search-status {
+      text-align: center;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .search-prompt {
+      padding: 3rem 2rem;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+    }
+
+    .search-prompt-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    .search-prompt h2 {
+      color: var(--text-primary);
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--text-primary), var(--accent-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .search-prompt p {
+      color: var(--text-secondary);
+      font-size: 1.125rem;
+    }
+
+    .loading {
+      padding: 2rem;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+    }
+
+    .loading-spinner {
+      font-size: 2rem;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1rem;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+    }
+
+    .no-results-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    .no-results h2 {
+      color: var(--text-primary);
+      font-size: 1.5rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+    }
+
+    .no-results p {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .clear-search-btn {
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-light));
+      border: none;
+      border-radius: var(--radius-sm);
+      color: white;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .clear-search-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .results-header {
+      padding: 2rem;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      margin-bottom: 2rem;
+    }
+
+    .results-header h2 {
+      color: var(--text-primary);
+      font-size: 1.75rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--text-primary), var(--accent-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .results-header p {
+      color: var(--text-secondary);
+      font-size: 1.125rem;
+    }
+
+    .results-header strong {
+      color: var(--accent-orange);
+      font-weight: 900;
+    }
+
+    .search-suggestions {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-top: none;
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+      max-height: 200px;
+      overflow-y: auto;
+      z-index: 1000;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .suggestion-item {
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .suggestion-item:last-child {
+      border-bottom: none;
+    }
+
+    .suggestion-item:hover {
+      background: var(--accent-orange);
+      color: white;
+    }
+
+    .suggestion-item:first-child:hover {
+      border-radius: 0 0 0 var(--radius-lg);
+    }
+
+    /* Italian Pizzas Section */
+    .italian-pizzas-section {
+      padding: 4rem 2rem;
+      background: linear-gradient(180deg, var(--bg-primary), var(--bg-secondary));
+    }
+
+    .pizzas-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Italian Pasta Section */
+    .italian-pasta-section {
+      padding: 4rem 2rem;
+      background: linear-gradient(180deg, var(--bg-secondary), var(--bg-primary));
+    }
+
+    .pasta-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Italian Risotto Section */
+    .italian-risotto-section {
+      padding: 4rem 2rem;
+      background: linear-gradient(180deg, var(--bg-primary), var(--bg-secondary));
+    }
+
+    .risotto-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Italian Appetizers Section */
+    .italian-appetizers-section {
+      padding: 4rem 2rem;
+      background: linear-gradient(180deg, var(--bg-primary), var(--bg-secondary));
+    }
+
+    .appetizers-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .appetizers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .appetizer-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .appetizer-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent-orange);
+      box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
+    }
+
+    .appetizer-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-purple));
+    }
+
+    .appetizer-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--accent-orange);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .appetizer-content {
+      padding: 1.5rem;
+    }
+
+    .appetizer-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .appetizer-description {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .appetizer-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .appetizer-rating {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: var(--accent-yellow);
+      font-weight: 600;
+    }
+
+    .appetizer-price {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--accent-orange);
+    }
+
+    .appetizer-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    /* Popular Dishes Section */
+    .popular-dishes-section {
+      padding: 4rem 2rem;
+      background: linear-gradient(180deg, var(--bg-secondary), var(--bg-primary));
+    }
+
+    .popular-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .popular-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .popular-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .popular-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent-orange);
+      box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
+    }
+
+    .popular-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-purple));
+    }
+
+    .popular-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--accent-orange);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .popular-content {
+      padding: 1.5rem;
+    }
+
+    .popular-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .popular-description {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .popular-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .popular-rating {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: var(--accent-yellow);
+      font-weight: 600;
+    }
+
+    .popular-price {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--accent-orange);
+    }
+
+    .popular-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    /* Italian Desserts Section */
+    .italian-desserts-section {
+      padding: 4rem 2rem;
+      background: linear-gradient(180deg, var(--bg-secondary), var(--bg-primary));
+    }
+
+    .desserts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .dessert-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .dessert-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent-orange);
+      box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
+    }
+
+    .dessert-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-purple));
+    }
+
+    .dessert-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--accent-orange);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .dessert-content {
+      padding: 1.5rem;
+    }
+
+    .dessert-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .dessert-description {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .dessert-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .dessert-rating {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: var(--accent-yellow);
+      font-weight: 600;
+    }
+
+    .dessert-price {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--accent-orange);
+    }
+
+    .dessert-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary), var(--accent-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-subtitle {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .pizzas-grid,
+    .pasta-grid,
+    .risotto-grid,
+    .desserts-grid,
+    .appetizers-grid,
+    .popular-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .pizza-card,
+    .pasta-card,
+    .risotto-card,
+    .dessert-card,
+    .appetizer-card,
+    .popular-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .pizza-card:hover,
+    .pasta-card:hover,
+    .risotto-card:hover,
+    .dessert-card:hover,
+    .appetizer-card:hover,
+    .popular-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent-orange);
+      box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
+    }
+
+    .pizza-image,
+    .pasta-image,
+    .risotto-image,
+    .dessert-image,
+    .appetizer-image,
+    .popular-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-purple));
+    }
+
+    .pizza-badge,
+    .pasta-badge,
+    .risotto-badge,
+    .dessert-badge,
+    .appetizer-badge,
+    .popular-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--accent-orange);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .pizza-content,
+    .pasta-content,
+    .risotto-content,
+    .dessert-content,
+    .appetizer-content,
+    .popular-content {
+      padding: 1.5rem;
+    }
+
+    .pizza-name,
+    .pasta-name,
+    .risotto-name,
+    .dessert-name,
+    .appetizer-name,
+    .popular-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .pizza-description,
+    .pasta-description,
+    .risotto-description,
+    .dessert-description,
+    .appetizer-description,
+    .popular-description {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .pizza-meta,
+    .pasta-meta,
+    .risotto-meta,
+    .dessert-meta,
+    .appetizer-meta,
+    .popular-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .pizza-rating,
+    .pasta-rating,
+    .risotto-rating,
+    .dessert-rating,
+    .appetizer-rating,
+    .popular-rating {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: var(--accent-yellow);
+      font-weight: 600;
+    }
+
+    .pizza-price,
+    .pasta-price,
+    .risotto-price,
+    .dessert-price,
+    .appetizer-price,
+    .popular-price {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--accent-orange);
+    }
+
+    .pizza-actions,
+    .pasta-actions,
+    .risotto-actions,
+    .dessert-actions,
+    .appetizer-actions,
+    .popular-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .pizza-btn,
+    .pasta-btn,
+    .risotto-btn,
+    .dessert-btn,
+    .appetizer-btn,
+    .popular-btn {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .add-to-cart-pizza,
+    .add-to-cart-pasta,
+    .add-to-cart-risotto,
+    .add-to-cart-dessert,
+    .add-to-cart-appetizer,
+    .add-to-cart-popular {
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-light));
+      color: white;
+    }
+
+    .add-to-cart-pizza:hover,
+    .add-to-cart-pasta:hover,
+    .add-to-cart-risotto:hover,
+    .add-to-cart-dessert:hover,
+    .add-to-cart-appetizer:hover,
+    .add-to-cart-popular:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255, 107, 53, 0.4);
+    }
+
+    .wishlist-btn {
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 0.75rem;
+    }
+
+    .wishlist-btn:hover {
+      border-color: var(--accent-pink);
+      color: var(--accent-pink);
+      transform: translateY(-2px);
+    }
+
+    .wishlist-btn.active {
+      background: var(--accent-pink);
+      border-color: var(--accent-pink);
+      color: white;
+    }
+
+    /* Wishlist Counter */
+    .wishlist-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--accent-pink);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 900;
+      padding: 0.125rem 0.375rem;
+      border-radius: 50%;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      background: var(--bg-card);
+      border: 2px solid var(--accent-orange);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.5rem;
+      color: var(--text-primary);
+      font-weight: 600;
+      z-index: 10000;
+      transform: translateX(400px);
+      transition: transform 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .toast.show {
+      transform: translateX(0);
+    }
+
+    .toast-icon {
+      font-size: 1.25rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .nav-container {
+        padding: 1rem;
+      }
+
+      .search-container {
+        max-width: 400px;
+      }
+
+      .italian-hero-title {
+        font-size: 3rem;
+      }
+
+      .left-panel {
+        transform: translateX(-100%);
+      }
+
+      .left-panel.open {
+        transform: translateX(0);
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .panel-toggle {
+        display: block;
+      }
+
+      .pizzas-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+      }
+    }
+
+    /* Left Panel Sidebar */
+    .left-panel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 280px;
+      height: 100vh;
+      background: linear-gradient(180deg, var(--bg-secondary), var(--bg-primary));
+      border-right: 1px solid var(--border-color);
+      z-index: 999;
+      overflow-y: auto;
+      transition: transform 0.3s ease;
+    }
+
+    .left-panel-header {
+      padding: 2rem 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      background: rgba(255, 107, 53, 0.05);
+    }
+
+    .left-panel-title {
+      font-size: 1.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    .left-panel-subtitle {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .left-panel-section {
+      padding: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .category-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .category-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .category-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--accent-orange);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    .category-item:hover {
+      color: var(--text-primary);
+      background: rgba(255, 107, 53, 0.1);
+      border-color: var(--accent-orange);
+      transform: translateX(4px);
+    }
+
+    .category-item:hover::before {
+      transform: translateX(0);
+    }
+
+    .category-item.active {
+      color: var(--text-primary);
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(131, 56, 236, 0.1));
+      border-color: var(--accent-orange);
+    }
+
+    .category-item.active::before {
+      transform: translateX(0);
+    }
+
+    .category-icon {
+      font-size: 1.25rem;
+      width: 24px;
+      text-align: center;
+    }
+
+    .category-info {
+      flex: 1;
+    }
+
+    .category-name {
+      font-size: 0.875rem;
+      font-weight: 700;
+      margin-bottom: 0.125rem;
+    }
+
+    .category-count {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .price-filter {
+      margin-top: 1rem;
+    }
+
+    .price-range {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .price-input {
+      flex: 1;
+      padding: 0.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-size: 0.75rem;
+      text-align: center;
+    }
+
+    .price-separator {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .apply-filter-btn {
+      width: 100%;
+      padding: 0.625rem;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-light));
+      border: none;
+      border-radius: var(--radius-sm);
+      color: white;
+      font-weight: 700;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .apply-filter-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .quick-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .action-btn {
+      padding: 0.75rem 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .action-btn:hover {
+      color: var(--accent-orange);
+      border-color: var(--accent-orange);
+      transform: translateX(4px);
+    }
+
+    /* Main Content Adjustment */
+    .main-content {
+      margin-left: 280px;
+      transition: margin-left 0.3s ease;
+    }
+
+    /* Mobile Toggle */
+    .panel-toggle {
+      display: none;
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 1001;
+      padding: 0.75rem;
+      background: var(--accent-orange);
+      border: none;
+      border-radius: var(--radius-sm);
+      color: white;
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .panel-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: var(--shadow-glow);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .nav-container {
+        padding: 1rem;
+      }
+
+      .search-container {
+        max-width: 400px;
+      }
+
+      .italian-hero-title {
+        font-size: 3rem;
+      }
+
+      .left-panel {
+        transform: translateX(-100%);
+      }
+
+      .left-panel.open {
+        transform: translateX(0);
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .panel-toggle {
+        display: block;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .search-container {
+        order: 3;
+        flex-basis: 100%;
+        max-width: none;
+      }
+
+      .nav-links {
+        gap: 0.5rem;
+      }
+
+      .nav-link {
+        padding: 0.5rem 0.875rem;
+        font-size: 0.875rem;
+      }
+
+      .italian-hero {
+        padding: 4rem 1.5rem 2rem;
+      }
+
+      .italian-hero-title {
+        font-size: 2.5rem;
+      }
+
+      .italian-hero-subtitle {
+        font-size: 1.125rem;
+      }
+
+      .left-panel {
+        width: 100%;
+        max-width: 320px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-container {
+        padding: 0.75rem;
+      }
+
+      .logo-title {
+        font-size: 1.125rem;
+      }
+
+      .search-input {
+        font-size: 0.8rem;
+      }
+
+      .search-btn {
+        padding: 0.625rem 1rem;
+        font-size: 0.8rem;
+      }
+
+      .nav-link {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
+      }
+
+      .italian-hero-title {
+        font-size: 2rem;
+      }
+
+      .italian-hero-subtitle {
+        font-size: 1rem;
+      }
+
+      .left-panel {
+        width: 100%;
+        max-width: 280px;
+      }
+    }
+
+    /* Footer Section */
+    .footer {
+      background: var(--bg-primary);
+      border-top: 1px solid var(--border-color);
+      padding: 4rem 2rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255, 107, 53, 0.1) 0%, transparent 60%),
+        radial-gradient(circle at 80% 70%, rgba(131, 56, 236, 0.08) 0%, transparent 60%),
+        linear-gradient(90deg, rgba(255, 107, 53, 0.05) 0%, transparent 50%, rgba(131, 56, 236, 0.05) 100%);
+      z-index: 0;
+    }
+
+    .footer-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+
+    .footer-logo:hover {
+      transform: scale(1.05);
+    }
+
+    .footer-logo-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .footer-logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .footer-logo-title {
+      font-size: 1.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .footer-logo-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .footer-description {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 400px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 1.125rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+      border-color: var(--accent-orange);
+      color: var(--accent-orange);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .footer-column h3 {
+      font-size: 1.125rem;
+      font-weight: 900;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .footer-link::before {
+      content: '';
+      position: absolute;
+      left: -15px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      background: var(--accent-orange);
+      border-radius: 50%;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--accent-orange);
+      padding-left: 20px;
+    }
+
+    .footer-link:hover::before {
+      opacity: 1;
+      left: 0;
+    }
+
+    .footer-bottom {
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .footer-copyright {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-bottom-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .footer-bottom-link:hover {
+      color: var(--accent-orange);
+    }
+
+    /* Responsive Footer */
+    @media (max-width: 1024px) {
+      .footer-content {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .footer-brand {
+        grid-column: 1 / -1;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-bottom-links {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .footer {
+        padding: 3rem 1.5rem 1.5rem;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .footer-brand {
+        grid-column: 1 / -1;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-bottom-links {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .footer-brand {
+        grid-column: 1;
+      }
+
+      .footer-social {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Mobile Panel Toggle -->
+  <button class="panel-toggle" onclick="togglePanel()">☰</button>
+
+  <!-- Left Panel Sidebar -->
+  <aside class="left-panel" id="leftPanel">
+    <div class="left-panel-header">
+      <h2 class="left-panel-title">Italian Menu</h2>
+      <p class="left-panel-subtitle">Explore authentic Italian cuisine</p>
+    </div>
+
+    <!-- Categories Section -->
+    <div class="left-panel-section">
+      <h3 class="section-title">Categories</h3>
+      <div class="category-list">
+        <a href="#" class="category-item active" data-category="all">
+          <span class="category-icon">🍽️</span>
+          <div class="category-info">
+            <div class="category-name">All Dishes</div>
+            <div class="category-count">24 items</div>
+          </div>
+        </a>
+        <a href="#" class="category-item" data-category="pizza">
+          <span class="category-icon">🍕</span>
+          <div class="category-info">
+            <div class="category-name">Pizza</div>
+            <div class="category-count">8 items</div>
+          </div>
+        </a>
+        <a href="#" class="category-item" data-category="pasta">
+          <span class="category-icon">🍝</span>
+          <div class="category-info">
+            <div class="category-name">Pasta</div>
+            <div class="category-count">10 items</div>
+          </div>
+        </a>
+        <a href="#" class="category-item" data-category="risotto">
+          <span class="category-icon">🥘</span>
+          <div class="category-info">
+            <div class="category-name">Risotto</div>
+            <div class="category-count">4 items</div>
+          </div>
+        </a>
+        <a href="#" class="category-item" data-category="dessert">
+          <span class="category-icon">🍰</span>
+          <div class="category-info">
+            <div class="category-name">Desserts</div>
+            <div class="category-count">6 items</div>
+          </div>
+        </a>
+        <a href="#" class="category-item" data-category="appetizer">
+          <span class="category-icon">🥗</span>
+          <div class="category-info">
+            <div class="category-name">Appetizers</div>
+            <div class="category-count">5 items</div>
+          </div>
+        </a>
+        <a href="#" class="category-item" data-category="main">
+          <span class="category-icon">🥩</span>
+          <div class="category-info">
+            <div class="category-name">Main Courses</div>
+            <div class="category-count">7 items</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Price Filter Section -->
+    <div class="left-panel-section">
+      <h3 class="section-title">Price Range</h3>
+      <div class="price-filter">
+        <div class="price-range">
+          <input type="number" class="price-input" placeholder="Min" value="5" min="0" max="50">
+          <span class="price-separator">-</span>
+          <input type="number" class="price-input" placeholder="Max" value="30" min="0" max="100">
+        </div>
+        <button class="apply-filter-btn" onclick="applyPriceFilter()">Apply Filter</button>
+      </div>
+    </div>
+
+    <!-- Quick Actions Section -->
+    <div class="left-panel-section">
+      <h3 class="section-title">Quick Actions</h3>
+      <div class="quick-actions">
+        <button class="action-btn" onclick="showPopular()">
+          <span>⭐</span>
+          <span>Popular Dishes</span>
+        </button>
+        <button class="action-btn" onclick="showSpecials()">
+          <span>🔥</span>
+          <span>Today's Specials</span>
+        </button>
+        <button class="action-btn" onclick="showVegetarian()">
+          <span>🥬</span>
+          <span>Vegetarian Options</span>
+        </button>
+        <button class="action-btn" onclick="clearFilters()">
+          <span>🔄</span>
+          <span>Clear All Filters</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <!-- Logo - Left -->
+        <a href="index.html" class="logo">
+          <div class="logo-icon">🍔</div>
+          <div class="logo-text">
+            <div class="logo-title">FooDelicious</div>
+            <div class="logo-subtitle">Food Delivery</div>
+          </div>
+        </a>
+
+        <!-- Search Bar - Middle -->
+        <div class="search-container">
+          <div class="search-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="search" class="search-input"
+              placeholder="Search for Italian dishes, restaurants, or ingredients..."
+              aria-label="Search for Italian food" />
+          </div>
+          <button class="search-btn">Search</button>
+        </div>
+
+        <!-- Navigation Links - Right -->
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">Home</a>
+
+          <!-- Restaurant Dropdown -->
+          <div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">Restaurant ▼</button>
+            <div class="dropdown-menu">
+              <a href="Restaurant.html" class="dropdown-item">All Restaurants</a>
+              <a href="Italian.html" class="dropdown-item">Italian Cuisine</a>
+              <a href="Fastfood.html" class="dropdown-item">Fast Food</a>
+              <a href="Asian.html" class="dropdown-item">Asian Food</a>
+              <a href="Healthy option.html" class="dropdown-item">Healthy Options</a>
+            </div>
+          </div>
+
+          <!-- Offers Dropdown -->
+          <div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">Offers ▼</button>
+            <div class="dropdown-menu">
+              <a href="#" class="dropdown-item">Daily Deals</a>
+              <a href="#" class="dropdown-item">Special Offers</a>
+              <a href="#" class="dropdown-item">Loyalty Rewards</a>
+              <a href="#" class="dropdown-item">First Time Discount</a>
+              <a href="#" class="dropdown-item">Bundle Deals</a>
+            </div>
+          </div>
+
+          <!-- About Dropdown -->
+          <div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">About ▼</button>
+            <div class="dropdown-menu">
+              <a href="About.html#story" class="dropdown-item">Our Story</a>
+              <a href="About.html#how" class="dropdown-item">How It Works</a>
+              <a href="About.html#partners" class="dropdown-item">Partners</a>
+              <a href="About.html#careers" class="dropdown-item">Careers</a>
+              <a href="About.html#contact" class="dropdown-item">Contact Us</a>
+            </div>
+          </div>
+
+          <button class="cart-btn">
+            🛒 Cart
+            <span class="cart-count">0</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Italian Cuisine Hero Section -->
+    <section class="italian-hero">
+      <!-- Video Background -->
+      <video class="italian-hero-video" autoplay muted loop playsinline>
+        <source src="italian-video.mp4" type="video/mp4">
+        <source
+          src="https://assets.mixkit.co/videos/preview/mixkit-pasta-being-prepared-in-a-restaurant-kitchen-3987-large.mp4"
+          type="video/mp4">
+        <!-- Fallback for browsers that don't support video -->
+        <img
+          src="https://images.unsplash.com/photo-1555992335-90df1be5201f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+          alt="Italian Cuisine">
+      </video>
+
+      <!-- Video Overlay -->
+      <div class="italian-hero-overlay"></div>
+
+      <div class="italian-hero-container">
+        <h1 class="italian-hero-title">Authentic Italian Cuisine</h1>
+        <p class="italian-hero-subtitle">Experience the rich flavors of Italy - from traditional pasta to wood-fired
+          pizza</p>
+
+        <div class="italian-hero-features">
+          <div class="hero-feature">
+            <span class="hero-feature-icon">🍕</span>
+            <span>Wood-Fired Pizza</span>
+          </div>
+          <div class="hero-feature">
+            <span class="hero-feature-icon">🍝</span>
+            <span>Fresh Pasta Daily</span>
+          </div>
+          <div class="hero-feature">
+            <span class="hero-feature-icon">🍷</span>
+            <span>Wine Selection</span>
+          </div>
+          <div class="hero-feature">
+            <span class="hero-feature-icon">⭐</span>
+            <span>4.8+ Rating</span>
+          </div>
+        </div>
+
+        <div class="italian-hero-cta">
+          <a href="#menu" class="hero-btn-primary">
+            <span>🍽️</span>
+            <span>Explore Menu</span>
+          </a>
+          <a href="#specials" class="hero-btn-secondary">
+            <span>🔥</span>
+            <span>Today's Specials</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search Status Section -->
+    <div class="search-status"></div>
+
+    <!-- Italian Appetizers Section -->
+    <section class="italian-appetizers-section" id="appetizers">
+      <div class="appetizers-container">
+        <div class="section-header">
+          <h2 class="section-title">🥖 Italian Appetizers</h2>
+          <p class="section-subtitle">Traditional starters to begin your Italian feast</p>
+        </div>
+        <div class="appetizers-grid" id="appetizersGrid">
+          <!-- Appetizers will be dynamically loaded here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Popular Dishes Section -->
+    <section class="popular-dishes-section" id="popular">
+      <div class="popular-container">
+        <div class="section-header">
+          <h2 class="section-title">🔥 Popular Italian Dishes</h2>
+          <p class="section-subtitle">Most loved and ordered Italian specialties</p>
+        </div>
+        <div class="popular-grid" id="popularGrid">
+          <!-- Popular dishes will be dynamically loaded here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Italian Pizzas Section -->
+    <section class="italian-pizzas-section" id="pizzas">
+      <div class="pizzas-container">
+        <div class="section-header">
+          <h2 class="section-title">🍕 Authentic Italian Pizzas</h2>
+          <p class="section-subtitle">Wood-fired pizzas made with traditional recipes and fresh ingredients</p>
+        </div>
+
+        <div class="pizzas-grid" id="pizzasGrid">
+          <!-- Pizza items will be dynamically generated -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Italian Pasta Section -->
+    <section class="italian-pasta-section" id="pasta">
+      <div class="pasta-container">
+        <div class="section-header">
+          <h2 class="section-title">🍝 Traditional Italian Pasta</h2>
+          <p class="section-subtitle">Handcrafted pasta dishes with authentic Italian flavors and fresh ingredients</p>
+        </div>
+
+        <div class="pasta-grid" id="pastaGrid">
+          <!-- Pasta items will be dynamically generated -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Italian Risotto Section -->
+    <section class="italian-risotto-section" id="risotto">
+      <div class="risotto-container">
+        <div class="section-header">
+          <h2 class="section-title">🥘 Creamy Italian Risotto</h2>
+          <p class="section-subtitle">Traditional risotto dishes with premium ingredients and authentic Italian
+            techniques</p>
+        </div>
+
+        <div class="risotto-grid" id="risottoGrid">
+          <!-- Risotto items will be dynamically generated -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Italian Desserts Section -->
+    <section class="italian-desserts-section">
+      <div class="section-header">
+        <h2 class="section-title">🍰 Italian Desserts</h2>
+        <p class="section-subtitle">Sweet endings from Italy</p>
+      </div>
+      <div class="desserts-grid" id="dessertsGrid">
+        <!-- Desserts will be dynamically loaded here -->
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Panel toggle functionality
+    function togglePanel() {
+      const panel = document.getElementById('leftPanel');
+      panel.classList.toggle('open');
+    }
+
+    // Dropdown functionality
+    document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+      toggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Close all other dropdowns
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+          if (menu !== toggle.nextElementSibling) {
+            menu.style.opacity = '0';
+            menu.style.visibility = 'hidden';
+            menu.style.transform = 'translateY(-10px)';
+          }
+        });
+
+        // Toggle current dropdown
+        const menu = toggle.nextElementSibling;
+        if (menu.style.opacity === '1') {
+          menu.style.opacity = '0';
+          menu.style.visibility = 'hidden';
+          menu.style.transform = 'translateY(-10px)';
+        } else {
+          menu.style.opacity = '1';
+          menu.style.visibility = 'visible';
+          menu.style.transform = 'translateY(0)';
+        }
+      });
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.nav-dropdown')) {
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+          menu.style.opacity = '0';
+          menu.style.visibility = 'hidden';
+          menu.style.transform = 'translateY(-10px)';
+        });
+      }
+    });
+
+    // Category selection
+    document.querySelectorAll('.category-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        // Update active state
+        document.querySelectorAll('.category-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+
+        const category = item.dataset.category;
+        console.log(`Selected category: ${category}`);
+        // Implement category filtering logic here
+      });
+    });
+
+    // Panel functionality
+    function applyPriceFilter() {
+      const minPrice = document.querySelector('.price-input[placeholder="Min"]').value;
+      const maxPrice = document.querySelector('.price-input[placeholder="Max"]').value;
+      console.log(`Price filter: $${minPrice} - $${maxPrice}`);
+      // Implement price filtering logic here
+    }
+
+    function showPopular() {
+      console.log('Showing popular dishes');
+      // Implement popular dishes logic here
+    }
+
+    function showSpecials() {
+      console.log('Showing today\'s specials');
+      // Implement specials logic here
+    }
+
+    function showVegetarian() {
+      console.log('Showing vegetarian options');
+      // Implement vegetarian filtering logic here
+    }
+
+    function clearFilters() {
+      console.log('Clearing all filters');
+      // Reset all filters
+      document.querySelectorAll('.category-item').forEach(i => i.classList.remove('active'));
+      document.querySelector('.category-item[data-category="all"]').classList.add('active');
+      document.querySelector('.price-input[placeholder="Min"]').value = '5';
+      document.querySelector('.price-input[placeholder="Max"]').value = '30';
+    }
+
+    // Close panel when clicking outside on mobile
+    document.addEventListener('click', (e) => {
+      const panel = document.getElementById('leftPanel');
+      const toggle = document.querySelector('.panel-toggle');
+
+      if (window.innerWidth <= 1024 &&
+        !panel.contains(e.target) &&
+        !toggle.contains(e.target) &&
+        panel.classList.contains('open')) {
+        panel.classList.remove('open');
+      }
+    });
+
+    // Appetizers data and functionality
+    const appetizersData = [
+      {
+        id: 401,
+        name: "Bruschetta Classica",
+        description: "Toasted bread with tomatoes, garlic, basil, and extra virgin olive oil",
+        price: 8.99,
+        rating: 4.7,
+        badge: "Popular",
+        image: "https://tse1.mm.bing.net/th/id/OIP.eMzoN2pXeuzrVFsoznHkNgHaE7?rs=1&pid=ImgDetMain&o=7&rm=3"
+      },
+      {
+        id: 402,
+        name: "Antipasto Misto",
+        description: "Selection of Italian cured meats, cheeses, olives, and marinated vegetables",
+        price: 12.99,
+        rating: 4.8,
+        badge: "Bestseller",
+        image: "https://tse1.mm.bing.net/th/id/OIP.4fm-bcdh60PrMaSAYBVQlAHaHa?rs=1&pid=ImgDetMain&o=7&rm=33"
+      },
+      {
+        id: 403,
+        name: "Arancini Siciliani",
+        description: "Crispy fried rice balls with saffron, peas, and mozzarella",
+        price: 9.49,
+        rating: 4.6,
+        badge: null,
+        image: "https://tse1.explicit.bing.net/th/id/OIP.6zHFDV7xgGOgGzisroOBWQHaFs?rs=1&pid=ImgDetMain&o=7&rm=3"
+      },
+      {
+        id: 404,
+        name: "Carpaccio di Manzo",
+        description: "Thinly sliced raw beef with arugula, parmesan, and lemon dressing",
+        price: 14.99,
+        rating: 4.9,
+        badge: "Premium",
+        image: "https://tse4.mm.bing.net/th/id/OIP.WCYXhD_LdYd95DwHs-9tjwHaE7?rs=1&pid=ImgDetMain&o=7&rm=3"
+      },
+      {
+        id: 405,
+        name: "Focaccia con Rosmarino",
+        description: "Traditional flatbread with rosemary, sea salt, and olive oil",
+        price: 7.99,
+        rating: 4.5,
+        badge: "Vegetarian",
+        image: "https://tse4.mm.bing.net/th/id/OIP.ZA339BpS0FVxwDYv-lmWVgHaE8?rs=1&pid=ImgDetMain&o=7&rm=3"
+      }
+    ];
+
+    // Popular dishes data and functionality
+    const popularData = [
+      {
+        id: 501,
+        name: "Margherita Supreme",
+        description: "Enhanced classic with fresh mozzarella, basil, tomatoes, and premium olive oil",
+        price: 15.99,
+        rating: 4.9,
+        badge: "Most Popular",
+        image: "https://tse1.explicit.bing.net/th/id/OIP.qJqbt-sJ3UHs3S7MjGIpTwAAAA?rs=1&pid=ImgDetMain&o=7&rm=3"
+      },
+      {
+        id: 502,
+        name: "Spaghetti Carbonara Deluxe",
+        description: "Premium version with guanciale, pecorino, egg yolk, and black truffle",
+        price: 18.99,
+        rating: 4.8,
+        badge: "Chef's Choice",
+        image: "https://cdn.chefclub.tools/uploads/community/attachments/images/bf3059a2-5cf8-40bb-b543-c3bcde0cd87c_WF58huY.jpg"
+      },
+      {
+        id: 503,
+        name: "Truffle Mushroom Risotto",
+        description: "Creamy arborio rice with wild mushrooms, truffle oil, and parmesan shavings",
+        price: 22.99,
+        rating: 4.9,
+        badge: "Premium",
+        image: "https://tse1.mm.bing.net/th/id/OIP.eA0Abna8yFJqNYIjXm39CAHaLH?rs=1&pid=ImgDetMain&o=7&rm=3"
+      },
+      {
+        id: 504,
+        name: "Seafood Pasta Fresca",
+        description: "Fresh linguine with shrimp, scallops, garlic, white wine, and parsley",
+        price: 19.99,
+        rating: 4.7,
+        badge: "Seafood Special",
+        image: "https://i.pinimg.com/originals/4e/e9/9c/4ee99cdf127f3e0c4183702fde4b778a.jpg"
+      },
+      {
+        id: 505,
+        name: "Tiramisu Classico",
+        description: "Traditional layered dessert with espresso-soaked ladyfingers and mascarpone",
+        price: 9.99,
+        rating: 4.8,
+        badge: "Best Dessert",
+        image: "https://tse3.mm.bing.net/th/id/OIP._-BkI9ERylBcWvvExgLL6gHaFw?rs=1&pi"
+      },
+      {
+        id: 506,
+        name: "Osso Buco Milanese",
+        description: "Braised veal shanks with gremolata, tomatoes, and saffron risotto",
+        price: 24.99,
+        rating: 4.9,
+        badge: "Signature",
+        image: "https://tse1.mm.bing.net/th/id/OIP.Tl7-Sj3qFZ3OACf00Ot6cgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"
+      }
+    ];
+
+    // Pizza data and functionality
+    const pizzaData = [
+      {
+        id: 1,
+        name: "Margherita Classic",
+        description: "Fresh mozzarella, tomatoes, basil, and extra virgin olive oil",
+        price: 12.99,
+        rating: 4.8,
+        badge: "Popular",
+        image: "https://tse3.mm.bing.net/th/id/OIP.VUCfq4X_8rvvCIuwGtiAnQHaHa?rs=1&pid=ImgDetMain&o=7&rm=30"
+      },
+      {
+        id: 2,
+        name: "Pepperoni Feast",
+        description: "Double pepperoni, mozzarella, tomato sauce, and herbs",
+        price: 14.99,
+        rating: 4.9,
+        badge: "Bestseller",
+        image: "https://img.freepik.com/premium-photo/pepperoni-pizza-feast_1170794-12028.jpg"
+      },
+      {
+        id: 3,
+        name: "Truffle Mushroom",
+        description: "Wild mushrooms, truffle oil, mozzarella, and arugula",
+        price: 16.99,
+        rating: 4.7,
+        badge: "Chef's Special",
+        image: "https://tse4.mm.bing.net/th/id/OIP.fZ1ZGyhb1xldwvQ7YHtoEgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"
+      },
+      {
+        id: 4,
+        name: "Quattro Stagioni",
+        description: "Four seasons: artichokes, mushrooms, ham, olives",
+        price: 15.99,
+        rating: 4.6,
+        badge: null,
+        image: "https://tse2.mm.bing.net/th/id/OIP.CfxCwgdmIz9eFLP9LdTgtAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"
+      },
+      {
+        id: 5,
+        name: "Seafood Deluxe",
+        description: "Fresh shrimp, calamari, mussels, garlic, and tomato",
+        price: 18.99,
+        rating: 4.8,
+        badge: "Premium",
+        image: "https://tse3.mm.bing.net/th/id/OIP.5xhdsCfh0yE3aNlMTzbwDAHaFE?w=1280&h=877&rs=1&pid=ImgDetMain&o=7&rm=3"
+      },
+      {
+        id: 6,
+        name: "Veggie Garden",
+        description: "Bell peppers, zucchini, eggplant, tomatoes, and olives",
+        price: 13.99,
+        rating: 4.5,
+        badge: "Vegetarian",
+        image: "https://th.bing.com/th/id/R.5f19e876f7d6bc81d6872efa8b50084c?rik=aADrqQ9YeOnLvQ&riu=http%3a%2f%2fimages.bigoven.com%2fimage%2fupload%2fv1490813681%2fvery-veggie-pizza-25c0c5.jpg&ehk=9UBBEWBuJc7TFKUtdGLaz28s1%2bDGOuT7Qp4YJC3HJYU%3d&risl=1&pid=ImgRaw&r=0"
+      }
+    ];
+
+    // Pasta data and functionality
+    const pastaData = [
+      {
+        id: 101,
+        name: "Spaghetti Carbonara",
+        description: "Classic Roman pasta with eggs, guanciale, pecorino cheese, and black pepper",
+        price: 15.99,
+        rating: 4.9,
+        badge: "Bestseller",
+        image: "https://tse1.mm.bing.net/th/id/OIP.cNnSya9l6npQSoNZrfK3TQHaH2?rs=1&pid=ImgDetMain&o=7&rm=3"
+      },
+      {
+        id: 102,
+        name: "Fettuccine Alfredo",
+        description: "Creamy parmesan sauce with butter and fresh herbs over fettuccine pasta",
+        price: 14.99,
+        rating: 4.7,
+        badge: "Popular",
+        image: "https://tse1.mm.bing.net/th/id/OIP.z9ChSVC_HzFo6LYlc7srHAHaHT?rs=1&pid=ImgDetMain&o=7&rm=3"
+      },
+      {
+        id: 103,
+        name: "Penne Arrabbiata",
+        description: "Spicy tomato sauce with garlic, chili, and fresh basil over penne pasta",
+        price: 13.99,
+        rating: 4.6,
+        badge: "Spicy",
+        image: "https://tse4.mm.bing.net/th/id/OIP.b6P_Z4hjO6szI9CME2hrqAHaJf?rs=1&pid=ImgDetMain&o=7&rm=3"
+      },
+      {
+        id: 104,
+        name: "Lasagna Bolognese",
+        description: "Layers of pasta with rich meat sauce, béchamel, and melted cheese",
+        price: 16.99,
+        rating: 4.8,
+        badge: "Chef's Special",
+        image: "https://th.bing.com/th/id/R.412d5fa4683983597a300e76ee0620ad?rik=Rx6wOtQ8aRkyuw&pid=ImgRaw&r=0"
+      },
+      {
+        id: 105,
+        name: "Ravioli Ricotta",
+        description: "Handmade pasta pockets filled with creamy ricotta and spinach",
+        price: 15.49,
+        rating: 4.5,
+        badge: "Vegetarian",
+        image: "https://th.bing.com/th/id/R.9191b27b7ce4f5ed6ecc7cb990c6a17c?rik=aW%2fUWGz31DAIKA&riu=http%3a%2f%2f2.bp.blogspot.com%2f-X0BYNmEX_nQ%2fTchB4oABh2I%2fAAAAAAAAEjU%2ft_PDCyzG0_c%2fs1600%2fIMG_8993.JPG&ehk=ehGMoUIAS7G4qu0vnrIMo1%2f53lTXGDrm1O2SMi7rsyY%3d&risl=&pid=ImgRaw&r=0"
+      },
+      {
+        id: 106,
+        name: "Gnocchi Pesto",
+        description: "Soft potato dumplings with fresh basil pesto and parmesan cheese",
+        price: 14.49,
+        rating: 4.7,
+        badge: null,
+        image: "https://tse2.mm.bing.net/th/id/OIP.Zd0FMd3YvKMhl17ph42N2AHaLH?rs=1&pid=ImgDetMain&o=7&rm=3"
+      }
+    ];
+
+    // Risotto data and functionality
+    const risottoData = [
+      {
+        id: 201,
+        name: "Risotto Milanese",
+        description: "Classic Milanese risotto with saffron, parmesan, and white wine",
+        price: 17.99,
+        rating: 4.8,
+        badge: "Signature",
+        image: "https://tse4.mm.bing.net/th/id/OIP.v-XHgjfINftZgLNXu4cqVQHaE7?rs=1&pid=ImgDetMain&o=7&rm=3"
+      },
+      {
+        id: 202,
+        name: "Mushroom Risotto",
+        description: "Creamy risotto with wild mushrooms, thyme, and truffle oil",
+        price: 16.99,
+        rating: 4.7,
+        badge: "Popular",
+        image: "https://tse3.mm.bing.net/th/id/OIP.NpermYX8WpT1mrrRGrDbJAHaHa?w=1024&h=1024&rs=1&pid=ImgDetMain&o=7&rm=3"
+      },
+      {
+        id: 203,
+        name: "Seafood Risotto",
+        description: "Risotto with fresh shrimp, calamari, mussels, and white wine",
+        price: 19.99,
+        rating: 4.9,
+        badge: "Premium",
+        image: "https://tse4.mm.bing.net/th/id/OIP.oi6G1JPUFGfCljnqkGyoyAHaE8?rs=1&pid=ImgDetMain&o=7&rm=3"
+      },
+      {
+        id: 204,
+        name: "Butternut Squash Risotto",
+        description: "Seasonal risotto with roasted butternut squash, sage, and amaretto",
+        price: 15.99,
+        rating: 4.6,
+        badge: "Vegetarian",
+        image: "https://tse1.mm.bing.net/th/id/OIP.3bdwuXdV4x4Cgr5fok_o5gHaHa?w=500&h=500&rs=1&pid=ImgDetMain&o=7&rm=3"
+      }
+    ];
+
+    // Desserts data and functionality
+    const dessertsData = [
+      {
+        id: 301,
+        name: "Tiramisu",
+        description: "Classic Italian dessert with coffee-soaked ladyfingers, mascarpone, and cocoa",
+        price: 8.99,
+        rating: 4.9,
+        badge: "Bestseller",
+        image: "https://th.bing.com/th/id/R.f3e848071ba4d9a47996663b087377f3?rik=Ni5E%2bc4P4TfI5A&pid=ImgRaw&r=0"
+      },
+      {
+        id: 302,
+        name: "Cannoli Siciliani",
+        description: "Crispy shells filled with sweet ricotta, chocolate chips, and candied fruit",
+        price: 7.99,
+        rating: 4.7,
+        badge: "Popular",
+        image: "https://th.bing.com/th/id/R.62433f6fe3650c617f568aa994d6c105?rik=sVpENBvQP6vz6Q&pid=ImgRaw&r=0"
+      },
+      {
+        id: 303,
+        name: "Panna Cotta",
+        description: "Silky vanilla custard with fresh berry compote and mint",
+        price: 6.99,
+        rating: 4.6,
+        badge: null,
+        image: "https://insanelygoodrecipes.com/wp-content/uploads/2024/11/Panna-Cotta-Featured.jpg"
+      },
+      {
+        id: 304,
+        name: "Gelato Trio",
+        description: "Three scoops of artisanal gelato: pistachio, stracciatella, and hazelnut",
+        price: 9.99,
+        rating: 4.8,
+        badge: "Premium",
+        image: "https://tse1.mm.bing.net/th/id/OIP.8LeAWZHr6lQ0YhE8zSq25AHaGH?rs=1&pid=ImgDetMain&o=7&rm=3"
+      },
+      {
+        id: 305,
+        name: "Torta della Nonna",
+        description: "Grandma's cake with custard cream, pine nuts, and lemon zest",
+        price: 8.49,
+        rating: 4.7,
+        badge: "Chef's Special",
+        image: "https://tse1.mm.bing.net/th/id/OIP.tL9Xi442OGjtz950WwTWvgHaE8?rs=1&pid=ImgDetMain&o=7&rm=3"
+      },
+      {
+        id: 306,
+        name: "Affogato",
+        description: "Vanilla gelato drowned in hot espresso with a shot of liqueur",
+        price: 7.49,
+        rating: 4.5,
+        badge: null,
+        image: "https://tse3.mm.bing.net/th/id/OIP.CRIO_suEbQ5gUg49hvfRlwHaE8?rs=1&pid=ImgDetMain&o=7&rm=3"
+      }
+    ];
+
+    // Cart and Wishlist state - Using shared cart system
+    let wishlistItems = [];
+    let sharedCart;
+
+    // Initialize popular dishes section
+    function initializePopular() {
+      renderPopular();
+      updateCartCount();
+      updateWishlistCount();
+    }
+
+    // Initialize appetizers section
+    function initializeAppetizers() {
+      renderAppetizers();
+      updateCartCount();
+      updateWishlistCount();
+    }
+
+    // Initialize pizzas section
+    function initializePizzas() {
+      renderPizzas();
+      updateCartCount();
+      updateWishlistCount();
+    }
+
+    // Initialize pasta section
+    function initializePasta() {
+      renderPasta();
+      updateCartCount();
+      updateWishlistCount();
+    }
+
+    // Initialize risotto section
+    function initializeRisotto() {
+      renderRisotto();
+      updateCartCount();
+      updateWishlistCount();
+    }
+
+    // Initialize desserts section
+    function initializeDesserts() {
+      renderDesserts();
+      updateCartCount();
+      updateWishlistCount();
+    }
+
+    // Render popular dishes cards
+    function renderPopular() {
+      const popularGrid = document.getElementById('popularGrid');
+      if (!popularGrid) return;
+
+      popularGrid.innerHTML = popularData.map(popular => `
+        <div class="popular-card" data-popular-id="${popular.id}">
+          <div style="position: relative;">
+            <img src="${popular.image}" alt="${popular.name}" class="popular-image">
+            ${popular.badge ? `<span class="popular-badge">${popular.badge}</span>` : ''}
+          </div>
+          <div class="popular-content">
+            <h3 class="popular-name">${popular.name}</h3>
+            <p class="popular-description">${popular.description}</p>
+            <div class="popular-meta">
+              <div class="popular-rating">⭐ ${popular.rating}</div>
+              <div class="popular-price">$${popular.price.toFixed(2)}</div>
+            </div>
+            <div class="popular-actions">
+              <button class="popular-btn add-to-cart-popular" onclick="addToCartPopular(${popular.id})">
+                <span>🛒</span>
+                <span>Add to Cart</span>
+              </button>
+              <button class="popular-btn wishlist-btn ${wishlistItems.includes(popular.id) ? 'active' : ''}" 
+                      onclick="toggleWishlistPopular(${popular.id})" id="wishlist-popular-${popular.id}">
+                <span>❤️</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Add popular dish to cart
+    function addToCartPopular(popularId) {
+      const popular = popularData.find(p => p.id === popularId);
+      if (!popular) return;
+
+      // Use shared cart system
+      if (window.sharedCart) {
+        window.sharedCart.addToCart(popular);
+      }
+    }
+
+    // Toggle popular dish wishlist
+    function toggleWishlistPopular(popularId) {
+      const popular = popularData.find(p => p.id === popularId);
+      if (!popular) return;
+
+      const wishlistBtn = document.getElementById(`wishlist-popular-${popularId}`);
+      const index = wishlistItems.indexOf(popularId);
+
+      if (index > -1) {
+        wishlistItems.splice(index, 1);
+        wishlistBtn.classList.remove('active');
+        showToast(`💔 ${popular.name} removed from wishlist`);
+      } else {
+        wishlistItems.push(popularId);
+        wishlistBtn.classList.add('active');
+        showToast(`❤️ ${popular.name} added to wishlist!`);
+      }
+
+      updateWishlistCount();
+    }
+
+    // Render appetizers cards
+    function renderAppetizers() {
+      const appetizersGrid = document.getElementById('appetizersGrid');
+      if (!appetizersGrid) return;
+
+      appetizersGrid.innerHTML = appetizersData.map(appetizer => `
+        <div class="appetizer-card" data-appetizer-id="${appetizer.id}">
+          <div style="position: relative;">
+            <img src="${appetizer.image}" alt="${appetizer.name}" class="appetizer-image">
+            ${appetizer.badge ? `<span class="appetizer-badge">${appetizer.badge}</span>` : ''}
+          </div>
+          <div class="appetizer-content">
+            <h3 class="appetizer-name">${appetizer.name}</h3>
+            <p class="appetizer-description">${appetizer.description}</p>
+            <div class="appetizer-meta">
+              <div class="appetizer-rating">⭐ ${appetizer.rating}</div>
+              <div class="appetizer-price">$${appetizer.price.toFixed(2)}</div>
+            </div>
+            <div class="appetizer-actions">
+              <button class="appetizer-btn add-to-cart-appetizer" onclick="addToCartAppetizer(${appetizer.id})">
+                <span>🛒</span>
+                <span>Add to Cart</span>
+              </button>
+              <button class="appetizer-btn wishlist-btn ${wishlistItems.includes(appetizer.id) ? 'active' : ''}" 
+                      onclick="toggleWishlistAppetizer(${appetizer.id})" id="wishlist-appetizer-${appetizer.id}">
+                <span>❤️</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Add appetizer to cart
+    function addToCartAppetizer(appetizerId) {
+      const appetizer = appetizersData.find(a => a.id === appetizerId);
+      if (!appetizer) return;
+
+      // Use shared cart system
+      if (window.sharedCart) {
+        window.sharedCart.addToCart(appetizer);
+      }
+    }
+
+    // Toggle appetizer wishlist
+    function toggleWishlistAppetizer(appetizerId) {
+      const appetizer = appetizersData.find(a => a.id === appetizerId);
+      if (!appetizer) return;
+
+      const wishlistBtn = document.getElementById(`wishlist-appetizer-${appetizerId}`);
+      const index = wishlistItems.indexOf(appetizerId);
+
+      if (index > -1) {
+        wishlistItems.splice(index, 1);
+        wishlistBtn.classList.remove('active');
+        showToast(`💔 ${appetizer.name} removed from wishlist`);
+      } else {
+        wishlistItems.push(appetizerId);
+        wishlistBtn.classList.add('active');
+        showToast(`❤️ ${appetizer.name} added to wishlist!`);
+      }
+
+      updateWishlistCount();
+    }
+
+    // Render pizza cards
+    function renderPizzas() {
+      const pizzasGrid = document.getElementById('pizzasGrid');
+      if (!pizzasGrid) return;
+
+      pizzasGrid.innerHTML = pizzaData.map(pizza => `
+        <div class="pizza-card" data-pizza-id="${pizza.id}">
+          <div style="position: relative;">
+            <img src="${pizza.image}" alt="${pizza.name}" class="pizza-image">
+            ${pizza.badge ? `<span class="pizza-badge">${pizza.badge}</span>` : ''}
+          </div>
+          <div class="pizza-content">
+            <h3 class="pizza-name">${pizza.name}</h3>
+            <p class="pizza-description">${pizza.description}</p>
+            <div class="pizza-meta">
+              <div class="pizza-rating">⭐ ${pizza.rating}</div>
+              <div class="pizza-price">$${pizza.price.toFixed(2)}</div>
+            </div>
+            <div class="pizza-actions">
+              <button class="pizza-btn add-to-cart-pizza" onclick="addToCartPizza(${pizza.id})">
+                <span>🛒</span>
+                <span>Add to Cart</span>
+              </button>
+              <button class="pizza-btn wishlist-btn ${wishlistItems.includes(pizza.id) ? 'active' : ''}" 
+                      onclick="toggleWishlist(${pizza.id})" id="wishlist-${pizza.id}">
+                <span>❤️</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Add pizza to cart
+    function addToCartPizza(pizzaId) {
+      const pizza = pizzaData.find(p => p.id === pizzaId);
+      if (!pizza) return;
+
+      // Use shared cart system
+      if (window.sharedCart) {
+        window.sharedCart.addToCart(pizza);
+      }
+    }
+
+    // Toggle wishlist
+    function toggleWishlist(pizzaId) {
+      const pizza = pizzaData.find(p => p.id === pizzaId);
+      if (!pizza) return;
+
+      const wishlistBtn = document.getElementById(`wishlist-${pizzaId}`);
+      const index = wishlistItems.indexOf(pizzaId);
+
+      if (index > -1) {
+        wishlistItems.splice(index, 1);
+        wishlistBtn.classList.remove('active');
+        showToast(`💔 ${pizza.name} removed from wishlist`);
+      } else {
+        wishlistItems.push(pizzaId);
+        wishlistBtn.classList.add('active');
+        showToast(`❤️ ${pizza.name} added to wishlist!`);
+      }
+
+      updateWishlistCount();
+    }
+
+    // Render pasta cards
+    function renderPasta() {
+      const pastaGrid = document.getElementById('pastaGrid');
+      if (!pastaGrid) return;
+
+      pastaGrid.innerHTML = pastaData.map(pasta => `
+        <div class="pasta-card" data-pasta-id="${pasta.id}">
+          <div style="position: relative;">
+            <img src="${pasta.image}" alt="${pasta.name}" class="pasta-image">
+            ${pasta.badge ? `<span class="pasta-badge">${pasta.badge}</span>` : ''}
+          </div>
+          <div class="pasta-content">
+            <h3 class="pasta-name">${pasta.name}</h3>
+            <p class="pasta-description">${pasta.description}</p>
+            <div class="pasta-meta">
+              <div class="pasta-rating">⭐ ${pasta.rating}</div>
+              <div class="pasta-price">$${pasta.price.toFixed(2)}</div>
+            </div>
+            <div class="pasta-actions">
+              <button class="pasta-btn add-to-cart-pasta" onclick="addToCartPasta(${pasta.id})">
+                <span>🛒</span>
+                <span>Add to Cart</span>
+              </button>
+              <button class="pasta-btn wishlist-btn ${wishlistItems.includes(pasta.id) ? 'active' : ''}" 
+                      onclick="toggleWishlistPasta(${pasta.id})" id="wishlist-pasta-${pasta.id}">
+                <span>❤️</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Add pasta to cart
+    function addToCartPasta(pastaId) {
+      const pasta = pastaData.find(p => p.id === pastaId);
+      if (!pasta) return;
+
+      // Use shared cart system
+      if (window.sharedCart) {
+        window.sharedCart.addToCart(pasta);
+      }
+    }
+
+    // Toggle pasta wishlist
+    function toggleWishlistPasta(pastaId) {
+      const pasta = pastaData.find(p => p.id === pastaId);
+      if (!pasta) return;
+
+      const wishlistBtn = document.getElementById(`wishlist-pasta-${pastaId}`);
+      const index = wishlistItems.indexOf(pastaId);
+
+      if (index > -1) {
+        wishlistItems.splice(index, 1);
+        wishlistBtn.classList.remove('active');
+        showToast(`💔 ${pasta.name} removed from wishlist`);
+      } else {
+        wishlistItems.push(pastaId);
+        wishlistBtn.classList.add('active');
+        showToast(`❤️ ${pasta.name} added to wishlist!`);
+      }
+
+      updateWishlistCount();
+    }
+
+    // Render risotto cards
+    function renderRisotto() {
+      const risottoGrid = document.getElementById('risottoGrid');
+      if (!risottoGrid) return;
+
+      risottoGrid.innerHTML = risottoData.map(risotto => `
+        <div class="risotto-card" data-risotto-id="${risotto.id}">
+          <div style="position: relative;">
+            <img src="${risotto.image}" alt="${risotto.name}" class="risotto-image">
+            ${risotto.badge ? `<span class="risotto-badge">${risotto.badge}</span>` : ''}
+          </div>
+          <div class="risotto-content">
+            <h3 class="risotto-name">${risotto.name}</h3>
+            <p class="risotto-description">${risotto.description}</p>
+            <div class="risotto-meta">
+              <div class="risotto-rating">⭐ ${risotto.rating}</div>
+              <div class="risotto-price">$${risotto.price.toFixed(2)}</div>
+            </div>
+            <div class="risotto-actions">
+              <button class="risotto-btn add-to-cart-risotto" onclick="addToCartRisotto(${risotto.id})">
+                <span>🛒</span>
+                <span>Add to Cart</span>
+              </button>
+              <button class="risotto-btn wishlist-btn ${wishlistItems.includes(risotto.id) ? 'active' : ''}" 
+                      onclick="toggleWishlistRisotto(${risotto.id})" id="wishlist-risotto-${risotto.id}">
+                <span>❤️</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Add risotto to cart
+    function addToCartRisotto(risottoId) {
+      const risotto = risottoData.find(r => r.id === risottoId);
+      if (!risotto) return;
+
+      // Use shared cart system
+      if (window.sharedCart) {
+        window.sharedCart.addToCart(risotto);
+      }
+    }
+
+    // Toggle risotto wishlist
+    function toggleWishlistRisotto(risottoId) {
+      const risotto = risottoData.find(r => r.id === risottoId);
+      if (!risotto) return;
+
+      const wishlistBtn = document.getElementById(`wishlist-risotto-${risottoId}`);
+      const index = wishlistItems.indexOf(risottoId);
+
+      if (index > -1) {
+        wishlistItems.splice(index, 1);
+        wishlistBtn.classList.remove('active');
+        showToast(`💔 ${risotto.name} removed from wishlist`);
+      } else {
+        wishlistItems.push(risottoId);
+        wishlistBtn.classList.add('active');
+        showToast(`❤️ ${risotto.name} added to wishlist!`);
+      }
+
+      updateWishlistCount();
+    }
+
+    // Render desserts cards
+    function renderDesserts() {
+      const dessertsGrid = document.getElementById('dessertsGrid');
+      if (!dessertsGrid) return;
+
+      dessertsGrid.innerHTML = dessertsData.map(dessert => `
+        <div class="dessert-card" data-dessert-id="${dessert.id}">
+          <div style="position: relative;">
+            <img src="${dessert.image}" alt="${dessert.name}" class="dessert-image">
+            ${dessert.badge ? `<span class="dessert-badge">${dessert.badge}</span>` : ''}
+          </div>
+          <div class="dessert-content">
+            <h3 class="dessert-name">${dessert.name}</h3>
+            <p class="dessert-description">${dessert.description}</p>
+            <div class="dessert-meta">
+              <div class="dessert-rating">⭐ ${dessert.rating}</div>
+              <div class="dessert-price">$${dessert.price.toFixed(2)}</div>
+            </div>
+            <div class="dessert-actions">
+              <button class="dessert-btn add-to-cart-dessert" onclick="addToCartDessert(${dessert.id})">
+                <span>🛒</span>
+                <span>Add to Cart</span>
+              </button>
+              <button class="dessert-btn wishlist-btn ${wishlistItems.includes(dessert.id) ? 'active' : ''}" 
+                      onclick="toggleWishlistDessert(${dessert.id})" id="wishlist-dessert-${dessert.id}">
+                <span>❤️</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Add dessert to cart
+    function addToCartDessert(dessertId) {
+      const dessert = dessertsData.find(d => d.id === dessertId);
+      if (!dessert) return;
+
+      // Use shared cart system
+      if (window.sharedCart) {
+        window.sharedCart.addToCart(dessert);
+      }
+    }
+
+    // Toggle desserts wishlist
+    function toggleWishlistDessert(dessertId) {
+      const dessert = dessertsData.find(d => d.id === dessertId);
+      if (!dessert) return;
+
+      const wishlistBtn = document.getElementById(`wishlist-dessert-${dessertId}`);
+      const index = wishlistItems.indexOf(dessertId);
+
+      if (index > -1) {
+        wishlistItems.splice(index, 1);
+        wishlistBtn.classList.remove('active');
+        showToast(`💔 ${dessert.name} removed from wishlist`);
+      } else {
+        wishlistItems.push(dessertId);
+        wishlistBtn.classList.add('active');
+        showToast(`❤️ ${dessert.name} added to wishlist!`);
+      }
+
+      updateWishlistCount();
+    }
+
+    // Update cart count - Using shared cart system
+    function updateCartCount() {
+      if (window.sharedCart) {
+        window.sharedCart.updateCartCount();
+      }
+    }
+
+    // Update wishlist count (if you want to add a wishlist counter)
+    function updateWishlistCount() {
+      // You can add a wishlist counter in navigation if needed
+      console.log(`Wishlist items: ${wishlistItems.length}`);
+    }
+
+    // Show toast notification
+    function showToast(message) {
+      // Remove existing toast if any
+      const existingToast = document.querySelector('.toast');
+      if (existingToast) {
+        existingToast.remove();
+      }
+
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `
+        <span class="toast-icon">✨</span>
+        <span>${message}</span>
+      `;
+
+      document.body.appendChild(toast);
+
+      // Trigger animation
+      setTimeout(() => {
+        toast.classList.add('show');
+      }, 100);
+
+      // Remove after 3 seconds
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+          if (toast.parentNode) {
+            toast.parentNode.removeChild(toast);
+          }
+        }, 300);
+      }, 3000);
+    }
+
+    // Enhanced Search functionality (matching other pages)
+    const searchBtn = document.querySelector('.search-btn');
+    const searchInput = document.querySelector('.search-input');
+    const searchStatus = document.querySelector('.search-status');
+
+    // Italian food data for demonstration
+    const italianFoodData = [
+      { name: 'Margherita Pizza', category: 'Pizza', restaurant: 'Pizza Paradise', price: 12.99, rating: 4.8 },
+      { name: 'Spaghetti Carbonara', category: 'Pasta', restaurant: 'Pasta House', price: 14.99, rating: 4.7 },
+      { name: 'Risotto Milanese', category: 'Risotto', restaurant: 'Milano Bistro', price: 16.99, rating: 4.6 },
+      { name: 'Lasagna Bolognese', category: 'Pasta', restaurant: 'Nonna\'s Kitchen', price: 15.99, rating: 4.9 },
+      { name: 'Tiramisu', category: 'Dessert', restaurant: 'Dolce Vita', price: 7.99, rating: 4.8 },
+      { name: 'Fettuccine Alfredo', category: 'Pasta', restaurant: 'Alfredo\'s Place', price: 13.99, rating: 4.5 },
+      { name: 'Bruschetta', category: 'Appetizer', restaurant: 'Tuscan Grill', price: 8.99, rating: 4.4 },
+      { name: 'Osso Buco', category: 'Main Course', restaurant: 'Milano Bistro', price: 22.99, rating: 4.7 }
+    ];
+
+    function performSearch() {
+      const query = searchInput.value.trim().toLowerCase();
+
+      if (!query) {
+        searchStatus.innerHTML = `
+          <div class="search-prompt">
+            <div class="search-prompt-icon">🍝</div>
+            <h2>What Italian dish are you craving?</h2>
+            <p>Search for pizza, pasta, risotto, or your favorite Italian restaurants</p>
+          </div>
+        `;
+        return;
+      }
+
+      // Show loading state
+      searchStatus.innerHTML = `
+        <div class="loading">
+          <div class="loading-spinner">🔄</div>
+          <p>Searching Italian restaurants...</p>
+        </div>
+      `;
+
+      // Simulate API delay
+      setTimeout(() => {
+        // Filter Italian food results
+        const results = italianFoodData.filter(item =>
+          item.name.toLowerCase().includes(query) ||
+          item.category.toLowerCase().includes(query) ||
+          item.restaurant.toLowerCase().includes(query)
+        );
+
+        displayResults(results, query);
+      }, 300);
+    }
+
+    function displayResults(results, query) {
+      if (results.length === 0) {
+        searchStatus.innerHTML = `
+          <div class="no-results">
+            <div class="no-results-icon">🔍</div>
+            <h2>No Italian dishes found</h2>
+            <p>Try searching for pizza, pasta, carbonara, or other Italian favorites</p>
+            <button class="clear-search-btn" onclick="clearSearch()">Clear Search</button>
+          </div>
+        `;
+        return;
+      }
+
+      searchStatus.innerHTML = `
+        <div class="results-header">
+          <h2>Italian Search Results</h2>
+          <p>Found <strong>${results.length}</strong> ${results.length === 1 ? 'dish' : 'dishes'}${query ? ` for "${query}"` : ''}</p>
+        </div>
+        <div class="italian-results-grid">
+          ${results.map(item => `
+            <div class="italian-food-card">
+              <div class="italian-food-info">
+                <h3 class="italian-food-name">${item.name}</h3>
+                <p class="italian-food-restaurant">${item.restaurant}</p>
+                <div class="italian-food-meta">
+                  <span class="italian-food-category">${item.category}</span>
+                  <span class="italian-food-rating">⭐ ${item.rating}</span>
+                </div>
+                <div class="italian-food-footer">
+                  <span class="italian-food-price">$${item.price.toFixed(2)}</span>
+                  <button class="add-to-cart-btn" onclick="addToCart('${item.name}')">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function clearSearch() {
+      searchInput.value = '';
+      performSearch();
+    }
+
+    function addToCart(itemName) {
+      // Update cart count
+      const cartCount = document.querySelector('.cart-count');
+      const currentCount = parseInt(cartCount.textContent);
+      cartCount.textContent = currentCount + 1;
+
+      // Add animation
+      cartCount.style.transform = 'scale(1.3)';
+      setTimeout(() => {
+        cartCount.style.transform = 'scale(1)';
+      }, 200);
+
+      console.log(`Added ${itemName} to cart!`);
+    }
+
+    // Search button click event
+    searchBtn.addEventListener('click', performSearch);
+
+    // Enter key press event
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        performSearch();
+      }
+    });
+
+    // Real-time search (matching other pages)
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.trim();
+      if (query.length >= 2) {
+        performSearch();
+      } else if (query.length === 0) {
+        searchStatus.innerHTML = '';
+      }
+    });
+
+    // Add search suggestions functionality
+    searchInput.addEventListener('focus', () => {
+      showSearchSuggestions();
+    });
+
+    searchInput.addEventListener('blur', () => {
+      setTimeout(hideSearchSuggestions, 200);
+    });
+
+    function showSearchSuggestions() {
+      const italianSearches = [
+        'pizza', 'pasta', 'carbonara', 'lasagna', 'risotto',
+        'tiramisu', 'bruschetta', 'fettuccine', 'spaghetti', 'gnocchi'
+      ];
+
+      hideSearchSuggestions();
+
+      const suggestionsDiv = document.createElement('div');
+      suggestionsDiv.className = 'search-suggestions';
+
+      italianSearches.forEach(term => {
+        const suggestionItem = document.createElement('div');
+        suggestionItem.className = 'suggestion-item';
+        suggestionItem.textContent = term;
+        suggestionItem.addEventListener('click', () => {
+          searchInput.value = term;
+          performSearch();
+          hideSearchSuggestions();
+        });
+        suggestionsDiv.appendChild(suggestionItem);
+      });
+
+      const searchWrapper = document.querySelector('.search-wrapper');
+      if (searchWrapper) {
+        searchWrapper.appendChild(suggestionsDiv);
+      }
+    }
+
+    function hideSearchSuggestions() {
+      const existingSuggestions = document.querySelector('.search-suggestions');
+      if (existingSuggestions) {
+        existingSuggestions.remove();
+      }
+    }
+
+    // Shared Cart System using localStorage
+    class SharedCart {
+      constructor() {
+        this.storageKey = 'foodelicious_cart';
+        this.cartItems = this.loadCart();
+        this.init();
+      }
+
+      // Load cart from localStorage
+      loadCart() {
+        try {
+          const savedCart = localStorage.getItem(this.storageKey);
+          return savedCart ? JSON.parse(savedCart) : [];
+        } catch (error) {
+          console.error('Error loading cart:', error);
+          return [];
+        }
+      }
+
+      // Save cart to localStorage
+      saveCart() {
+        try {
+          localStorage.setItem(this.storageKey, JSON.stringify(this.cartItems));
+          // Dispatch custom event to notify other pages
+          window.dispatchEvent(new CustomEvent('cartUpdated', {
+            detail: { cartItems: this.cartItems }
+          }));
+        } catch (error) {
+          console.error('Error saving cart:', error);
+        }
+      }
+
+      // Add item to cart
+      addToCart(item) {
+        const existingItem = this.cartItems.find(cartItem => cartItem.id === item.id);
+
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          this.cartItems.push({
+            ...item,
+            quantity: 1,
+            timestamp: Date.now()
+          });
+        }
+
+        this.saveCart();
+        this.updateCartCount();
+        this.showNotification(`${item.name} added to cart! 🛒`);
+
+        // Add animation
+        const cartCount = document.querySelector('.cart-count');
+        if (cartCount) {
+          cartCount.style.transform = 'scale(1.3)';
+          setTimeout(() => {
+            cartCount.style.transform = 'scale(1)';
+          }, 200);
+        }
+      }
+
+      // Remove item from cart
+      removeFromCart(itemId) {
+        this.cartItems = this.cartItems.filter(item => item.id !== itemId);
+        this.saveCart();
+        this.updateCartCount();
+        this.showNotification('Item removed from cart');
+      }
+
+      // Update cart count display
+      updateCartCount() {
+        const cartCountElements = document.querySelectorAll('.cart-count');
+        const totalItems = this.cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
+        cartCountElements.forEach(element => {
+          element.textContent = totalItems;
+        });
+      }
+
+      // Calculate cart total
+      calculateTotal() {
+        return this.cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+      }
+
+      // Show notification
+      showNotification(message) {
+        // Create toast notification
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.innerHTML = `
+          <span class="toast-icon">🛒</span>
+          <span>${message}</span>
+        `;
+        toast.style.cssText = `
+          position: fixed;
+          top: 2rem;
+          right: 2rem;
+          background: var(--bg-card);
+          border: 2px solid var(--accent-orange);
+          border-radius: var(--radius-md);
+          padding: 1rem 1.5rem;
+          color: var(--text-primary);
+          font-weight: 600;
+          z-index: 10000;
+          transform: translateX(400px);
+          transition: transform 0.3s ease;
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          box-shadow: var(--shadow-lg);
+        `;
+
+        document.body.appendChild(toast);
+
+        // Show toast
+        setTimeout(() => {
+          toast.style.transform = 'translateX(0)';
+        }, 100);
+
+        // Hide toast after 3 seconds
+        setTimeout(() => {
+          toast.style.transform = 'translateX(400px)';
+          setTimeout(() => {
+            document.body.removeChild(toast);
+          }, 300);
+        }, 3000);
+      }
+
+      // Listen for cart updates from other pages
+      listenForCartUpdates() {
+        window.addEventListener('cartUpdated', (event) => {
+          this.cartItems = event.detail.cartItems;
+          this.updateCartCount();
+        });
+
+        // Listen for storage changes from other tabs
+        window.addEventListener('storage', (event) => {
+          if (event.key === this.storageKey) {
+            this.cartItems = JSON.parse(event.newValue || '[]');
+            this.updateCartCount();
+          }
+        });
+      }
+
+      // Initialize
+      init() {
+        this.updateCartCount();
+        this.listenForCartUpdates();
+
+        // Add click handler to cart button
+        const cartBtn = document.querySelector('.cart-btn');
+        if (cartBtn) {
+          cartBtn.addEventListener('click', function () {
+            if (sharedCart.cartItems.length === 0) {
+              sharedCart.showNotification('Your cart is empty! Add some items first.');
+            } else {
+              // Navigate to checkout page
+              window.location.href = 'CheckOut.html';
+            }
+          });
+        }
+      }
+    }
+
+    // Initialize all sections when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize shared cart system
+      if (typeof SharedCart !== 'undefined') {
+        sharedCart = new SharedCart();
+        window.sharedCart = sharedCart;
+      }
+
+      // Add click handler to cart button
+      const cartBtn = document.querySelector('.cart-btn');
+      if (cartBtn) {
+        cartBtn.addEventListener('click', function () {
+          if (sharedCart.cartItems.length === 0) {
+            sharedCart.showNotification('Your cart is empty! Add some items first.');
+          } else {
+            // Navigate to checkout page
+            window.location.href = 'CheckOut.html';
+          }
+        });
+      }
+
+      initializePopular();
+      initializeAppetizers();
+      initializePizzas();
+      initializePasta();
+      initializeRisotto();
+      initializeDesserts();
+    });
+
+    // Add Italian results grid styles
+    const italianStyles = `
+      <style>
+        .italian-results-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 1.5rem;
+          margin-top: 2rem;
+        }
+        
+        .italian-food-card {
+          background: var(--bg-card);
+          border: 2px solid var(--border-color);
+          border-radius: var(--radius-lg);
+          padding: 1.5rem;
+          transition: all 0.3s ease;
+        }
+        
+        .italian-food-card:hover {
+          transform: translateY(-4px);
+          border-color: var(--accent-orange);
+          box-shadow: var(--shadow-lg);
+        }
+        
+        .italian-food-name {
+          font-size: 1.25rem;
+          font-weight: 800;
+          color: var(--text-primary);
+          margin-bottom: 0.5rem;
+        }
+        
+        .italian-food-restaurant {
+          color: var(--text-secondary);
+          font-weight: 600;
+          margin-bottom: 0.75rem;
+        }
+        
+        .italian-food-meta {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1rem;
+        }
+        
+        .italian-food-category {
+          background: var(--accent-orange);
+          color: white;
+          padding: 0.25rem 0.75rem;
+          border-radius: var(--radius-sm);
+          font-size: 0.75rem;
+          font-weight: 700;
+        }
+        
+        .italian-food-rating {
+          color: var(--accent-yellow);
+          font-weight: 700;
+        }
+        
+        .italian-food-footer {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        
+        .italian-food-price {
+          font-size: 1.25rem;
+          font-weight: 900;
+          color: var(--accent-orange);
+        }
+        
+        .add-to-cart-btn {
+          padding: 0.5rem 1rem;
+          background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-light));
+          border: none;
+          border-radius: var(--radius-sm);
+          color: white;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+        
+        .add-to-cart-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: var(--shadow-glow);
+        }
+      </style>
+    `;
+
+    document.head.insertAdjacentHTML('beforeend', italianStyles);
+  </script>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-content">
+        <!-- Brand Column -->
+        <div class="footer-brand">
+          <a href="#" class="footer-logo">
+            <div class="footer-logo-icon">🍔</div>
+            <div class="footer-logo-text">
+              <div class="footer-logo-title">FooDelicious</div>
+              <div class="footer-logo-subtitle">Food Delivery</div>
+            </div>
+          </a>
+          <p class="footer-description">
+            Your trusted partner for delicious food delivery. We bring the best restaurants to your doorstep with fast,
+            reliable service and amazing flavors.
+          </p>
+          <div class="footer-social">
+            <a href="#" class="social-link" aria-label="Facebook">📘</a>
+            <a href="#" class="social-link" aria-label="Twitter">🐦</a>
+            <a href="#" class="social-link" aria-label="Instagram">📷</a>
+            <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
+          </div>
+        </div>
+
+        <!-- Quick Links Column -->
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <div class="footer-links">
+            <a href="index.html" class="footer-link">Home</a>
+            <a href="Restaurant.html" class="footer-link">Restaurants</a>
+            <a href="#offers" class="footer-link">Offers</a>
+            <a href="About.html" class="footer-link">About Us</a>
+            <a href="#contact" class="footer-link">Contact</a>
+          </div>
+        </div>
+
+        <!-- Services Column -->
+        <div class="footer-column">
+          <h3>Services</h3>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Food Delivery</a>
+            <a href="#" class="footer-link">Catering</a>
+            <a href="#" class="footer-link">Corporate Orders</a>
+            <a href="#" class="footer-link">Gift Cards</a>
+            <a href="#" class="footer-link">Loyalty Program</a>
+          </div>
+        </div>
+
+        <!-- Support Column -->
+        <div class="footer-column">
+          <h3>Support</h3>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Help Center</a>
+            <a href="#" class="footer-link">FAQs</a>
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Terms of Service</a>
+            <a href="#" class="footer-link">Refund Policy</a>
+          </div>
+        </div>
+
+        <!-- Contact Column -->
+        <div class="footer-column">
+          <h3>Contact</h3>
+          <div class="footer-links">
+            <a href="tel:+1234567890" class="footer-link">📞 +1 (234) 567-890</a>
+            <a href="mailto:support@foodelicious.com" class="footer-link">✉️ support@foodelicious.com</a>
+            <a href="#" class="footer-link">📍 123 Food Street, Cuisine City</a>
+            <a href="#" class="footer-link">🕐 24/7 Support Available</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          &copy; 2024 FooDelicious. All rights reserved. Made with &hearts; for food lovers.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="#" class="footer-bottom-link">Privacy</a>
+          <a href="#" class="footer-bottom-link">Terms</a>
+          <a href="#" class="footer-bottom-link">Cookies</a>
+          <a href="#" class="footer-bottom-link">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

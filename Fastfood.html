@@ -1,0 +1,2583 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fast Food - FooDelicious</title>
+  <meta name="description"
+    content="Discover best fast food restaurants with FooDelicious - Quick delivery, amazing taste!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0e1a;
+      --bg-secondary: #141824;
+      --bg-card: #1a1f2e;
+      --text-primary: #ffffff;
+      --text-secondary: #b8c1ec;
+      --text-muted: #7b8ab8;
+      --accent-orange: #ff6b35;
+      --accent-orange-light: #ff8c61;
+      --accent-yellow: #ffd23f;
+      --accent-green: #06d6a0;
+      --accent-purple: #8338ec;
+      --border-color: rgba(184, 193, 236, 0.1);
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 40px rgba(255, 107, 53, 0.3);
+      --radius-sm: 12px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Navigation Styles */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(10, 14, 26, 0.95);
+      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    /* Logo Section - Left */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      box-shadow: var(--shadow-glow);
+      animation: pulse-glow 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+      }
+
+      50% {
+        box-shadow: 0 0 40px rgba(255, 107, 53, 0.6);
+      }
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .logo-title {
+      font-size: 1.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .logo-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* Search Section - Middle */
+    .search-container {
+      max-width: 600px;
+      width: 100%;
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .search-wrapper {
+      flex: 1;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.875rem 1.25rem 0.875rem 3rem;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .search-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--accent-orange);
+      box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.1);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .search-btn {
+      padding: 0.875rem 1.75rem;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-light));
+      border: none;
+      border-radius: var(--radius-md);
+      color: white;
+      font-size: 1rem;
+      font-weight: 800;
+      font-family: 'Outfit', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-sm);
+      white-space: nowrap;
+    }
+
+    .search-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .search-btn:active {
+      transform: translateY(0);
+    }
+
+    /* Navigation Links - Right */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-link {
+      padding: 0.625rem 1.25rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-radius: var(--radius-sm);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .nav-link:hover::before {
+      left: 100%;
+    }
+
+    .nav-link:hover {
+      color: var(--accent-orange);
+      background: rgba(255, 107, 53, 0.1);
+    }
+
+    .nav-link.active {
+      color: var(--text-primary);
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-light));
+      box-shadow: var(--shadow-glow);
+    }
+
+    /* Dropdown Styles */
+    .nav-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      cursor: pointer;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      min-width: 200px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      z-index: 1000;
+      margin-top: 0.5rem;
+    }
+
+    .nav-dropdown:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-item {
+      display: block;
+      padding: 0.75rem 1rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    .dropdown-item:hover {
+      color: var(--accent-orange);
+      background: rgba(255, 107, 53, 0.1);
+      border-bottom-color: var(--border-color);
+      padding-left: 1.5rem;
+    }
+
+    .dropdown-item:first-child {
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+    }
+
+    .dropdown-item:last-child {
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
+      border-bottom: none;
+    }
+
+    .cart-btn {
+      position: relative;
+      padding: 0.625rem 1.25rem;
+      background: var(--bg-card);
+      border: 2px solid var(--accent-orange);
+      border-radius: var(--radius-sm);
+      color: var(--accent-orange);
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .cart-btn:hover {
+      background: var(--accent-orange);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--accent-green);
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 900;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Fast Food Hero Section */
+    .fastfood-hero {
+      padding: 8rem 2rem 4rem;
+      min-height: 70vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .video-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .hero-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(1.2);
+    }
+
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(10, 10, 10, 0.4), rgba(26, 26, 26, 0.3));
+      z-index: 1;
+    }
+
+    .fastfood-hero::before {
+      display: none;
+    }
+
+    .fastfood-hero-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .fastfood-hero-title {
+      font-size: 4rem;
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg,
+          var(--text-primary) 0%,
+          var(--accent-orange) 30%,
+          var(--accent-yellow) 60%,
+          var(--text-primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1;
+      text-shadow: 0 0 30px rgba(255, 107, 53, 0.3);
+      animation: glow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        filter: brightness(1) drop-shadow(0 0 20px rgba(255, 107, 53, 0.3));
+      }
+
+      to {
+        filter: brightness(1.2) drop-shadow(0 0 30px rgba(255, 107, 53, 0.5));
+      }
+    }
+
+    .fastfood-hero-subtitle {
+      font-size: 1.5rem;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+      font-weight: 500;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .fastfood-hero-features {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50px;
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 0.875rem;
+      transition: all 0.3s ease;
+    }
+
+    .hero-feature:hover {
+      background: rgba(255, 107, 53, 0.2);
+      border-color: var(--accent-orange);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(255, 107, 53, 0.3);
+    }
+
+    .hero-feature-icon {
+      font-size: 1.25rem;
+    }
+
+    .fastfood-hero-cta {
+      margin-top: 3rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-btn-primary {
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-light));
+      border: none;
+      border-radius: 50px;
+      color: white;
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+    }
+
+    .hero-btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(255, 107, 53, 0.6);
+    }
+
+    .hero-btn-secondary {
+      padding: 1rem 2rem;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50px;
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .hero-btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: var(--accent-orange);
+      color: var(--accent-orange);
+      transform: translateY(-3px);
+    }
+
+    /* Fast Food Categories Section */
+    .categories-section {
+      padding: 4rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary), var(--accent-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-subtitle {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .category-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .category-card:hover {
+      border-color: var(--accent-orange);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .category-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .category-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .category-count {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    /* Popular Items Section */
+    .popular-section {
+      padding: 4rem 2rem;
+      background: var(--bg-secondary);
+    }
+
+    .popular-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .popular-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .food-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .food-card:hover {
+      border-color: var(--accent-orange);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .food-card-image {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      transition: transform 0.5s ease;
+    }
+
+    .food-card:hover .food-card-image {
+      transform: scale(1.05);
+    }
+
+    .food-card-emoji {
+      font-size: 5rem;
+      text-align: center;
+      padding: 2rem;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    }
+
+    .food-card-media {
+      position: relative;
+    }
+
+    .wishlist-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(10, 14, 26, 0.6);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 2;
+    }
+
+    .wishlist-btn:hover {
+      transform: scale(1.1);
+      background: rgba(10, 14, 26, 0.8);
+      border-color: var(--accent-orange);
+    }
+
+    .wishlist-btn span {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      transition: all 0.3s ease;
+    }
+
+    .wishlist-btn.active span {
+      color: #ff4757;
+      text-shadow: 0 0 10px rgba(255, 71, 87, 0.5);
+    }
+
+    .food-content {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .food-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 0.75rem;
+    }
+
+    .food-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .food-rating {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: var(--accent-yellow);
+      font-weight: 700;
+    }
+
+    .food-description {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .food-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .food-price {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--accent-orange);
+    }
+
+    .add-to-cart-btn {
+      padding: 0.5rem 1rem;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-light));
+      border: none;
+      border-radius: var(--radius-sm);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .add-to-cart-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    /* Left Panel Sidebar */
+    .left-panel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 280px;
+      height: 100vh;
+      background: linear-gradient(180deg, var(--bg-secondary), var(--bg-primary));
+      border-right: 1px solid var(--border-color);
+      z-index: 999;
+      overflow-y: auto;
+      transition: transform 0.3s ease;
+    }
+
+    .left-panel-header {
+      padding: 2rem 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      background: rgba(255, 107, 53, 0.05);
+    }
+
+    .left-panel-title {
+      font-size: 1.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    .left-panel-subtitle {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .left-panel-section {
+      padding: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .category-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .category-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .category-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--accent-orange);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    .category-item:hover {
+      color: var(--text-primary);
+      background: rgba(255, 107, 53, 0.1);
+      border-color: var(--accent-orange);
+      transform: translateX(4px);
+    }
+
+    .category-item:hover::before {
+      transform: translateX(0);
+    }
+
+    .category-item.active {
+      color: var(--text-primary);
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(131, 56, 236, 0.1));
+      border-color: var(--accent-orange);
+    }
+
+    .category-item.active::before {
+      transform: translateX(0);
+    }
+
+    .category-icon {
+      font-size: 1.25rem;
+      width: 24px;
+      text-align: center;
+    }
+
+    .category-info {
+      flex: 1;
+    }
+
+    .category-name {
+      font-size: 0.875rem;
+      font-weight: 700;
+      margin-bottom: 0.125rem;
+    }
+
+    .category-count {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .price-filter {
+      margin-top: 1rem;
+    }
+
+    .price-range {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .price-input {
+      flex: 1;
+      padding: 0.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-size: 0.75rem;
+      text-align: center;
+    }
+
+    .price-separator {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .apply-filter-btn {
+      width: 100%;
+      padding: 0.625rem;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-light));
+      border: none;
+      border-radius: var(--radius-sm);
+      color: white;
+      font-weight: 700;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .apply-filter-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .quick-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .action-btn {
+      padding: 0.75rem 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .action-btn:hover {
+      color: var(--accent-orange);
+      border-color: var(--accent-orange);
+      transform: translateX(4px);
+    }
+
+    /* Main Content Adjustment */
+    .main-content {
+      margin-left: 280px;
+      transition: margin-left 0.3s ease;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Mobile Toggle */
+    .panel-toggle {
+      display: none;
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 1001;
+      padding: 0.75rem;
+      background: var(--accent-orange);
+      border: none;
+      border-radius: var(--radius-sm);
+      color: white;
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .panel-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: var(--shadow-glow);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .nav-container {
+        grid-template-columns: auto 1fr;
+        gap: 1rem;
+      }
+
+      .search-container {
+        order: 3;
+        grid-column: 1 / -1;
+        max-width: none;
+      }
+
+      .nav-links {
+        order: 2;
+      }
+
+      .left-panel {
+        transform: translateX(-100%);
+      }
+
+      .left-panel.open {
+        transform: translateX(0);
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .panel-toggle {
+        display: block;
+      }
+
+      .fastfood-hero-title {
+        font-size: 3rem;
+      }
+
+      .categories-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-container {
+        padding: 1rem;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .search-container {
+        order: 2;
+      }
+
+      .nav-links {
+        order: 3;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .fastfood-hero {
+        padding: 4rem 1.5rem 2rem;
+      }
+
+      .fastfood-hero-title {
+        font-size: 2.5rem;
+      }
+
+      .fastfood-hero-subtitle {
+        font-size: 1.125rem;
+      }
+
+      .categories-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+      }
+
+      .category-card {
+        padding: 1.5rem;
+      }
+
+      .popular-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .left-panel {
+        width: 100%;
+        max-width: 320px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-container {
+        padding: 0.75rem;
+      }
+
+      .logo-title {
+        font-size: 1.125rem;
+      }
+
+      .search-input {
+        font-size: 0.8rem;
+      }
+
+      .search-btn {
+        padding: 0.625rem 1rem;
+        font-size: 0.8rem;
+      }
+
+      .nav-link {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
+      }
+
+      .fastfood-hero-title {
+        font-size: 2rem;
+      }
+
+      .fastfood-hero-subtitle {
+        font-size: 1rem;
+      }
+
+      .categories-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .left-panel {
+        width: 100%;
+      }
+    }
+
+    /* Styled Footer - Following Fast Food Color Pattern */
+    .footer {
+      background: var(--bg-primary);
+      border-top: 1px solid var(--border-color);
+      padding: 4rem 2rem 2rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 -10px 40px rgba(255, 107, 53, 0.05);
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255, 210, 63, 0.1) 0%, transparent 50%);
+      z-index: 0;
+    }
+
+    .footer-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+
+    .footer-logo-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .footer-logo-title {
+      font-size: 1.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .footer-logo-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .footer-description {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 400px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 1.25rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+      background: var(--accent-orange);
+      border-color: var(--accent-orange);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .footer-column h3 {
+      font-size: 1.125rem;
+      font-weight: 900;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .footer-link::before {
+      content: '';
+      position: absolute;
+      left: -15px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 4px;
+      background: var(--accent-orange);
+      border-radius: 50%;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--accent-orange);
+      padding-left: 20px;
+    }
+
+    .footer-link:hover::before {
+      opacity: 1;
+      left: 0;
+    }
+
+    .footer-bottom {
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-copyright {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-bottom-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .footer-bottom-link:hover {
+      color: var(--accent-orange);
+    }
+
+    @media (max-width: 1024px) {
+      .footer-content {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .footer-brand {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Mobile Panel Toggle -->
+  <button class="panel-toggle" onclick="togglePanel()">☰</button>
+
+  <!-- Left Panel Sidebar -->
+  <aside class="left-panel" id="leftPanel">
+    <div class="left-panel-header">
+      <h2 class="left-panel-title">Fast Food Menu</h2>
+      <p class="left-panel-subtitle">Explore delicious fast food options</p>
+    </div>
+
+    <!-- Categories Section -->
+    <div class="left-panel-section">
+      <h3 class="section-title">Categories</h3>
+      <div class="category-list">
+        <a href="#burgers-sandwiches" class="category-item">
+          <span class="category-icon">🍔</span>
+          <div class="category-info">
+            <div class="category-name">Burgers</div>
+            <div class="category-count">12 items</div>
+          </div>
+        </a>
+        <a href="#chicken-meat" class="category-item">
+          <span class="category-icon">�</span>
+          <div class="category-info">
+            <div class="category-name">Chicken & Meat</div>
+            <div class="category-count">7 items</div>
+          </div>
+        </a>
+        <a href="#sides" class="category-item">
+          <span class="category-icon">�</span>
+          <div class="category-info">
+            <div class="category-name">Sides</div>
+            <div class="category-count">5 items</div>
+          </div>
+        </a>
+        <a href="#pizza-breads" class="category-item">
+          <span class="category-icon">�</span>
+          <div class="category-info">
+            <div class="category-name">Pizza & Breads</div>
+            <div class="category-count">4 items</div>
+          </div>
+          <a href="#quick-bites" class="category-item">
+            <span class="category-icon">🌮</span>
+            <div class="category-info">
+              <div class="category-name">Quick Bites</div>
+              <div class="category-count">5 items</div>
+            </div>
+          </a>
+          <a href="#snacks-sweets" class="category-item">
+            <span class="category-icon">🍩</span>
+            <div class="category-info">
+              <div class="category-name">Snacks & Sweets</div>
+              <div class="category-count">5 items</div>
+            </div>
+          </a>
+      </div>
+    </div>
+
+    <!-- Price Filter Section -->
+    <div class="left-panel-section">
+      <h3 class="section-title">Price Range</h3>
+      <div class="price-filter">
+        <div class="price-range">
+          <input type="number" class="price-input" placeholder="Min" value="3" min="0" max="50">
+          <span class="price-separator">-</span>
+          <input type="number" class="price-input" placeholder="Max" value="15" min="0" max="100">
+        </div>
+        <button class="apply-filter-btn" onclick="applyPriceFilter()">Apply Filter</button>
+      </div>
+    </div>
+
+    <!-- Quick Actions Section -->
+    <div class="left-panel-section">
+      <h3 class="section-title">Quick Actions</h3>
+      <div class="quick-actions">
+        <button class="action-btn" onclick="showPopular()">
+          <span>⭐</span>
+          <span>Popular Items</span>
+        </button>
+        <button class="action-btn" onclick="showSpecials()">
+          <span>🔥</span>
+          <span>Today's Deals</span>
+        </button>
+        <button class="action-btn" onclick="showVegetarian()">
+          <span>🥬</span>
+          <span>Vegetarian Options</span>
+        </button>
+        <button class="action-btn" onclick="clearFilters()">
+          <span>🔄</span>
+          <span>Clear All Filters</span>
+        </button>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <!-- Logo - Left -->
+        <a href="index.html" class="logo">
+          <div class="logo-icon">🍔</div>
+          <div class="logo-text">
+            <div class="logo-title">FooDelicious</div>
+            <div class="logo-subtitle">Food Delivery</div>
+          </div>
+        </a>
+
+        <!-- Search Bar - Middle -->
+        <div class="search-container">
+          <div class="search-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="search" class="search-input" placeholder="Search for burgers, fries, or drinks..."
+              aria-label="Search for food" />
+          </div>
+          <button class="search-btn">Search</button>
+        </div>
+
+        <!-- Navigation Links - Right -->
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">Home</a>
+
+          <!-- Menu Dropdown -->
+          <div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">Menu ▼</button>
+            <div class="dropdown-menu">
+              <a href="#burgers-sandwiches" class="dropdown-item">🍔 Burgers</a>
+              <a href="#chicken-meat" class="dropdown-item">🍗 Chicken & Meat</a>
+              <a href="#sides" class="dropdown-item">🍟 Sides</a>
+              <a href="#pizza-breads" class="dropdown-item">🍕 Pizza & Breads</a>
+              <a href="#quick-bites" class="dropdown-item">🌮 Quick Bites</a>
+              <a href="#snacks-sweets" class="dropdown-item">🍩 Snacks & Sweets</a>
+            </div>
+          </div>
+
+          <!-- Restaurant Dropdown -->
+          <div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">Restaurant ▼</button>
+            <div class="dropdown-menu">
+              <a href="Restaurant.html" class="dropdown-item">All Restaurants</a>
+              <a href="Italian.html" class="dropdown-item">Italian Cuisine</a>
+              <a href="Fastfood.html" class="dropdown-item">Fast Food</a>
+            </div>
+          </div>
+
+          <!-- Offers Dropdown -->
+          <div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">Offers ▼</button>
+            <div class="dropdown-menu">
+              <a href="#" class="dropdown-item">Daily Deals</a>
+              <a href="#" class="dropdown-item">Special Offers</a>
+              <a href="#" class="dropdown-item">Loyalty Rewards</a>
+              <a href="#" class="dropdown-item">First Time Discount</a>
+              <a href="#" class="dropdown-item">Bundle Deals</a>
+            </div>
+          </div>
+
+          <!-- About Dropdown -->
+          <div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">About ▼</button>
+            <div class="dropdown-menu">
+              <a href="About.html#story" class="dropdown-item">Our Story</a>
+              <a href="About.html#how" class="dropdown-item">How It Works</a>
+              <a href="About.html#partners" class="dropdown-item">Partners</a>
+              <a href="About.html#careers" class="dropdown-item">Careers</a>
+              <a href="About.html#contact" class="dropdown-item">Contact Us</a>
+            </div>
+          </div>
+
+          <button class="cart-btn">
+            🛒 Cart
+            <span class="cart-count">0</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+
+
+    <!-- Fast Food Hero Section with Video -->
+    <section class="fastfood-hero">
+      <div class="video-container">
+        <video autoplay muted loop playsinline class="hero-video">
+          <source src="fast-video.mp4" type="video/mp4">
+          <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div>
+      </div>
+
+      <div class="fastfood-hero-container">
+        <h1 class="fastfood-hero-title">Crave-Worthy Fast Food</h1>
+        <p class="fastfood-hero-subtitle">
+          From juicy burgers to crispy fries, satisfy your hunger with our amazing fast food collection delivered hot &
+          fresh to your doorstep
+        </p>
+
+        <div class="fastfood-hero-features">
+          <div class="hero-feature">
+            <span class="hero-feature-icon">⚡</span>
+            <span>30-Min Delivery</span>
+          </div>
+          <div class="hero-feature">
+            <span class="hero-feature-icon">🔥</span>
+            <span>Hot & Fresh</span>
+          </div>
+          <div class="hero-feature">
+            <span class="hero-feature-icon">⭐</span>
+            <span>Top Rated</span>
+          </div>
+        </div>
+
+        <div class="fastfood-hero-cta">
+          <button class="hero-btn-primary">Order Now</button>
+          <button class="hero-btn-secondary">View Menu</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Burgers & Sandwiches Section -->
+    <section class="popular-section" id="burgers-sandwiches">
+      <div class="popular-container">
+        <div class="section-header">
+          <h2 class="section-title">Burgers & Sandwiches</h2>
+          <p class="section-subtitle">Juicy bites and stacked delights</p>
+        </div>
+
+        <div class="popular-grid">
+          <!-- Hamburger -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img src="https://www.aspicyperspective.com/wp-content/uploads/2020/07/best-hamburger-patties-1.jpg"
+                alt="Hamburger" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Hamburger</h3>
+                <span class="food-rating">⭐ 4.5</span>
+              </div>
+              <p class="food-description">Classic beef patty with fresh lettuce, tomato, and pickles.</p>
+              <div class="food-footer">
+                <span class="food-price">$8.99</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cheeseburger -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://www.superfashion.us/wp-content/uploads/2025/03/Close-Up-Of-A-Cheeseburger-With-French-Fries.png"
+                alt="Cheeseburger" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Cheeseburger</h3>
+                <span class="food-rating">⭐ 4.7</span>
+              </div>
+              <p class="food-description">Our classic hamburger topped with melted cheddar cheese.</p>
+              <div class="food-footer">
+                <span class="food-price">$9.99</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chicken Burger -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://www.mashed.com/img/gallery/copycat-burger-king-spicy-crispy-chicken-sandwich-recipe/l-intro-1620651447.jpg"
+                alt="Chicken Burger" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Chicken Burger</h3>
+                <span class="food-rating">⭐ 4.6</span>
+              </div>
+              <p class="food-description">Crispy fried chicken breast with mayo and shredded lettuce.</p>
+              <div class="food-footer">
+                <span class="food-price">$10.49</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Beef Burger -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img src="https://tse3.mm.bing.net/th/id/OIP.FXHCtQua6VDlL72uUC-TuQHaEO?rs=1&pid=ImgDetMain&o=7&rm=3"
+                alt="Beef Burger" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Beef Burger</h3>
+                <span class="food-rating">⭐ 4.8</span>
+              </div>
+              <p class="food-description">Premium wagyu beef patty with caramelized onions and swiss cheese.</p>
+              <div class="food-footer">
+                <span class="food-price">$12.99</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fish Burger -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img src="https://loveinmyoven.com/wp-content/uploads/2021/04/crispy-fish-burger-5-750x500.jpg"
+                alt="Fish Burger" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Fish Burger</h3>
+                <span class="food-rating">⭐ 4.4</span>
+              </div>
+              <p class="food-description">Battered white fish fillet with tartar sauce and fresh slaw.</p>
+              <div class="food-footer">
+                <span class="food-price">$11.49</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hot Dog -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img src="https://tse1.mm.bing.net/th/id/OIP.6k5uIqWnVLiMYEOkTjJKEQHaFD?rs=1&pid=ImgDetMain&o=7&rm=3"
+                alt="Hot Dog" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Hot Dog</h3>
+                <span class="food-rating">⭐ 4.3</span>
+              </div>
+              <p class="food-description">Grilled jumbo sausage in a toasted bun with mustard and onions.</p>
+              <div class="food-footer">
+                <span class="food-price">$6.99</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Shawarma -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://images.unsplash.com/photo-1561651823-34feb02250e4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                alt="Shawarma" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Shawarma</h3>
+                <span class="food-rating">⭐ 4.9</span>
+              </div>
+              <p class="food-description">Slow-roasted beef/chicken mixed with tahini and fresh veggies.</p>
+              <div class="food-footer">
+                <span class="food-price">$10.99</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Wraps -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://images.unsplash.com/photo-1626700051175-6818013e1d4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                alt="Wraps" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Wraps</h3>
+                <span class="food-rating">⭐ 4.6</span>
+              </div>
+              <p class="food-description">Garden fresh veggies and grilled protein wrapped in a flour tortilla.</p>
+              <div class="food-footer">
+                <span class="food-price">$9.49</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Chicken & Meat Section -->
+    <section class="popular-section" id="chicken-meat">
+      <div class="popular-container">
+        <div class="section-header">
+          <h2 class="section-title">🍗 Chicken & Meat</h2>
+          <p class="section-subtitle">Premium cuts and crispy delights cooked to perfection</p>
+        </div>
+
+        <div class="popular-grid">
+          <!-- Fried Chicken -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img src="https://tse3.mm.bing.net/th/id/OIP.L0yTfdzvQPLCtr7E0x91SgHaE7?rs=1&pid=ImgDetMain&o=7&rm=3"
+                alt="Fried Chicken" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Fried Chicken</h3>
+                <span class="food-rating">⭐ 4.9</span>
+              </div>
+              <p class="food-description">Extra crispy, golden-brown fried chicken drumsticks with our secret spice
+                blend.</p>
+              <div class="food-footer">
+                <span class="food-price">$12.99</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Grilled Chicken -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Grilled Chicken" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Grilled Chicken</h3>
+                <span class="food-rating">⭐ 4.8</span>
+              </div>
+              <p class="food-description">Flame-grilled chicken breast marinated in lemon and herbs, served succulent
+                and juicy.</p>
+              <div class="food-footer">
+                <span class="food-price">$14.49</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chicken Wings -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://images.unsplash.com/photo-1567620832903-9fc6debc209f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Chicken Wings" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Chicken Wings</h3>
+                <span class="food-rating">⭐ 4.7</span>
+              </div>
+              <p class="food-description">Tender wings tossed in your choice of spicy buffalo, BBQ, or honey garlic
+                sauce.</p>
+              <div class="food-footer">
+                <span class="food-price">$11.99</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chicken Nuggets -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://images.unsplash.com/photo-1562967914-608f82629710?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Chicken Nuggets" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Chicken Nuggets</h3>
+                <span class="food-rating">⭐ 4.6</span>
+              </div>
+              <p class="food-description">100% white meat chicken nuggets, crispy on the outside and tender inside.</p>
+              <div class="food-footer">
+                <span class="food-price">$8.49</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sausage -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Sausage" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Gourmet Sausage</h3>
+                <span class="food-rating">⭐ 4.5</span>
+              </div>
+              <p class="food-description">Premium grilled sausages served with mustard and caramelized onions.</p>
+              <div class="food-footer">
+                <span class="food-price">$7.99</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Meat Pie -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img src="https://tse2.mm.bing.net/th/id/OIP.X-v-hVJtzJp-PngnYK17VAHaEZ?rs=1&pid=ImgDetMain&o=7&rm=3"
+                alt="Meat Pie" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Meat Pie</h3>
+                <span class="food-rating">⭐ 4.8</span>
+              </div>
+              <p class="food-description">Traditional flaky pastry filled with savory minced meat and vegetables.</p>
+              <div class="food-footer">
+                <span class="food-price">$5.99</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Beef Pie -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img src="https://tse3.mm.bing.net/th/id/OIP.Wz2Yo9yEJ-Wdp74_XgGBEgHaJQ?rs=1&pid=ImgDetMain&o=7&rm=3"
+                alt="Beef Pie" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Premium Beef Pie</h3>
+                <span class="food-rating">⭐ 4.9</span>
+              </div>
+              <p class="food-description">Rich, slow-cooked beef chunks in a thick gravy, encased in a buttery crust.
+              </p>
+              <div class="food-footer">
+                <span class="food-price">$6.49</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Sides Section -->
+    <section class="popular-section" id="sides">
+      <div class="popular-container">
+        <div class="section-header">
+          <h2 class="section-title">🍟 Sides</h2>
+          <p class="section-subtitle">The perfect companions to your main meal</p>
+        </div>
+
+        <div class="popular-grid">
+          <!-- French Fries -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="French Fries" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">French Fries</h3>
+                <span class="food-rating">⭐ 4.8</span>
+              </div>
+              <p class="food-description">Golden and crispy potato fries, lightly salted and served hot.</p>
+              <div class="food-footer">
+                <span class="food-price">$3.99</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Onion Rings -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://images.unsplash.com/photo-1639024471283-03518883512d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Onion Rings" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Onion Rings</h3>
+                <span class="food-rating">⭐ 4.6</span>
+              </div>
+              <p class="food-description">Crispy beer-battered onion rings served with a spicy zesty dip.</p>
+              <div class="food-footer">
+                <span class="food-price">$4.49</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Coleslaw -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img src="https://th.bing.com/th/id/R.888a802fb8041f67c7242de4b69b2886?rik=C8y6JSyGOlfqGQ&pid=ImgRaw&r=0"
+                alt="Coleslaw" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Fresh Coleslaw</h3>
+                <span class="food-rating">⭐ 4.4</span>
+              </div>
+              <p class="food-description">Creamy shredded cabbage and carrots with our house-made tangy dressing.</p>
+              <div class="food-footer">
+                <span class="food-price">$2.99</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Potato Wedges -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://images.unsplash.com/photo-1592119747782-d8c12c2ea267?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Potato Wedges" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Potato Wedges</h3>
+                <span class="food-rating">⭐ 4.7</span>
+              </div>
+              <p class="food-description">Thick-cut seasoned potato wedges, oven-baked until perfectly crispy.</p>
+              <div class="food-footer">
+                <span class="food-price">$4.99</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mozzarella Sticks -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img src="https://tse3.mm.bing.net/th/id/OIP.13n3nJYUTwQ4G8rVmDblDQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"
+                alt="Mozzarella Sticks" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Mozzarella Sticks</h3>
+                <span class="food-rating">⭐ 4.9</span>
+              </div>
+              <p class="food-description">Golden-fried mozzarella sticks with a gooey center, served with marinara
+                sauce.</p>
+              <div class="food-footer">
+                <span class="food-price">$5.99</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Pizza & Breads Section -->
+    <section class="popular-section" id="pizza-breads">
+      <div class="popular-container">
+        <div class="section-header">
+          <h2 class="section-title">🍕 Pizza & Breads</h2>
+          <p class="section-subtitle">Freshly baked, cheesy, and irresistibly warm</p>
+        </div>
+
+        <div class="popular-grid">
+          <!-- Pizza -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Margherita Pizza" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Margherita Pizza</h3>
+                <span class="food-rating">⭐ 4.9</span>
+              </div>
+              <p class="food-description">Classic house-made tomato sauce, fresh mozzarella, and basil on a stone-baked
+                crust.</p>
+              <div class="food-footer">
+                <span class="food-price">$14.99</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Garlic Bread -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://images.unsplash.com/photo-1573140247632-f8fd74997d5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Garlic Bread" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Garlic Bread</h3>
+                <span class="food-rating">⭐ 4.7</span>
+              </div>
+              <p class="food-description">Toasted artisanal bread infused with garlic butter, parsley, and sea salt.</p>
+              <div class="food-footer">
+                <span class="food-price">$5.49</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sandwich Roll -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://images.unsplash.com/photo-1594179047519-f347310d3322?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Sandwich Roll" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Sandwich Roll</h3>
+                <span class="food-rating">⭐ 4.6</span>
+              </div>
+              <p class="food-description">Soft baked rolls filled with gourmet deli cuts, melted cheese, and fresh
+                greens.</p>
+              <div class="food-footer">
+                <span class="food-price">$8.99</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Calzone -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://images.unsplash.com/photo-1628102431525-460d3d3a040b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Calzone" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Classic Calzone</h3>
+                <span class="food-rating">⭐ 4.8</span>
+              </div>
+              <p class="food-description">Folded pizza pocket stuffed with ricotta, mozzarella, salami, and marinara
+                sauce.</p>
+              <div class="food-footer">
+                <span class="food-price">$12.49</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Bites Section -->
+    <section class="popular-section" id="quick-bites">
+      <div class="popular-container">
+        <div class="section-header">
+          <h2 class="section-title">🌮 Quick Bites (Street-style)</h2>
+          <p class="section-subtitle">Authentic street flavors for the ultimate snack experience</p>
+        </div>
+
+        <div class="popular-grid">
+          <!-- Tacos -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Street Tacos" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Street Tacos</h3>
+                <span class="food-rating">⭐ 4.9</span>
+              </div>
+              <p class="food-description">Soft corn tortillas filled with seasoned meat, fresh cilantro, onions, and
+                lime.</p>
+              <div class="food-footer">
+                <span class="food-price">$9.99</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Burritos -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://images.unsplash.com/photo-1584031036380-3fb6f2d51880?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Loaded Burrito" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Loaded Burrito</h3>
+                <span class="food-rating">⭐ 4.8</span>
+              </div>
+              <p class="food-description">Giant flour tortilla stuffed with rice, beans, meat, cheese, and spicy salsa.
+              </p>
+              <div class="food-footer">
+                <span class="food-price">$11.49</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kebab -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Grilled Kebab" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Grilled Kebab</h3>
+                <span class="food-rating">⭐ 4.7</span>
+              </div>
+              <p class="food-description">Skewered succulent meat and vegetables, flame-grilled to perfection.</p>
+              <div class="food-footer">
+                <span class="food-price">$10.99</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hotdog on Stick -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://images.unsplash.com/photo-1619860860774-1e2e17343432?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Corn Dog" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Hotdog on Stick</h3>
+                <span class="food-rating">⭐ 4.5</span>
+              </div>
+              <p class="food-description">Classic beef sausage dipped in sweet corn batter and fried golden-brown.</p>
+              <div class="food-footer">
+                <span class="food-price">$5.99</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Egg Roll -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://images.unsplash.com/photo-1542382257-80dedb725088?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Golden Egg Rolls" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Egg Rolls</h3>
+                <span class="food-rating">⭐ 4.6</span>
+              </div>
+              <p class="food-description">Crispy pastry shells filled with fresh vegetables and seasoned meat.</p>
+              <div class="food-footer">
+                <span class="food-price">$4.49</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Snacks & Sweets Section -->
+    <section class="popular-section" id="snacks-sweets">
+      <div class="popular-container">
+        <div class="section-header">
+          <h2 class="section-title">🍩 Snacks & Sweets</h2>
+          <p class="section-subtitle">Sweet treats and savory snacks to brighten your day</p>
+        </div>
+
+        <div class="popular-grid">
+          <!-- Doughnut -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://images.unsplash.com/photo-1551024601-bec78aea704b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Glazed Doughnuts" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Glazed Doughnuts</h3>
+                <span class="food-rating">⭐ 4.9</span>
+              </div>
+              <p class="food-description">Soft, melt-in-your-mouth doughnuts with a classic sugar glaze or chocolate
+                topping.</p>
+              <div class="food-footer">
+                <span class="food-price">$2.49</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Meat Puff -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://images.unsplash.com/photo-1623653139364-750977f6b0bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Meat Puff" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Savory Meat Puff</h3>
+                <span class="food-rating">⭐ 4.7</span>
+              </div>
+              <p class="food-description">Light and airy puff pastry filled with a seasoned savory meat center.</p>
+              <div class="food-footer">
+                <span class="food-price">$3.99</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cake Slices -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Cake Slices" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Gourmet Cake Slice</h3>
+                <span class="food-rating">⭐ 4.8</span>
+              </div>
+              <p class="food-description">Rich velvet or decadent chocolate cake slices with creamy frosting.</p>
+              <div class="food-footer">
+                <span class="food-price">$5.49</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cookies -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Choco-Chip Cookies" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Choco-Chip Cookies</h3>
+                <span class="food-rating">⭐ 4.6</span>
+              </div>
+              <p class="food-description">Warm, chewy cookies loaded with premium dark chocolate chips.</p>
+              <div class="food-footer">
+                <span class="food-price">$1.99</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ice Cream -->
+          <div class="food-card">
+            <div class="food-card-media">
+              <img
+                src="https://images.unsplash.com/photo-1501443762994-82bd5dace89a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Artisanal Ice Cream" class="food-card-image">
+              <button class="wishlist-btn" title="Add to Wishlist"><span>🤍</span></button>
+            </div>
+            <div class="food-content">
+              <div class="food-header">
+                <h3 class="food-name">Artisanal Ice Cream</h3>
+                <span class="food-rating">⭐ 4.9</span>
+              </div>
+              <p class="food-description">Hand-churned ice cream with real vanilla beans and fresh fruits.</p>
+              <div class="food-footer">
+                <span class="food-price">$4.99</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-content">
+          <!-- Brand Column -->
+          <div class="footer-brand">
+            <a href="#" class="footer-logo">
+              <div class="footer-logo-icon">🍔</div>
+              <div class="footer-logo-text">
+                <div class="footer-logo-title">FooDelicious</div>
+                <div class="footer-logo-subtitle">Food Delivery</div>
+              </div>
+            </a>
+            <p class="footer-description">
+              Your trusted partner for delicious food delivery. We bring the best restaurants to your doorstep with
+              fast, reliable service and amazing flavors.
+            </p>
+            <div class="footer-social">
+              <a href="#" class="social-link" aria-label="Facebook">📘</a>
+              <a href="#" class="social-link" aria-label="Twitter">🐦</a>
+              <a href="#" class="social-link" aria-label="Instagram">📷</a>
+              <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
+            </div>
+          </div>
+
+          <!-- Quick Links Column -->
+          <div class="footer-column">
+            <h3>Quick Links</h3>
+            <div class="footer-links">
+              <a href="index.html" class="footer-link">Home</a>
+              <a href="Restaurant.html" class="footer-link">Restaurants</a>
+              <a href="Italian.html" class="footer-link">Italian</a>
+              <a href="#offers" class="footer-link">Offers</a>
+              <a href="About.html" class="footer-link">About Us</a>
+            </div>
+          </div>
+
+          <!-- Services Column -->
+          <div class="footer-column">
+            <h3>Services</h3>
+            <div class="footer-links">
+              <a href="#" class="footer-link">Food Delivery</a>
+              <a href="#" class="footer-link">Catering</a>
+              <a href="#" class="footer-link">Corporate Orders</a>
+              <a href="#" class="footer-link">Gift Cards</a>
+              <a href="#" class="footer-link">Loyalty Program</a>
+            </div>
+          </div>
+
+          <!-- Support Column -->
+          <div class="footer-column">
+            <h3>Support</h3>
+            <div class="footer-links">
+              <a href="#" class="footer-link">Help Center</a>
+              <a href="#" class="footer-link">FAQs</a>
+              <a href="#" class="footer-link">Privacy Policy</a>
+              <a href="#" class="footer-link">Terms of Service</a>
+              <a href="#" class="footer-link">Refund Policy</a>
+            </div>
+          </div>
+
+          <!-- Contact Column -->
+          <div class="footer-column">
+            <h3>Contact</h3>
+            <div class="footer-links">
+              <a href="tel:+1234567890" class="footer-link">📞 +1 (234) 567-890</a>
+              <a href="mailto:support@foodelicious.com" class="footer-link">✉️ support@foodelicious.com</a>
+              <a href="#" class="footer-link">📍 123 Food Street, Cuisine City</a>
+              <a href="#" class="footer-link">🕐 24/7 Support Available</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+          <div class="footer-copyright">
+            &copy; 2024 FooDelicious. All rights reserved. Made with &hearts; for food lovers.
+          </div>
+          <div class="footer-bottom-links">
+            <a href="#" class="footer-bottom-link">Privacy</a>
+            <a href="#" class="footer-bottom-link">Terms</a>
+            <a href="#" class="footer-bottom-link">Cookies</a>
+            <a href="#" class="footer-bottom-link">Sitemap</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script>
+      // Dropdown functionality
+      document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+        toggle.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+
+          // Close all other dropdowns
+          document.querySelectorAll('.dropdown-menu').forEach(menu => {
+            if (menu !== toggle.nextElementSibling) {
+              menu.style.opacity = '0';
+              menu.style.visibility = 'hidden';
+              menu.style.transform = 'translateY(-10px)';
+            }
+          });
+
+          // Toggle current dropdown
+          const menu = toggle.nextElementSibling;
+          if (menu.style.opacity === '1') {
+            menu.style.opacity = '0';
+            menu.style.visibility = 'hidden';
+            menu.style.transform = 'translateY(-10px)';
+          } else {
+            menu.style.opacity = '1';
+            menu.style.visibility = 'visible';
+            menu.style.transform = 'translateY(0)';
+          }
+        });
+      });
+
+      // Close dropdowns when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-dropdown')) {
+          document.querySelectorAll('.dropdown-menu').forEach(menu => {
+            menu.style.opacity = '0';
+            menu.style.visibility = 'hidden';
+            menu.style.transform = 'translateY(-10px)';
+          });
+        }
+      });
+
+      // Cart functionality
+      let cartCount = 0;
+
+      document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+          cartCount++;
+          document.querySelector('.cart-count').textContent = cartCount;
+
+          // Visual feedback
+          this.textContent = 'Added!';
+          this.style.background = 'linear-gradient(135deg, #06d6a0, #0fbf8f)';
+
+          setTimeout(() => {
+            this.textContent = 'Add to Cart';
+            this.style.background = '';
+          }, 1500);
+        });
+      });
+
+      // Panel functionality
+      function togglePanel() {
+        const panel = document.getElementById('leftPanel');
+        panel.classList.toggle('open');
+      }
+
+      function applyPriceFilter() {
+        const minPrice = document.querySelector('.price-input[placeholder="Min"]').value;
+        const maxPrice = document.querySelector('.price-input[placeholder="Max"]').value;
+        console.log(`Price filter: $${minPrice} - $${maxPrice}`);
+        // Implement price filtering logic here
+      }
+
+      function showPopular() {
+        console.log('Showing popular items');
+        // Implement popular items logic here
+      }
+
+      function showSpecials() {
+        console.log('Showing today\'s deals');
+        // Implement specials logic here
+      }
+
+      function showVegetarian() {
+        console.log('Showing vegetarian options');
+        // Implement vegetarian filtering logic here
+      }
+
+      function clearFilters() {
+        console.log('Clearing all filters');
+        // Reset all filters
+        document.querySelectorAll('.category-item').forEach(i => i.classList.remove('active'));
+        document.querySelector('.category-item[data-category="all"]').classList.add('active');
+        document.querySelector('.price-input[placeholder="Min"]').value = '3';
+        document.querySelector('.price-input[placeholder="Max"]').value = '15';
+      }
+
+      // Category selection
+      document.querySelectorAll('.category-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+
+          // Update active state
+          document.querySelectorAll('.category-item').forEach(i => i.classList.remove('active'));
+          item.classList.add('active');
+
+          const category = item.dataset.category;
+          console.log(`Selected category: ${category}`);
+          // Implement category filtering logic here
+        });
+      });
+
+      // Close panel when clicking outside on mobile
+      document.addEventListener('click', (e) => {
+        const panel = document.getElementById('leftPanel');
+        const toggle = document.querySelector('.panel-toggle');
+
+        if (window.innerWidth <= 1024 &&
+          !panel.contains(e.target) &&
+          !toggle.contains(e.target) &&
+          panel.classList.contains('open')) {
+          panel.classList.remove('open');
+        }
+      });
+
+      // Search functionality
+      const searchInput = document.querySelector('.search-input');
+      const searchBtn = document.querySelector('.search-btn');
+
+      function performSearch() {
+        const query = searchInput.value.trim();
+        if (query) {
+          console.log('Searching for:', query);
+          // Implement search logic here
+        }
+      }
+
+      searchBtn.addEventListener('click', performSearch);
+      searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          performSearch();
+        }
+      });
+
+      // Wishlist functionality
+      document.querySelectorAll('.wishlist-btn').forEach(btn => {
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          this.classList.toggle('active');
+          const icon = this.querySelector('span');
+          if (this.classList.contains('active')) {
+            icon.textContent = '❤️';
+          } else {
+            icon.textContent = '🤍';
+          }
+        });
+      });
+    </script>
+</body>
+
+</html>
